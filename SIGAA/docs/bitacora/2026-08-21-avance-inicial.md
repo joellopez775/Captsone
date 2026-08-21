@@ -19,6 +19,7 @@ El equipo identificó atraso respecto del cronograma oficial al finalizar la sem
 - Sprint Planning y Sprint Backlog candidatos para Sprint 1.
 - Línea base ejecutable con Docker Compose: web, API y PostgreSQL.
 - Healthchecks, pruebas de API, proxy interno y guía de diagnóstico.
+- Auditoría de Sprint 0, release candidate, informe de cierre y acta de aprobación del Product Owner.
 
 ## Decisiones
 

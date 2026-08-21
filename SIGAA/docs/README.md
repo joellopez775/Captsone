@@ -19,6 +19,7 @@ Este directorio conserva la documentación viva de SIGAA. Los documentos entrega
 | SP0-02 | Sprint Backlog 0 | En curso | Equipo | 2026-08-21 |
 | SP0-03 | Scrumboard 0 | En curso | Scrum Master | 2026-08-21 |
 | SP0-04 | Daily e impedimentos | Activo | Scrum Master | 2026-08-21 |
+| SP0-05 | Informe de cierre Sprint 0 | Pendiente de aprobación PO | Product Owner | 2026-08-21 |
 | SP1-01 | Sprint Planning 1 | Preparado | Equipo | 2026-08-21 |
 | ADR-001 | Stack tecnológico | Propuesto | Equipo | 2026-08-21 |
 | ADR-002 | Entorno Docker | Aceptado | Equipo | 2026-08-21 |
@@ -51,7 +52,7 @@ Cada sprint debe contener:
 ## Decisiones pendientes
 
 - Confirmar establecimiento o contraparte validadora.
-- Confirmar Product Owner, Scrum Master y responsabilidades técnicas.
+- Product Owner confirmado: Joel López. Falta ratificar Scrum Master y responsabilidades técnicas.
 - Completar RUT, docente y sección.
 - Aprobar stack tecnológico y registrar ADR-001.
 - Confirmar URL definitiva del repositorio público.

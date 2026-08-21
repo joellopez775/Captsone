@@ -5,7 +5,9 @@
 - Periodo: 10 al 22 de agosto de 2026.
 - Estado al 21 de agosto: en recuperación; documentación inicial generada.
 - Objetivo: alinear problema, usuarios, alcance, forma de trabajo y evidencias antes de iniciar el diseño detallado.
-- Participantes propuestos: Joel López, Agustín Sorolla y Matías Martínez.
+- Product Owner confirmado: Joel López.
+- Participantes del equipo: Joel López, Agustín Sorolla y Matías Martínez.
+- Scrum Master y responsabilidades técnicas: propuestas pendientes de ratificación.
 
 ## Sprint Goal
 
@@ -20,10 +22,10 @@ La capacidad real debe ser confirmada por cada integrante. Debido al atraso dete
 | ID | Resultado | Puntos | Responsable propuesto | Estado |
 |---|---|---:|---|---|
 | PB-001 | Problema, actores y restricciones validados | 5 | Joel | En curso |
-| PB-002 | Product Vision y cuatro pilares | 3 | Joel | En revisión |
-| PB-003 | Product Backlog inicial | 5 | Agustín | En revisión |
-| PB-004 | Definition of Done | 2 | Matías | En revisión |
-| PB-005 | Repositorio, README y trazabilidad | 3 | Agustín | En curso |
+| PB-002 | Product Vision y cuatro pilares | 3 | Joel | Listo para aceptación PO |
+| PB-003 | Product Backlog inicial | 5 | Agustín | Listo para aceptación PO |
+| PB-004 | Definition of Done | 2 | Matías | Listo para aceptación PO |
+| PB-005 | Repositorio, README y trazabilidad | 3 | Agustín | Listo para aceptación PO |
 
 Total comprometido inicial: 18 puntos.
 
@@ -41,7 +43,7 @@ Total comprometido inicial: 18 puntos.
 ## Decisiones pendientes
 
 - Confirmar contraparte.
-- Confirmar roles Scrum.
+- Ratificar Scrum Master y responsabilidades técnicas.
 - Completar datos formales.
 - Aprobar stack y ADR-001.
 - Definir herramienta oficial del Scrumboard.

@@ -29,6 +29,8 @@ La plantilla de integración continua está en `ci/sigaa-ci.yml.example`. Para a
 
 Línea base inicial en revisión. El alcance, la contraparte, el stack y los roles Scrum deben ser ratificados por el equipo y el docente antes de cerrar Sprint 0.
 
+Product Owner confirmado: Joel López. Los demás roles continúan propuestos hasta ratificación del equipo.
+
 ## Entregables iniciales
 
 - `entregables/fase-1/1.5_Definicion_Proyecto_APT_SIGAA.docx`: definición del proyecto en la plantilla oficial.
@@ -47,6 +49,8 @@ Línea base inicial en revisión. El alcance, la contraparte, el stack y los rol
 - [`docs/fase-1/01-formativa-fase-1.md`](docs/fase-1/01-formativa-fase-1.md): contenido base para la evaluación formativa.
 - [`docs/scrum/definition-of-done.md`](docs/scrum/definition-of-done.md): Definition of Done.
 - [`docs/scrum/sprint-0/`](docs/scrum/sprint-0/): expediente del Sprint 0.
+- [`docs/scrum/sprint-0/07-informe-cierre.md`](docs/scrum/sprint-0/07-informe-cierre.md): informe auditado para decisión del Product Owner.
+- [`docs/scrum/sprint-0/08-acta-aprobacion-po.md`](docs/scrum/sprint-0/08-acta-aprobacion-po.md): acta de aprobación pendiente.
 - [`docs/scrum/sprint-1/`](docs/scrum/sprint-1/): preparación del Sprint 1.
 - [`docs/design/00-arquitectura-preliminar.md`](docs/design/00-arquitectura-preliminar.md): diseño técnico inicial.
 - [`docs/adr/ADR-001-stack-tecnologico.md`](docs/adr/ADR-001-stack-tecnologico.md): decisión tecnológica propuesta.

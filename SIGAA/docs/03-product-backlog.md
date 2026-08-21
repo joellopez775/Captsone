@@ -29,10 +29,10 @@ Este documento presenta una vista revisable en GitHub. Los puntos y la asignaci�
 | ID | Resultado | Prioridad | Puntos | Sprint | Estado |
 |---|---|---:|---:|---|---|
 | PB-001 | Validar problema, usuarios y restricciones | Must | 5 | Sprint 0 | En curso |
-| PB-002 | Product Vision y cuatro pilares | Must | 3 | Sprint 0 | En revisión |
-| PB-003 | Backlog priorizado y estimado | Must | 5 | Sprint 0 | En revisión |
-| PB-004 | Definition of Done | Must | 2 | Sprint 0 | En revisión |
-| PB-005 | Repositorio público, README y trazabilidad | Must | 3 | Sprint 0 | En curso |
+| PB-002 | Product Vision y cuatro pilares | Must | 3 | Sprint 0 | Listo para aceptación PO |
+| PB-003 | Backlog priorizado y estimado | Must | 5 | Sprint 0 | Listo para aceptación PO |
+| PB-004 | Definition of Done | Must | 2 | Sprint 0 | Listo para aceptación PO |
+| PB-005 | Repositorio público, README y trazabilidad | Must | 3 | Sprint 0 | Listo para aceptación PO |
 | PB-006 | Arquitectura y decisiones técnicas | Must | 5 | Sprint 1 | Pendiente |
 | PB-007 | Modelo ER y diccionario de datos | Must | 5 | Sprint 1 | Pendiente |
 | PB-008 | Prototipo navegable validado | Must | 5 | Sprint 1 | Pendiente |

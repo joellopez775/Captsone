@@ -6,21 +6,22 @@ Actualizado: 2026-08-21.
 
 - PB-001: ejecutar validación con contraparte.
 - PB-010: completar RUT, docente y sección.
-- Confirmar roles Scrum.
+- Ratificar Scrum Master y responsabilidades técnicas.
 - Aprobar stack tecnológico y ADR-001.
 - Completar conclusiones y reflexiones individuales.
 
 ## En curso
 
 - PB-001: validación de problema y actores.
-- PB-003: revisión del Product Backlog.
-- PB-005: publicación y trazabilidad en GitHub.
 - PB-010: preparación de evaluación formativa.
 
-## En revisión
+## Listo para aceptación del Product Owner
 
 - PB-002: Product Vision.
+- PB-003: Product Backlog priorizado y estimado.
 - PB-004: Definition of Done.
+- PB-005: repositorio, README, trazabilidad y evidencias.
+- PB-014: entorno Docker reproducible adelantado.
 - Registro inicial de riesgos.
 - Impact Mapping.
 
@@ -36,3 +37,9 @@ Actualizado: 2026-08-21.
 
 - Validación externa: bloqueada hasta confirmar contraparte o establecimiento.
 - Datos personales/formales: bloqueados hasta recibir información de cada integrante.
+
+## Resultado de cierre propuesto
+
+- 13 de 18 puntos comprometidos listos para aceptación.
+- 5 puntos de PB-001 deben volver al Product Backlog y entrar en Sprint 1.
+- PB-014 se registra como alcance adelantado y no aumenta el porcentaje de cumplimiento comprometido.
