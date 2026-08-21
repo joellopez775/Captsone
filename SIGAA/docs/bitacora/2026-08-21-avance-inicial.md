@@ -17,6 +17,8 @@ El equipo identificó atraso respecto del cronograma oficial al finalizar la sem
 - Contenido grupal base para la evaluación formativa Fase 1.
 - ADR de stack y arquitectura preliminar de Sprint 1.
 - Sprint Planning y Sprint Backlog candidatos para Sprint 1.
+- Línea base ejecutable con Docker Compose: web, API y PostgreSQL.
+- Healthchecks, pruebas de API, proxy interno y guía de diagnóstico.
 
 ## Decisiones
 
@@ -31,6 +33,7 @@ El equipo identificó atraso respecto del cronograma oficial al finalizar la sem
 - Roles Scrum y técnicos todavía son una propuesta.
 - El contexto inicial corresponde a un establecimiento educacional chileno.
 - Stack preliminar: aplicación web, API, PostgreSQL y Docker; requiere aprobación.
+- Docker Compose fue aceptado como mecanismo canónico de ejecución local.
 
 ## Pendientes críticos
 

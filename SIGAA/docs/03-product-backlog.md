@@ -41,7 +41,7 @@ Este documento presenta una vista revisable en GitHub. Los puntos y la asignaci�
 | PB-011 | Autenticación segura | Must | 8 | Sprint 2 | Pendiente |
 | PB-012 | Roles y permisos | Must | 8 | Sprint 2 | Pendiente |
 | PB-013 | Estructura académica | Must | 8 | Sprint 2 | Pendiente |
-| PB-014 | Entorno Docker reproducible | Must | 5 | Sprint 2 | Pendiente |
+| PB-014 | Entorno Docker reproducible | Must | 5 | Sprint 2 | En revisión (adelantado) |
 | PB-015 | Gestión de estudiantes | Must | 8 | Sprint 3 | Pendiente |
 | PB-016 | Matrículas | Must | 5 | Sprint 3 | Pendiente |
 | PB-017 | Evaluaciones y calificaciones | Must | 8 | Sprint 3 | Pendiente |

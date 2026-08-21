@@ -21,7 +21,9 @@ Este directorio conserva la documentación viva de SIGAA. Los documentos entrega
 | SP0-04 | Daily e impedimentos | Activo | Scrum Master | 2026-08-21 |
 | SP1-01 | Sprint Planning 1 | Preparado | Equipo | 2026-08-21 |
 | ADR-001 | Stack tecnológico | Propuesto | Equipo | 2026-08-21 |
+| ADR-002 | Entorno Docker | Aceptado | Equipo | 2026-08-21 |
 | DIS-001 | Arquitectura preliminar | Borrador | Arquitectura | 2026-08-21 |
+| TEC-001 | Guía de ejecución Docker | Verificado | DevOps | 2026-08-21 |
 
 ## Reglas de trazabilidad
 

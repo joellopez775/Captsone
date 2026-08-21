@@ -2,6 +2,29 @@
 
 Proyecto Capstone 2026 de Ingeniería en Informática, sede Plaza Vespucio.
 
+## Inicio rápido con Docker
+
+El único requisito de ejecución es Docker Desktop o Docker Engine con Compose.
+
+```bash
+cd SIGAA
+docker compose up --build
+```
+
+- Aplicación: <http://localhost:8088>
+- API: <http://localhost:3000/health>
+- Diagnóstico de base de datos: <http://localhost:3000/db-health>
+
+La guía completa está en [`docs/06-docker-entorno.md`](docs/06-docker-entorno.md).
+
+Para comprobar los servicios después de levantarlos:
+
+```bash
+sh scripts/verify-docker.sh
+```
+
+La plantilla de integración continua está en `ci/sigaa-ci.yml.example`. Para activarla se debe copiar a `.github/workflows/sigaa-ci.yml` usando una credencial de GitHub con permiso `workflow`.
+
 ## Estado
 
 Línea base inicial en revisión. El alcance, la contraparte, el stack y los roles Scrum deben ser ratificados por el equipo y el docente antes de cerrar Sprint 0.
@@ -20,12 +43,14 @@ Línea base inicial en revisión. El alcance, la contraparte, el stack y los rol
 - [`docs/03-product-backlog.md`](docs/03-product-backlog.md): épicas y backlog priorizado.
 - [`docs/04-riesgos.md`](docs/04-riesgos.md): riesgos, mitigaciones y disparadores.
 - [`docs/05-git-y-evidencias.md`](docs/05-git-y-evidencias.md): flujo Git y estándar de evidencias.
+- [`docs/06-docker-entorno.md`](docs/06-docker-entorno.md): ejecución reproducible y diagnóstico.
 - [`docs/fase-1/01-formativa-fase-1.md`](docs/fase-1/01-formativa-fase-1.md): contenido base para la evaluación formativa.
 - [`docs/scrum/definition-of-done.md`](docs/scrum/definition-of-done.md): Definition of Done.
 - [`docs/scrum/sprint-0/`](docs/scrum/sprint-0/): expediente del Sprint 0.
 - [`docs/scrum/sprint-1/`](docs/scrum/sprint-1/): preparación del Sprint 1.
 - [`docs/design/00-arquitectura-preliminar.md`](docs/design/00-arquitectura-preliminar.md): diseño técnico inicial.
 - [`docs/adr/ADR-001-stack-tecnologico.md`](docs/adr/ADR-001-stack-tecnologico.md): decisión tecnológica propuesta.
+- [`docs/adr/ADR-002-entorno-docker.md`](docs/adr/ADR-002-entorno-docker.md): decisión de usar Docker Compose.
 - [`docs/bitacora/2026-08-21-avance-inicial.md`](docs/bitacora/2026-08-21-avance-inicial.md): primer registro de avance.
 
 ## Alcance MVP propuesto

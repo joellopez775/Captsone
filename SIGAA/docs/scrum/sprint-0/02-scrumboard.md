@@ -30,6 +30,7 @@ Actualizado: 2026-08-21.
 - Plan maestro Scrum y carta Gantt generados.
 - Infografía de cronograma y sprints generada.
 - Estructura documental del repositorio creada.
+- Línea base Docker con web, API y PostgreSQL verificada localmente.
 
 ## Bloqueado
 
