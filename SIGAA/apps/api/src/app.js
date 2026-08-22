@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import { prototypeData } from "./prototype-data.js";
 
 export function createApp({ pool }) {
   const app = express();
@@ -29,6 +30,26 @@ export function createApp({ pool }) {
     } catch (error) {
       next(error);
     }
+  });
+
+  app.get("/prototype", (_request, response) => {
+    response.json(prototypeData);
+  });
+
+  app.get("/prototype/students/:id", (request, response) => {
+    const student = prototypeData.students.find(({ id }) => id === request.params.id);
+
+    if (!student) {
+      response.status(404).json({ error: "student_not_found" });
+      return;
+    }
+
+    response.json({
+      synthetic: true,
+      student,
+      alerts: prototypeData.alerts.filter(({ studentId }) => studentId === student.id),
+      interventions: prototypeData.interventions.filter(({ studentId }) => studentId === student.id),
+    });
   });
 
   app.use((_request, response) => {

@@ -37,6 +37,30 @@ test("GET /db-health reports the selected database", async () => {
   assert.equal(body.database, "sigaa_test");
 });
 
+test("GET /prototype returns explicitly synthetic dashboard data", async () => {
+  const response = await fetch(`${baseUrl}/prototype`);
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body.meta.synthetic, true);
+  assert.equal(body.students.length, 5);
+  assert.equal(body.alerts.length, 4);
+});
+
+test("GET /prototype/students/:id returns a contextual student view", async () => {
+  const response = await fetch(`${baseUrl}/prototype/students/est-001`);
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body.synthetic, true);
+  assert.equal(body.student.id, "est-001");
+  assert.equal(body.alerts.length, 2);
+});
+
+test("GET /prototype/students/:id returns a stable not-found error", async () => {
+  const response = await fetch(`${baseUrl}/prototype/students/missing`);
+  assert.equal(response.status, 404);
+  assert.deepEqual(await response.json(), { error: "student_not_found" });
+});
+
 test("unknown routes return a stable JSON error", async () => {
   const response = await fetch(`${baseUrl}/missing`);
   assert.equal(response.status, 404);

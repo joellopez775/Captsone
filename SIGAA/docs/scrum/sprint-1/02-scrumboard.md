@@ -1,0 +1,43 @@
+# Scrumboard - Sprint 1
+
+Fecha de corte simulada: 28 de agosto de 2026.
+
+## Bloqueado
+
+- PB-001: validación externa con docente o contraparte educativa.
+- PB-010: aplicación de retroalimentación formativa aún no recibida.
+
+## Pendiente
+
+- PB-010: ensayo de exposición y registro de preguntas.
+- RET-04: completar RUT, docente, sección y reflexiones individuales.
+- RET-05: ratificar roles con Agustín Sorolla y Matías Martínez.
+- RET-07: activar GitHub Actions con una credencial que permita publicar workflows.
+
+## En curso
+
+- Sin historias técnicas activas al corte; quedan actividades externas y de equipo.
+
+## En revisión
+
+- PB-006: arquitectura y ADR de stack.
+- PB-007: modelo ER y diccionario de datos.
+- PB-008: prototipo verificado internamente; falta validación con usuarios y aceptación PO.
+- PB-009: casos de uso y secuencia principal.
+- PB-010: documento y presentación preparados; faltan feedback real, ensayo y aceptación.
+
+## Terminado
+
+- Guion de validación preparado para PB-001.
+- Arquitectura de contenedores documentada.
+- Modelo lógico y diccionario de datos versionados.
+- Casos de uso y secuencia de alerta versionados.
+- Recorrido interno del prototipo verificado en escritorio y móvil.
+- Pruebas API y build web ejecutados sin errores.
+- Documento 1.5 y presentación institucional actualizados.
+
+## Política WIP
+
+- Máximo dos historias simultáneas en curso.
+- Una dependencia externa se mueve a Bloqueado, no permanece oculta en En curso.
+- Los documentos pendientes de ratificación quedan En revisión, aunque el artefacto técnico exista.

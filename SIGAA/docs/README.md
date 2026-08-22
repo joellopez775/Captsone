@@ -20,10 +20,13 @@ Este directorio conserva la documentación viva de SIGAA. Los documentos entrega
 | SP0-03 | Scrumboard 0 | En curso | Scrum Master | 2026-08-21 |
 | SP0-04 | Daily e impedimentos | Activo | Scrum Master | 2026-08-21 |
 | SP0-05 | [Informe de cierre Sprint 0](../output/pdf/Informe_Cierre_Sprint_0_SIGAA.pdf) | Pendiente de aprobación PO | Product Owner | 2026-08-21 |
-| SP1-01 | Sprint Planning 1 | Preparado | Equipo | 2026-08-21 |
-| ADR-001 | Stack tecnológico | Propuesto | Equipo | 2026-08-21 |
+| SP1-01 | Sprint Planning 1 | En ejecución simulada | Equipo | 2026-08-28 |
+| SP1-02 | Backlog, tablero, Daily y burndown | Preparado para Review | Scrum Master propuesto | 2026-08-28 |
+| ADR-001 | Stack tecnológico | Aceptado técnicamente; ratificación pendiente | Equipo | 2026-08-28 |
 | ADR-002 | Entorno Docker | Aceptado | Equipo | 2026-08-21 |
-| DIS-001 | Arquitectura preliminar | Borrador | Arquitectura | 2026-08-21 |
+| DIS-001 | Arquitectura, ER y UML | En revisión | Arquitectura | 2026-08-28 |
+| PRO-001 | Prototipo navegable Sprint 1 | Verificado internamente | Equipo | 2026-08-28 |
+| F1-02 | Documento 1.5 y presentación | Preparados para revisión | Equipo | 2026-08-28 |
 | TEC-001 | Guía de ejecución Docker | Verificado | DevOps | 2026-08-21 |
 
 ## Reglas de trazabilidad
@@ -54,5 +57,6 @@ Cada sprint debe contener:
 - Confirmar establecimiento o contraparte validadora.
 - Product Owner confirmado: Joel López. Falta ratificar Scrum Master y responsabilidades técnicas.
 - Completar RUT, docente y sección.
-- Aprobar stack tecnológico y registrar ADR-001.
-- Confirmar URL definitiva del repositorio público.
+- Ratificar con el equipo la decisión técnica registrada en ADR-001.
+- Ejecutar validación externa del prototipo y registrar feedback real.
+- Aceptar o devolver PB-006 a PB-010 en Sprint Review.

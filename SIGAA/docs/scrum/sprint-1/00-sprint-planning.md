@@ -1,6 +1,10 @@
 # Sprint Planning 1 — Diseño y definición Fase 1
 
-Estado: preparado; confirmar el 24 de agosto de 2026.
+Estado: iniciado en simulación de la semana 3; pendiente de ratificación del equipo.
+
+Fecha simulada de kickoff: 24 de agosto de 2026.
+
+Autorización: el Product Owner solicitó avanzar con Sprint 1 simulando la semana correspondiente. Esta autorización permite ejecutar y documentar trabajo; no reemplaza la aprobación pendiente del cierre de Sprint 0.
 
 ## Periodo
 
@@ -21,7 +25,26 @@ Cerrar la definición académica de SIGAA y reducir los riesgos técnicos median
 | PB-009 | Casos de uso y secuencias | 5 | Equipo | Arquitectura y prototipo |
 | PB-010 | Documento y presentación Fase 1 | 5 | Equipo | Entregables anteriores |
 
-Capacidad candidata: 30 puntos. Debe ajustarse después de confirmar disponibilidad y arrastre de Sprint 0.
+Capacidad simulada: 30 puntos. Se mantiene como supuesto de planificación hasta que Agustín Sorolla y Matías Martínez confirmen su disponibilidad real.
+
+## Compromiso simulado
+
+- 30 puntos candidatos: PB-001 y PB-006 a PB-010.
+- PB-001 conserva dependencia externa y no puede cerrarse sin evidencia real.
+- PB-006 a PB-010 pueden avanzar con decisiones técnicas, datos sintéticos y artefactos versionados.
+- El trabajo se ejecutará con límite de dos historias en curso para evitar dispersión.
+
+## Roles operativos propuestos
+
+| Rol | Responsable propuesto | Estado |
+|---|---|---|
+| Product Owner | Joel López | Confirmado por el usuario |
+| Scrum Master | Agustín Sorolla | Pendiente de ratificación |
+| Arquitectura y backend | Joel López | Propuesto |
+| Datos y calidad | Matías Martínez | Propuesto |
+| Frontend y experiencia | Agustín Sorolla | Propuesto |
+
+Los roles pendientes no se registran como acuerdos reales de terceros hasta recibir su confirmación.
 
 ## Hito obligatorio
 

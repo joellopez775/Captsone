@@ -27,13 +27,14 @@ La plantilla de integración continua está en `ci/sigaa-ci.yml.example`. Para a
 
 ## Estado
 
-Línea base inicial en revisión. El alcance, la contraparte, el stack y los roles Scrum deben ser ratificados por el equipo y el docente antes de cerrar Sprint 0.
+Sprint 1 avanzado en la semana simulada del 24 al 28 de agosto de 2026. Existen decisiones de arquitectura, modelo lógico, UML, un prototipo navegable verificado internamente y artefactos de Fase 1 preparados para revisión. Las historias no se consideran aceptadas hasta registrar la decisión del Product Owner.
 
 Product Owner confirmado: Joel López. Los demás roles continúan propuestos hasta ratificación del equipo.
 
 ## Entregables iniciales
 
 - `entregables/fase-1/1.5_Definicion_Proyecto_APT_SIGAA.docx`: definición del proyecto en la plantilla oficial.
+- `entregables/fase-1/Presentacion_SIGAA_Fase_1_Sprint1.pptx`: presentación editable del avance y decisiones solicitadas al Product Owner.
 - `entregables/gestion/Plan_Maestro_Scrum_SIGAA.xlsx`: calendario oficial, roadmap de sprints, Product Backlog, carta Gantt, matriz de entregables, cobertura de rúbrica, RACI, riesgos, Definition of Done y plantilla de burndown.
 - `entregables/gestion/Cronograma_Sprints_SIGAA_2026.png`: infografía del cronograma y los sprints.
 
@@ -51,8 +52,12 @@ Product Owner confirmado: Joel López. Los demás roles continúan propuestos ha
 - [`docs/scrum/sprint-0/`](docs/scrum/sprint-0/): expediente del Sprint 0.
 - [`docs/scrum/sprint-0/07-informe-cierre.md`](docs/scrum/sprint-0/07-informe-cierre.md): informe auditado para decisión del Product Owner.
 - [`docs/scrum/sprint-0/08-acta-aprobacion-po.md`](docs/scrum/sprint-0/08-acta-aprobacion-po.md): acta de aprobación pendiente.
-- [`docs/scrum/sprint-1/`](docs/scrum/sprint-1/): preparación del Sprint 1.
+- [`docs/scrum/sprint-1/`](docs/scrum/sprint-1/): Planning, backlog, tablero, Daily y burndown del Sprint 1.
 - [`docs/design/00-arquitectura-preliminar.md`](docs/design/00-arquitectura-preliminar.md): diseño técnico inicial.
+- [`docs/design/01-arquitectura-contenedores.md`](docs/design/01-arquitectura-contenedores.md): arquitectura de contenedores.
+- [`docs/design/02-modelo-er-diccionario.md`](docs/design/02-modelo-er-diccionario.md): modelo lógico y diccionario de datos.
+- [`docs/design/03-uml-casos-de-uso.md`](docs/design/03-uml-casos-de-uso.md): casos de uso y secuencia principal.
+- [`docs/design/04-prototipo-navegable.md`](docs/design/04-prototipo-navegable.md): alcance y verificación del prototipo.
 - [`docs/adr/ADR-001-stack-tecnologico.md`](docs/adr/ADR-001-stack-tecnologico.md): decisión tecnológica propuesta.
 - [`docs/adr/ADR-002-entorno-docker.md`](docs/adr/ADR-002-entorno-docker.md): decisión de usar Docker Compose.
 - [`docs/bitacora/2026-08-21-avance-inicial.md`](docs/bitacora/2026-08-21-avance-inicial.md): primer registro de avance.
@@ -78,8 +83,8 @@ Todo cambio material debe actualizar una entrada de bitácora y enlazar la evide
 - RUT de cada integrante.
 - Confirmación de la contraparte o establecimiento validador.
 - Sección, docente y datos formales de portada que correspondan.
-- URL del repositorio público.
-- Stack tecnológico definitivo y ADR de aprobación.
+- Validación formal con una contraparte o usuarios representativos.
+- Ratificación del stack tecnológico por el equipo.
 - Ratificación de los roles propuestos: Joel (Product Owner/arquitectura), Agustín (Scrum Master/frontend-UX) y Matías (datos/calidad); los tres como Developers.
 
 ## Próximos documentos

@@ -33,11 +33,11 @@ Este documento presenta una vista revisable en GitHub. Los puntos y la asignaci�
 | PB-003 | Backlog priorizado y estimado | Must | 5 | Sprint 0 | Listo para aceptación PO |
 | PB-004 | Definition of Done | Must | 2 | Sprint 0 | Listo para aceptación PO |
 | PB-005 | Repositorio público, README y trazabilidad | Must | 3 | Sprint 0 | Listo para aceptación PO |
-| PB-006 | Arquitectura y decisiones técnicas | Must | 5 | Sprint 1 | Pendiente |
-| PB-007 | Modelo ER y diccionario de datos | Must | 5 | Sprint 1 | Pendiente |
-| PB-008 | Prototipo navegable validado | Must | 5 | Sprint 1 | Pendiente |
-| PB-009 | UML de flujos principales | Must | 5 | Sprint 1 | Pendiente |
-| PB-010 | Entrega y presentación Fase 1 | Must | 5 | Sprint 1 | En curso |
+| PB-006 | Arquitectura y decisiones técnicas | Must | 5 | Sprint 1 | En revisión PO/equipo |
+| PB-007 | Modelo ER y diccionario de datos | Must | 5 | Sprint 1 | En revisión PO/equipo |
+| PB-008 | Prototipo navegable validado internamente | Must | 5 | Sprint 1 | En revisión PO; validación externa pendiente |
+| PB-009 | UML de flujos principales | Must | 5 | Sprint 1 | En revisión PO/equipo |
+| PB-010 | Entrega y presentación Fase 1 | Must | 5 | Sprint 1 | En revisión; feedback y ensayo pendientes |
 | PB-011 | Autenticación segura | Must | 8 | Sprint 2 | Pendiente |
 | PB-012 | Roles y permisos | Must | 8 | Sprint 2 | Pendiente |
 | PB-013 | Estructura académica | Must | 8 | Sprint 2 | Pendiente |

@@ -1,20 +1,25 @@
-# Sprint Backlog 1 — candidato
+# Sprint Backlog 1 - simulación en ejecución
 
-El compromiso definitivo se realiza en Sprint Planning del 24 de agosto.
+Fecha de corte simulada: 28 de agosto de 2026. El compromiso definitivo requiere ratificación del equipo.
 
-| Tarea | Historia | Evidencia | Estado inicial |
+| Tarea | Historia | Evidencia | Estado al 28-08 simulado |
 |---|---|---|---|
-| Validar Product Vision con docente/contraparte | PB-001 | Minuta y cambios | Pendiente |
-| Aprobar ADR-001 | PB-006 | ADR aceptada | Pendiente |
-| Completar diagrama de contenedores | PB-006 | Arquitectura versionada | Borrador |
-| Definir módulos y responsabilidades | PB-006 | Tabla de módulos | Borrador |
-| Crear modelo ER lógico | PB-007 | Diagrama ER | Borrador conceptual |
-| Crear diccionario de datos | PB-007 | Tabla de entidades/atributos | Pendiente |
-| Diseñar casos de uso principales | PB-009 | Diagrama y descripciones | Pendiente |
-| Diseñar secuencia de alerta | PB-009 | Diagrama de secuencia | Borrador |
-| Prototipar login, dashboard, ficha y alerta | PB-008 | Prototipo navegable | Pendiente |
-| Ejecutar prueba con usuarios | PB-008 | Guion y resultados | Pendiente |
-| Aplicar feedback de formativa | PB-010 | Matriz de cambios | Pendiente |
-| Completar y revisar documento 1.5 | PB-010 | DOCX final | En curso |
-| Preparar presentación Fase 1 | PB-010 | PPTX/PDF | Pendiente |
+| Validar Product Vision con docente/contraparte | PB-001 | Minuta o correo real | Bloqueada por contraparte |
+| Preparar guion de validación | PB-001 | `docs/validacion/01-guion-validacion.md` | Terminado |
+| Resolver ADR-001 | PB-006 | `docs/adr/ADR-001-stack-tecnologico.md` | Decisión técnica registrada |
+| Completar arquitectura de contenedores | PB-006 | `docs/design/01-arquitectura-contenedores.md` | Terminado |
+| Definir módulos y responsabilidades | PB-006 | Arquitectura versionada | Terminado |
+| Crear modelo ER lógico | PB-007 | `docs/design/02-modelo-er-diccionario.md` | Terminado |
+| Crear diccionario de datos | PB-007 | Diccionario versionado | Terminado |
+| Diseñar casos de uso principales | PB-009 | `docs/design/03-uml-casos-de-uso.md` | Terminado |
+| Diseñar secuencia de alerta | PB-009 | Diagrama de secuencia | Terminado |
+| Prototipar login, dashboard, ficha y alerta | PB-008 | Aplicación web navegable | Verificado internamente |
+| Ejecutar prueba interna del prototipo | PB-008 | `docs/design/04-prototipo-navegable.md` | Terminado |
+| Aplicar feedback de formativa | PB-010 | Matriz de cambios | Pendiente de feedback real |
+| Completar y revisar documento 1.5 | PB-010 | DOCX actualizado | Preparado para revisión |
+| Preparar presentación Fase 1 | PB-010 | PPTX editable | Preparada y verificada |
 | Ensayar exposición y preguntas | PB-010 | Acta/registro | Pendiente |
+
+## Lectura de estados
+
+Los elementos marcados como terminados corresponden a artefactos producidos y verificados en el repositorio. Las historias solo pasarán a terminadas cuando cumplan todos sus criterios de aceptación y la Definition of Done.
