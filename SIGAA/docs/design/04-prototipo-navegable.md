@@ -55,3 +55,29 @@ Validar navegación, jerarquía de información y explicabilidad antes de constr
 - Pruebas API: 6 aprobadas, 0 fallidas.
 - Docker Compose: web, API y PostgreSQL saludables.
 - Consola del navegador: 0 errores durante los flujos revisados.
+
+## Iteración visual premium - 28 de agosto de 2026
+
+Después de la primera revisión visual se descartó la apariencia SaaS genérica y
+se definió una identidad más cercana a un campus universitario de alto nivel,
+con referencias de interacción propias de macOS.
+
+Cambios aplicados:
+
+- Paleta institucional en verde biblioteca, marfil, latón y tonos minerales.
+- Jerarquía editorial con títulos serif y texto de interfaz basado en fuentes
+  del sistema para conservar nitidez y evitar dependencias externas.
+- Navegación flotante con iconos, contador de alertas y perfil contextual.
+- Barra superior con buscador tipo Command Palette, notificaciones y contexto
+  de navegación.
+- Indicadores con micrográficos, acentos diferenciados y estados más sobrios.
+- Superficies con profundidad, vidrio sutil y bordes suaves, sin depender de
+  imágenes generadas ni componentes externos.
+- Portada institucional con sello, composición editorial y acceso demostrativo.
+
+Verificación de la iteración:
+
+- Compilación de producción completada sin errores.
+- Contenedor web reconstruido y operativo.
+- Consola del navegador sin errores en login y dashboard.
+- Vista móvil comprobada sin desborde horizontal.

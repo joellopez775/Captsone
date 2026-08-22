@@ -9,11 +9,21 @@ const labels = {
   following: "En seguimiento",
 };
 
-function Metric({ label, value, detail }) {
+function Icon({ name }) {
+  const paths = {
+    dashboard: <><path d="M4 13h6V4H4v9Zm0 7h6v-4H4v4Zm10 0h6v-9h-6v9Zm0-16v4h6V4h-6Z" /></>,
+    students: <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></>,
+    alerts: <><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" /><path d="M13.7 21a2 2 0 0 1-3.4 0" /></>,
+    search: <><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></>,
+  };
+  return <svg aria-hidden="true" className="icon" fill={name === "dashboard" ? "currentColor" : "none"} viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{paths[name]}</svg>;
+}
+
+function Metric({ label, value, detail, accent = "sage", trend = [3, 5, 4, 7, 6] }) {
   return (
-    <article className="metric">
-      <span>{label}</span>
-      <strong>{value}</strong>
+    <article className={`metric metric--${accent}`}>
+      <div className="metric__top"><span>{label}</span><span className="metric__signal">En vivo</span></div>
+      <div className="metric__body"><strong>{value}</strong><div className="micro-chart" aria-hidden="true">{trend.map((height, index) => <i key={index} style={{ height: `${height * 5}px` }} />)}</div></div>
       <small>{detail}</small>
     </article>
   );
@@ -24,25 +34,32 @@ function RiskBadge({ value }) {
 }
 
 function AppShell({ activeView, onNavigate, onLogout, children, system }) {
+  const navigation = [["dashboard", "Resumen", "dashboard"], ["students", "Estudiantes", "students"], ["alerts", "Alertas", "alerts"]];
   return (
     <div className="app-shell">
       <aside className="sidebar">
         <div className="brand">
-          <span className="brand__mark">S</span>
-          <div><strong>SIGAA</strong><small>Prototipo Sprint 1</small></div>
+          <span className="brand__mark"><span>S</span></span>
+          <div><strong>SIGAA</strong><small>Academic Intelligence</small></div>
         </div>
         <nav aria-label="Navegación principal">
-          {[["dashboard", "Resumen"], ["students", "Estudiantes"], ["alerts", "Alertas"]].map(([view, label]) => (
-            <button className={activeView === view ? "nav-button nav-button--active" : "nav-button"} key={view} onClick={() => onNavigate(view)} type="button">{label}</button>
+          <span className="nav-caption">Espacio de trabajo</span>
+          {navigation.map(([view, label, icon]) => (
+            <button className={activeView === view ? "nav-button nav-button--active" : "nav-button"} key={view} onClick={() => onNavigate(view)} type="button"><Icon name={icon} /><span>{label}</span>{view === "alerts" && <em>12</em>}</button>
           ))}
         </nav>
         <div className="sidebar__footer">
-          <div className={`system-dot system-dot--${system.status}`} />
-          <span>{system.message}</span>
-          <button onClick={onLogout} type="button">Salir de demo</button>
+          <div className="profile-card"><span className="profile-card__avatar">JL</span><div><strong>Joel López</strong><small>Product Owner</small></div><button aria-label="Salir de demo" onClick={onLogout} type="button">•••</button></div>
+          <div className="system-status"><div className={`system-dot system-dot--${system.status}`} /><span>{system.message}</span></div>
         </div>
       </aside>
-      <main className="workspace">{children}</main>
+      <div className="app-stage">
+        <header className="topbar">
+          <div className="topbar__context"><span>Campus digital</span><i>/</i><strong>{navigation.find(([view]) => view === activeView)?.[1]}</strong></div>
+          <div className="topbar__actions"><button className="command-button" type="button"><Icon name="search" /><span>Buscar en SIGAA</span><kbd>⌘ K</kbd></button><button className="notification-button" aria-label="Notificaciones" type="button"><Icon name="alerts" /><i /></button><span className="topbar__avatar">JL</span></div>
+        </header>
+        <main className="workspace">{children}</main>
+      </div>
     </div>
   );
 }
@@ -51,17 +68,19 @@ function Login({ onEnter, system }) {
   return (
     <main className="login-page">
       <section className="login-intro">
-        <p className="eyebrow">Sistema Integral de Gestión y Acompañamiento Académico</p>
-        <h1>Señales claras para acompañar a tiempo.</h1>
-        <p>Prototipo navegable del Sprint 1. Explora el dashboard, las fichas y la bandeja de alertas usando datos completamente sintéticos.</p>
-        <div className="prototype-note"><strong>Modo demostración</strong><span>No utiliza credenciales ni información personal real.</span></div>
+        <div className="login-seal"><span>S</span><small>2026</small></div>
+        <p className="eyebrow">Inteligencia académica · Comunidad universitaria</p>
+        <h1>Excelencia que se puede acompañar.</h1>
+        <p>Una experiencia académica diseñada para convertir señales tempranas en decisiones humanas, oportunas y trazables.</p>
+        <div className="prototype-note"><span className="prototype-note__dot" /><strong>Entorno de demostración</strong><span>Información completamente sintética.</span></div>
       </section>
       <section className="login-card" aria-labelledby="demo-title">
-        <span className="login-card__tag">Sprint 1</span>
-        <h2 id="demo-title">Acceso de demostración</h2>
+        <div className="login-card__header"><span className="login-card__tag">SIGAA</span><span>Portal institucional</span></div>
+        <h2 id="demo-title">Bienvenido de vuelta</h2>
+        <p>Ingresa al entorno académico de demostración.</p>
         <label>Perfil simulado<input disabled value="Coordinación académica" /></label>
         <label>Periodo<input disabled value="2026 - Segundo semestre" /></label>
-        <button className="primary-button" onClick={onEnter} type="button">Ingresar al prototipo</button>
+        <button className="primary-button" onClick={onEnter} type="button"><span>Ingresar al portal</span><span>→</span></button>
         <small className={`connection connection--${system.status}`}>{system.message}</small>
       </section>
     </main>
@@ -72,7 +91,7 @@ function Header({ kicker, title, subtitle }) {
   return (
     <header className="page-header">
       <div><p>{kicker}</p><h1>{title}</h1><span>{subtitle}</span></div>
-      <div className="demo-chip">Datos sintéticos</div>
+      <div className="header-meta"><span className="demo-chip"><i /> Datos sintéticos</span><span className="academic-cycle">Ciclo académico · 2026</span></div>
     </header>
   );
 }
@@ -83,10 +102,10 @@ function Dashboard({ data, onOpenStudent, onNavigate }) {
     <>
       <Header kicker="Periodo 2026-2" title="Resumen académico" subtitle="Señales prioritarias para la coordinación" />
       <section className="metrics-grid" aria-label="Indicadores principales">
-        <Metric label="Estudiantes activos" value={data.metrics.activeStudents} detail="2 secciones de demostración" />
-        <Metric label="Asistencia promedio" value={`${data.metrics.averageAttendance}%`} detail="Umbral preventivo: 75%" />
-        <Metric label="Alertas abiertas" value={data.metrics.openAlerts} detail="4 visibles en el prototipo" />
-        <Metric label="Seguimientos activos" value={data.metrics.activeFollowUps} detail="Responsable asignado" />
+        <Metric label="Estudiantes activos" value={data.metrics.activeStudents} detail="2 secciones de demostración" trend={[3, 4, 5, 5, 7]} />
+        <Metric label="Asistencia promedio" value={`${data.metrics.averageAttendance}%`} detail="Umbral preventivo: 75%" accent="gold" trend={[6, 5, 7, 6, 8]} />
+        <Metric label="Alertas abiertas" value={data.metrics.openAlerts} detail="4 visibles en el prototipo" accent="clay" trend={[8, 7, 6, 5, 4]} />
+        <Metric label="Seguimientos activos" value={data.metrics.activeFollowUps} detail="Responsable asignado" accent="blue" trend={[2, 3, 5, 4, 7]} />
       </section>
       <section className="content-grid">
         <article className="panel panel--wide">
