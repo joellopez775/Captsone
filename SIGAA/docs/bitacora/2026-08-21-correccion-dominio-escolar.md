@@ -66,6 +66,23 @@ incluye además un `pg_dump` previo.
 - Construir vistas específicas para UTP, Inspectoría, profesor de asignatura y apoderado.
 - Validar reglas, escala, asistencia y permisos con una contraparte real.
 
+## Despliegue verificado
+
+La corrección se publicó en la rama `fase-1-evidencias` y se desplegó en el
+servidor macOS del proyecto. Antes de migrar se generó el respaldo:
+
+`~/Services/sigaa-backups/pre-schema-0.3.0-school-20260821.sql`
+
+La reconstrucción remota se ejecutó con una configuración Docker no interactiva
+independiente del llavero del usuario. La verificación posterior confirmó:
+
+- Commit de aplicación: `b8c8b07`.
+- Tres contenedores saludables: web, API y PostgreSQL.
+- Healthcheck API y conexión a base de datos con respuesta `ok`.
+- Perfil `escolar`, versión `0.3.0`, 23 tablas y 7 roles.
+- Respuesta del prototipo con el establecimiento ficticio configurado.
+- Pantalla de acceso escolar comprobada desde `http://100.110.99.17:8088/`.
+
 ## Evidencias
 
 - `infra/postgres/init/003_school_domain.sql`.
