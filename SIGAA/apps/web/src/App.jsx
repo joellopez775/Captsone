@@ -49,6 +49,7 @@ function AppShell({ activeView, onNavigate, onLogout, children, system }) {
           <BrandMark />
           <div><strong>SIGAA</strong><small>Academic Intelligence</small></div>
         </div>
+        <span className="mobile-avatar" aria-label="Perfil de Daniela Rojas">DR</span>
         <nav aria-label="Navegación principal">
           <span className="nav-caption">Espacio de trabajo</span>
           {navigation.map(([view, label, icon]) => (
@@ -143,6 +144,7 @@ function StudentPortal({ data, onLogout, system }) {
     <div className="student-portal-shell">
       <aside className="student-sidebar">
         <div className="brand"><BrandMark /><div><strong>SIGAA</strong><small>Portal del estudiante</small></div></div>
+        <span className="mobile-avatar" aria-label={`Perfil de ${student.name}`}>CS</span>
         <nav aria-label="Navegación del estudiante"><span className="nav-caption">Mi experiencia</span><button className="nav-button nav-button--active" type="button"><Icon name="dashboard" /><span>Mi inicio</span></button><button className="nav-button" type="button"><Icon name="book" /><span>Mis asignaturas</span></button><button className="nav-button" type="button"><Icon name="calendar" /><span>Calendario</span></button></nav>
         <div className="student-profile"><span className="student-profile__avatar">CS</span><div><strong>{student.name}</strong><small>{student.program}</small></div></div>
         <div className="system-status"><div className={`system-dot system-dot--${system.status}`} /><span>{system.message}</span></div>

@@ -120,3 +120,17 @@ producto. La versión completa identifica la pantalla de acceso y una variante
 compacta, obtenida mediante recorte visual no destructivo, aparece en las barras
 laterales de los portales docente y estudiante. El archivo fuente se conserva
 sin modificaciones en `apps/web/src/assets/sigaa-logo.png`.
+
+## Navegación móvil refinada
+
+La navegación móvil se rediseñó siguiendo principios observados en la experiencia
+web móvil de Apple: controles mínimos, superficies translúcidas, jerarquía clara
+y respeto por las áreas seguras del dispositivo. La referencia se utilizó como
+criterio de interacción y acabado, sin copiar su identidad visual.
+
+- Encabezado superior compacto de 54 px con marca y perfil.
+- Navegación principal trasladada a un dock inferior flotante.
+- Fondo translúcido con desenfoque y separación visual ligera.
+- Etiquetas e iconos conservados para facilitar el reconocimiento.
+- Espaciado inferior compatible con `safe-area-inset-bottom` en iPhone.
+- Implementación equivalente para los portales docente y estudiante.
