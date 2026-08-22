@@ -27,3 +27,14 @@ Avanzar con el modelo estudiante usando la misma metodología aplicada al profes
 
 Los datos son sintéticos. La sesión mediante encabezados y la lectura desde
 memoria son mecanismos de demostración, no controles productivos.
+
+## Publicación y despliegue
+
+El incremento fue publicado en el commit `73000c7` y desplegado en el Mac
+servidor del proyecto. Antes de migrar se creó el respaldo:
+
+`~/Services/sigaa-backups/pre-schema-0.5.0-student-20260821.sql`
+
+La verificación posterior confirmó esquema `0.5.0`, 28 tablas públicas, web,
+API y PostgreSQL saludables, acceso autorizado para `est-001`, rechazo `403`
+ante acceso cruzado y repositorio del servidor sin modificaciones locales.
