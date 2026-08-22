@@ -1,6 +1,9 @@
 # Modelo ER y diccionario de datos - Sprint 1
 
-Estado: diseño lógico listo para revisión; no corresponde todavía a una migración productiva.
+Estado: núcleo implementado en la migración `infra/postgres/init/002_core_academic.sql`;
+pendiente conectar los repositorios de la API y validar reglas institucionales.
+
+Versión de esquema: `0.2.0`.
 
 ## Modelo lógico
 
@@ -87,3 +90,19 @@ El prototipo utilizará al menos cinco estudiantes, dos secciones, cuatro alerta
 - Cálculo de asistencia y tratamiento de justificaciones.
 - Umbrales y responsables por severidad.
 - Política de retención y acceso a observaciones.
+
+## Implementación física
+
+La primera migración funcional incorpora el modelo universitario y agrega
+`programa_academico` como contexto para carreras. También implementa:
+
+- UUID generados por PostgreSQL y correos sin distinción de mayúsculas.
+- Seis roles universitarios con asignaciones y alcance JSON.
+- Restricciones para fechas, estados, escala de notas y ponderaciones.
+- Unicidad de matrículas activas, calificaciones y registros de asistencia.
+- Marcas de actualización automáticas mediante triggers.
+- Auditoría inmutable e intervenciones que no pueden eliminarse.
+- Índices para bandejas de alertas, historiales y consultas académicas.
+
+La migración es idempotente y se ejecuta automáticamente sobre volúmenes nuevos.
+En instalaciones existentes debe aplicarse explícitamente mediante `psql`.
