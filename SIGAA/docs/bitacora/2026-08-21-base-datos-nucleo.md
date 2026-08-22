@@ -58,3 +58,19 @@ La aplicación todavía consume datos sintéticos desde la API. La creación de 
 base no implica que login, dashboard o portal del estudiante ya persistan datos.
 El siguiente incremento debe implementar repositorios SQL y migrar los datos de
 demostración.
+
+## Aplicación en el servidor
+
+Antes de modificar el volumen persistente se generó el respaldo:
+
+`~/Services/sigaa-backups/pre-schema-0.2.0-20260821.sql`
+
+La migración se aplicó mediante una transacción con `ON_ERROR_STOP` y fue
+verificada directamente en `100.110.99.17`:
+
+- `schema_profile = universitario`.
+- `schema_version = 0.2.0`.
+- 19 tablas en el esquema público.
+- Seis roles institucionales.
+- Web, API y PostgreSQL saludables.
+- `/api/db-health` respondió HTTP 200 después de la migración.
