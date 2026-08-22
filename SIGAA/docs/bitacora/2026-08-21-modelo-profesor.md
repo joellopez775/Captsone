@@ -34,3 +34,18 @@ o negativas.
 Los cambios realizados desde la interfaz se almacenan temporalmente en la API
 de demostración y se pierden al reiniciar el contenedor. La persistencia real y
 la autenticación productiva se implementarán en los siguientes incrementos.
+
+## Despliegue
+
+El incremento fue publicado en el commit `874757e` y desplegado en el servidor
+macOS del proyecto. Antes de aplicar la migración se creó el respaldo:
+
+`~/Services/sigaa-backups/pre-schema-0.4.0-teacher-20260821.sql`
+
+La verificación posterior confirmó:
+
+- Esquema `0.4.0`, perfil `escolar` y 27 tablas públicas.
+- Web, API y PostgreSQL saludables.
+- Endpoint docente autorizado disponible.
+- Espacio `Mis cursos` visible desde `http://100.110.99.17:8088/`.
+- Repositorio del servidor sin modificaciones locales.
