@@ -49,6 +49,67 @@ test("GET /prototype returns explicitly synthetic dashboard data", async () => {
   assert.equal(body.students[0].course, "2° Medio A");
   assert.equal(body.studentPortal.courses.length, 4);
   assert.equal(body.studentPortal.courses[0].grades.length, 3);
+  assert.equal(body.teacherWorkspace.assignments.length, 3);
+});
+
+test("teacher workspace rejects requests without the teacher role", async () => {
+  const response = await fetch(`${baseUrl}/teacher/workspace`);
+  assert.equal(response.status, 403);
+  assert.deepEqual(await response.json(), { error: "teacher_role_required" });
+});
+
+test("teacher can schedule a class and record attendance", async () => {
+  const headers = { "content-type": "application/json", "x-demo-role": "teacher" };
+  const createResponse = await fetch(`${baseUrl}/teacher/classes`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ courseSubjectId: "ca-mat-2a", date: "2026-09-09", startTime: "08:00", block: "Bloque 1", title: "Sistemas de ecuaciones", objective: "Resolver sistemas de ecuaciones lineales." }),
+  });
+  assert.equal(createResponse.status, 201);
+  const created = await createResponse.json();
+  assert.equal(created.classSession.status, "planned");
+
+  const attendanceResponse = await fetch(`${baseUrl}/teacher/classes/${created.classSession.id}/attendance`, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({ records: [{ studentId: "est-001", status: "present" }, { studentId: "est-002", status: "late" }, { studentId: "est-003", status: "absent" }] }),
+  });
+  assert.equal(attendanceResponse.status, 200);
+  const attendance = await attendanceResponse.json();
+  assert.equal(attendance.classSession.status, "completed");
+  assert.equal(attendance.classSession.attendance["est-003"], "absent");
+});
+
+test("teacher can create an evaluation and enter grades only in scope", async () => {
+  const headers = { "content-type": "application/json", "x-demo-role": "teacher" };
+  const createResponse = await fetch(`${baseUrl}/teacher/evaluations`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ courseSubjectId: "ca-mat-2b", name: "Prueba de funciones", date: "2026-09-12", weight: 30 }),
+  });
+  assert.equal(createResponse.status, 201);
+  const created = await createResponse.json();
+
+  const gradeResponse = await fetch(`${baseUrl}/teacher/evaluations/${created.evaluation.id}/grades`, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({ records: [{ studentId: "est-004", value: 4.8 }, { studentId: "est-005", value: 6.1 }] }),
+  });
+  assert.equal(gradeResponse.status, 200);
+  const graded = await gradeResponse.json();
+  assert.equal(graded.evaluation.grades["est-005"], 6.1);
+});
+
+test("teacher can add a positive or negative annotation", async () => {
+  const response = await fetch(`${baseUrl}/teacher/annotations`, {
+    method: "POST",
+    headers: { "content-type": "application/json", "x-demo-role": "teacher" },
+    body: JSON.stringify({ courseSubjectId: "ca-mat-2a", studentId: "est-002", type: "positive", category: "Esfuerzo", text: "Mostró perseverancia durante toda la actividad." }),
+  });
+  assert.equal(response.status, 201);
+  const body = await response.json();
+  assert.equal(body.annotation.type, "positive");
+  assert.equal(body.annotation.studentId, "est-002");
 });
 
 test("POST /auth/demo-login resolves the teacher role", async () => {

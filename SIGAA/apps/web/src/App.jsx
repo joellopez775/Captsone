@@ -10,6 +10,20 @@ const labels = {
   following: "En seguimiento",
 };
 
+async function teacherMutation(path, options) {
+  const response = await fetch(`/api/teacher${path}`, {
+    ...options,
+    headers: { "content-type": "application/json", "x-demo-role": "teacher", ...(options?.headers ?? {}) },
+  });
+  const body = await response.json();
+  if (!response.ok) throw new Error(body.error ?? "teacher_operation_failed");
+  return body;
+}
+
+function formatSchoolDate(value) {
+  return new Intl.DateTimeFormat("es-CL", { day: "2-digit", month: "short", year: "numeric" }).format(new Date(`${value}T12:00:00`));
+}
+
 function Icon({ name }) {
   const paths = {
     dashboard: <><path d="M4 13h6V4H4v9Zm0 7h6v-4H4v4Zm10 0h6v-9h-6v9Zm0-16v4h6V4h-6Z" /></>,
@@ -18,6 +32,8 @@ function Icon({ name }) {
     search: <><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></>,
     book: <><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" /></>,
     calendar: <><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M16 3v4M8 3v4M3 11h18" /></>,
+    grades: <><path d="M4 4h16v16H4zM8 9h8M8 13h5" /><path d="m15 16 1.5 1.5L20 14" /></>,
+    notes: <><path d="M4 4h16v14H7l-3 3V4Z" /><path d="M8 9h8M8 13h5" /></>,
   };
   return <svg aria-hidden="true" className="icon" fill={name === "dashboard" ? "currentColor" : "none"} viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{paths[name]}</svg>;
 }
@@ -42,7 +58,7 @@ function BrandMark() {
 
 function AppShell({ activeView, onNavigate, onLogout, children, system }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const navigation = [["dashboard", "Resumen", "dashboard"], ["students", "Estudiantes", "students"], ["alerts", "Alertas", "alerts"]];
+  const navigation = [["dashboard", "Resumen", "dashboard"], ["courses", "Mis cursos", "book"], ["classes", "Clases y asistencia", "calendar"], ["grades", "Calificaciones", "grades"], ["annotations", "Anotaciones", "notes"], ["alerts", "Alertas", "alerts"]];
   return (
     <div className="app-shell">
       <aside className={mobileMenuOpen ? "sidebar mobile-menu-open" : "sidebar"}>
@@ -56,11 +72,11 @@ function AppShell({ activeView, onNavigate, onLogout, children, system }) {
           {navigation.map(([view, label, icon]) => (
             <button className={activeView === view ? "nav-button nav-button--active" : "nav-button"} key={view} onClick={() => { onNavigate(view); setMobileMenuOpen(false); }} type="button"><Icon name={icon} /><span>{label}</span>{view === "alerts" && <em>12</em>}</button>
           ))}
-          <div className="mobile-menu-account"><span>DR</span><div><strong>Daniela Rojas</strong><small>Profesora jefe · 2° Medio A</small></div></div>
+          <div className="mobile-menu-account"><span>DR</span><div><strong>Daniela Rojas</strong><small>Profesora · 3 asignaciones</small></div></div>
           <button className="mobile-menu-logout" onClick={onLogout} type="button"><span>Cerrar sesión</span><span>↗</span></button>
         </nav>
         <div className="sidebar__footer">
-          <div className="profile-card"><span className="profile-card__avatar">DR</span><div><strong>Daniela Rojas</strong><small>Profesora jefe · 2° Medio A</small></div><button aria-label="Salir de demo" onClick={onLogout} type="button">•••</button></div>
+          <div className="profile-card"><span className="profile-card__avatar">DR</span><div><strong>Daniela Rojas</strong><small>Profesora · 3 asignaciones</small></div><button aria-label="Salir de demo" onClick={onLogout} type="button">•••</button></div>
           <div className="system-status"><div className={`system-dot system-dot--${system.status}`} /><span>{system.message}</span></div>
         </div>
       </aside>
@@ -180,6 +196,139 @@ function StudentPortal({ data, onLogout, system }) {
   );
 }
 
+function AssignmentPicker({ assignments, value, onChange, label = "Curso y asignatura" }) {
+  return (
+    <label className="field-control"><span>{label}</span><select onChange={(event) => onChange(event.target.value)} value={value}>{assignments.map((assignment) => <option key={assignment.id} value={assignment.id}>{assignment.courseName} · {assignment.subjectName}</option>)}</select></label>
+  );
+}
+
+function TeacherCourses({ data, onNavigate }) {
+  const { assignments } = data.teacherWorkspace;
+  return (
+    <>
+      <Header kicker="Carga docente · 2026" title="Mis cursos" subtitle="Solo aparecen los cursos y asignaturas vigentes de la profesora" />
+      <section className="teacher-course-grid">
+        {assignments.map((assignment) => {
+          const nextClass = data.teacherWorkspace.classSessions.filter(({ courseSubjectId, status }) => courseSubjectId === assignment.id && status === "planned").sort((a, b) => a.date.localeCompare(b.date))[0];
+          return <article className="teacher-course" key={assignment.id}><div className="teacher-course__head"><span>{assignment.subjectCode}</span>{assignment.isHeadTeacher && <em>Jefatura</em>}</div><h2>{assignment.courseName}</h2><p>{assignment.subjectName}</p><dl><div><dt>Horario</dt><dd>{assignment.schedule}</dd></div><div><dt>Estudiantes</dt><dd>{assignment.studentIds.length}</dd></div><div><dt>Próxima clase</dt><dd>{nextClass ? formatSchoolDate(nextClass.date) : "Por planificar"}</dd></div></dl><div className="teacher-course__actions"><button onClick={() => onNavigate("classes")} type="button">Abrir libro de clases</button><button onClick={() => onNavigate("grades")} type="button">Calificaciones</button></div></article>;
+        })}
+      </section>
+      <article className="scope-notice"><strong>Ámbito protegido</strong><p>Daniela puede planificar, pasar asistencia y calificar únicamente dentro de estas asignaciones. La jefatura le permite acompañar a 2° Medio A, pero no modificar notas registradas por otros profesores.</p></article>
+    </>
+  );
+}
+
+function AttendanceEditor({ data, session, assignment, onWorkspaceChange, onClose }) {
+  const students = data.students.filter(({ id }) => assignment.studentIds.includes(id));
+  const [records, setRecords] = useState(() => Object.fromEntries(students.map(({ id }) => [id, session.attendance[id] ?? "present"])));
+  const [saving, setSaving] = useState(false);
+  const statusOptions = [["present", "Presente"], ["absent", "Ausente"], ["late", "Atraso"], ["excused", "Justificado"]];
+
+  async function saveAttendance() {
+    setSaving(true);
+    try {
+      const body = await teacherMutation(`/classes/${session.id}/attendance`, { method: "PUT", body: JSON.stringify({ records: students.map(({ id }) => ({ studentId: id, status: records[id] })) }) });
+      onWorkspaceChange(body.workspace);
+      onClose();
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return <div className="record-editor"><div className="record-editor__header"><div><span>ASISTENCIA</span><h3>{session.title}</h3><p>{assignment.courseName} · {formatSchoolDate(session.date)} · {session.block}</p></div><button aria-label="Cerrar asistencia" onClick={onClose} type="button">×</button></div><div className="attendance-list">{students.map((student) => <div className="attendance-row" key={student.id}><span className="avatar">{student.name.split(" ").map((part) => part[0]).join("")}</span><div><strong>{student.name}</strong><small>{student.identifier}</small></div><div className="attendance-options">{statusOptions.map(([value, label]) => <button className={records[student.id] === value ? `attendance-state attendance-state--${value} attendance-state--active` : `attendance-state attendance-state--${value}`} key={value} onClick={() => setRecords((current) => ({ ...current, [student.id]: value }))} type="button">{label}</button>)}</div></div>)}</div><button className="teacher-primary" disabled={saving} onClick={saveAttendance} type="button">{saving ? "Guardando…" : "Guardar asistencia"}</button></div>;
+}
+
+function TeacherClasses({ data, onWorkspaceChange }) {
+  const workspace = data.teacherWorkspace;
+  const [assignmentId, setAssignmentId] = useState(workspace.assignments[0].id);
+  const [attendanceSessionId, setAttendanceSessionId] = useState(null);
+  const [message, setMessage] = useState("");
+  const [form, setForm] = useState({ date: "2026-09-09", startTime: "08:00", block: "Bloque 1", title: "", objective: "" });
+  const assignment = workspace.assignments.find(({ id }) => id === assignmentId);
+  const sessions = workspace.classSessions.filter(({ courseSubjectId }) => courseSubjectId === assignmentId).sort((a, b) => `${a.date}${a.startTime}`.localeCompare(`${b.date}${b.startTime}`));
+  const attendanceSession = workspace.classSessions.find(({ id }) => id === attendanceSessionId);
+
+  async function scheduleClass(event) {
+    event.preventDefault();
+    const body = await teacherMutation("/classes", { method: "POST", body: JSON.stringify({ courseSubjectId: assignmentId, ...form }) });
+    onWorkspaceChange(body.workspace);
+    setMessage("Clase futura agregada correctamente.");
+    setForm((current) => ({ ...current, title: "", objective: "" }));
+  }
+
+  return <><Header kicker="Libro de clases" title="Clases y asistencia" subtitle="Planifica sesiones futuras y registra la asistencia del curso" /><section className="teacher-work-grid"><div><div className="teacher-toolbar"><AssignmentPicker assignments={workspace.assignments} onChange={(value) => { setAssignmentId(value); setAttendanceSessionId(null); }} value={assignmentId} /><span>{assignment.room} · {assignment.schedule}</span></div><div className="class-timeline">{sessions.map((session) => { const attendanceCount = Object.keys(session.attendance).length; return <article className="class-entry" key={session.id}><time><strong>{new Date(`${session.date}T12:00:00`).getDate()}</strong><span>{new Date(`${session.date}T12:00:00`).toLocaleDateString("es-CL", { month: "short" })}</span></time><div><span className={`class-status class-status--${session.status}`}>{session.status === "planned" ? "Planificada" : "Realizada"}</span><h3>{session.title}</h3><p>{session.objective}</p><small>{session.startTime} · {session.block}</small></div><button onClick={() => setAttendanceSessionId(session.id)} type="button">{attendanceCount ? `Asistencia ${attendanceCount}/${assignment.studentIds.length}` : "Pasar asistencia"}</button></article>; })}</div>{attendanceSession && <AttendanceEditor assignment={assignmentBySession(workspace, attendanceSession)} data={data} onClose={() => setAttendanceSessionId(null)} onWorkspaceChange={onWorkspaceChange} session={attendanceSession} />}</div><form className="teacher-form" onSubmit={scheduleClass}><div className="teacher-form__title"><span>PLANIFICACIÓN</span><h2>Agregar clase futura</h2><p>La clase quedará disponible para registrar asistencia cuando corresponda.</p></div><label><span>Fecha</span><input required type="date" value={form.date} onChange={(event) => setForm({ ...form, date: event.target.value })} /></label><div className="form-split"><label><span>Hora</span><input required type="time" value={form.startTime} onChange={(event) => setForm({ ...form, startTime: event.target.value })} /></label><label><span>Bloque</span><input required value={form.block} onChange={(event) => setForm({ ...form, block: event.target.value })} /></label></div><label><span>Título o contenido</span><input required placeholder="Ej. Sistemas de ecuaciones" value={form.title} onChange={(event) => setForm({ ...form, title: event.target.value })} /></label><label><span>Objetivo de aprendizaje</span><textarea required rows="4" placeholder="Describe el propósito pedagógico de la clase" value={form.objective} onChange={(event) => setForm({ ...form, objective: event.target.value })} /></label>{message && <div className="form-success">{message}</div>}<button className="teacher-primary" type="submit">Agregar al calendario</button></form></section></>;
+}
+
+function assignmentBySession(workspace, session) {
+  return workspace.assignments.find(({ id }) => id === session.courseSubjectId);
+}
+
+function TeacherGrades({ data, onWorkspaceChange }) {
+  const workspace = data.teacherWorkspace;
+  const [assignmentId, setAssignmentId] = useState(workspace.assignments[0].id);
+  const assignment = workspace.assignments.find(({ id }) => id === assignmentId);
+  const evaluations = workspace.evaluations.filter(({ courseSubjectId }) => courseSubjectId === assignmentId);
+  const [evaluationId, setEvaluationId] = useState(evaluations[0]?.id ?? "");
+  const evaluation = workspace.evaluations.find(({ id }) => id === evaluationId);
+  const students = data.students.filter(({ id }) => assignment.studentIds.includes(id));
+  const [grades, setGrades] = useState({});
+  const [form, setForm] = useState({ name: "", date: "2026-09-12", weight: 25 });
+  const [message, setMessage] = useState("");
+
+  useEffect(() => { setGrades(evaluation?.grades ?? {}); }, [evaluationId, evaluation]);
+
+  function changeAssignment(value) {
+    const firstEvaluation = workspace.evaluations.find(({ courseSubjectId }) => courseSubjectId === value);
+    setAssignmentId(value);
+    setEvaluationId(firstEvaluation?.id ?? "");
+    setMessage("");
+  }
+
+  async function createEvaluation(event) {
+    event.preventDefault();
+    const body = await teacherMutation("/evaluations", { method: "POST", body: JSON.stringify({ courseSubjectId: assignmentId, ...form, weight: Number(form.weight) }) });
+    onWorkspaceChange(body.workspace);
+    setEvaluationId(body.evaluation.id);
+    setForm((current) => ({ ...current, name: "" }));
+    setMessage("Evaluación creada. Ya puedes ingresar sus calificaciones.");
+  }
+
+  async function saveGrades() {
+    const records = students.filter(({ id }) => grades[id] !== "" && grades[id] != null).map(({ id }) => ({ studentId: id, value: Number(grades[id]) }));
+    const body = await teacherMutation(`/evaluations/${evaluationId}/grades`, { method: "PUT", body: JSON.stringify({ records }) });
+    onWorkspaceChange(body.workspace);
+    setMessage("Calificaciones guardadas correctamente.");
+  }
+
+  return <><Header kicker="Evaluación" title="Calificaciones" subtitle="Crea evaluaciones e ingresa notas solo para tus asignaturas" /><div className="teacher-toolbar teacher-toolbar--grades"><AssignmentPicker assignments={workspace.assignments.filter(({ subjectCode }) => subjectCode !== "ORI-2M")} onChange={changeAssignment} value={assignmentId} /><label className="field-control"><span>Evaluación</span><select onChange={(event) => setEvaluationId(event.target.value)} value={evaluationId}><option value="">Selecciona una evaluación</option>{evaluations.map((item) => <option key={item.id} value={item.id}>{item.name} · {item.weight}%</option>)}</select></label></div><section className="teacher-work-grid"><article className="panel grade-entry"><div className="panel__header"><div><p>LIBRO DE NOTAS</p><h2>{evaluation?.name ?? "Sin evaluación seleccionada"}</h2></div>{evaluation && <span>{formatSchoolDate(evaluation.date)} · {evaluation.weight}%</span>}</div>{evaluation ? <><div className="grade-entry__head"><span>Estudiante</span><span>Nota</span><span>Estado</span></div>{students.map((student) => { const value = grades[student.id]; return <div className="grade-entry__row" key={student.id}><div><strong>{student.name}</strong><small>{student.identifier}</small></div><input aria-label={`Nota de ${student.name}`} max="7" min="1" onChange={(event) => setGrades({ ...grades, [student.id]: event.target.value })} placeholder="—" step="0.1" type="number" value={value ?? ""} /><span className={Number(value) >= 4 ? "grade-state grade-state--pass" : value ? "grade-state grade-state--low" : "grade-state"}>{value ? (Number(value) >= 4 ? "Aprobada" : "Bajo 4,0") : "Pendiente"}</span></div>})}<button className="teacher-primary" onClick={saveGrades} type="button">Guardar calificaciones</button></> : <div className="empty-state">Crea o selecciona una evaluación para comenzar.</div>}</article><form className="teacher-form" onSubmit={createEvaluation}><div className="teacher-form__title"><span>NUEVA EVALUACIÓN</span><h2>Crear evaluación</h2><p>La ponderación debe corresponder al plan de la asignatura.</p></div><label><span>Nombre</span><input required placeholder="Ej. Prueba de funciones" value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} /></label><label><span>Fecha</span><input required type="date" value={form.date} onChange={(event) => setForm({ ...form, date: event.target.value })} /></label><label><span>Ponderación (%)</span><input max="100" min="1" required type="number" value={form.weight} onChange={(event) => setForm({ ...form, weight: event.target.value })} /></label>{message && <div className="form-success">{message}</div>}<button className="teacher-primary" type="submit">Crear evaluación</button></form></section></>;
+}
+
+function TeacherAnnotations({ data, onWorkspaceChange }) {
+  const workspace = data.teacherWorkspace;
+  const [assignmentId, setAssignmentId] = useState(workspace.assignments[0].id);
+  const assignment = workspace.assignments.find(({ id }) => id === assignmentId);
+  const students = data.students.filter(({ id }) => assignment.studentIds.includes(id));
+  const [form, setForm] = useState({ studentId: students[0]?.id ?? "", type: "positive", category: "Participación", text: "" });
+  const [message, setMessage] = useState("");
+  const visibleAnnotations = workspace.annotations.filter(({ courseId }) => courseId === assignment.courseId);
+
+  function changeAssignment(value) {
+    const next = workspace.assignments.find(({ id }) => id === value);
+    setAssignmentId(value);
+    setForm((current) => ({ ...current, studentId: next.studentIds[0] }));
+  }
+
+  async function addAnnotation(event) {
+    event.preventDefault();
+    const body = await teacherMutation("/annotations", { method: "POST", body: JSON.stringify({ courseSubjectId: assignmentId, ...form }) });
+    onWorkspaceChange(body.workspace);
+    setForm((current) => ({ ...current, text: "" }));
+    setMessage("Anotación registrada en el historial del estudiante.");
+  }
+
+  return <><Header kicker="Convivencia y desarrollo" title="Anotaciones" subtitle="Registra hechos observables, positivos o negativos, con contexto y trazabilidad" /><section className="teacher-work-grid"><div><div className="teacher-toolbar"><AssignmentPicker assignments={workspace.assignments} onChange={changeAssignment} value={assignmentId} /></div><div className="annotation-feed">{visibleAnnotations.length ? visibleAnnotations.map((annotation) => { const student = data.students.find(({ id }) => id === annotation.studentId); return <article className={`annotation annotation--${annotation.type}`} key={annotation.id}><div className="annotation__mark">{annotation.type === "positive" ? "+" : "−"}</div><div><div className="annotation__meta"><span>{annotation.type === "positive" ? "Positiva" : "Negativa"}</span><time>{new Date(annotation.createdAt).toLocaleDateString("es-CL")}</time></div><h3>{student?.name} · {annotation.category}</h3><p>{annotation.text}</p><small>{annotation.author} · {assignment.courseName}</small></div></article>; }) : <div className="empty-state">No existen anotaciones para este curso.</div>}</div></div><form className="teacher-form" onSubmit={addAnnotation}><div className="teacher-form__title"><span>NUEVO REGISTRO</span><h2>Agregar anotación</h2><p>Describe un hecho concreto. Evita juicios personales o información innecesaria.</p></div><label><span>Estudiante</span><select value={form.studentId} onChange={(event) => setForm({ ...form, studentId: event.target.value })}>{students.map((student) => <option key={student.id} value={student.id}>{student.name}</option>)}</select></label><fieldset className="annotation-type"><legend>Tipo</legend><button className={form.type === "positive" ? "annotation-type__positive annotation-type--active" : "annotation-type__positive"} onClick={() => setForm({ ...form, type: "positive" })} type="button">+ Positiva</button><button className={form.type === "negative" ? "annotation-type__negative annotation-type--active" : "annotation-type__negative"} onClick={() => setForm({ ...form, type: "negative" })} type="button">− Negativa</button></fieldset><label><span>Categoría</span><select value={form.category} onChange={(event) => setForm({ ...form, category: event.target.value })}><option>Participación</option><option>Responsabilidad</option><option>Convivencia</option><option>Esfuerzo</option><option>Presentación personal</option></select></label><label><span>Detalle observable</span><textarea minLength="8" required rows="5" value={form.text} onChange={(event) => setForm({ ...form, text: event.target.value })} placeholder="Describe qué ocurrió, cuándo y en qué contexto." /></label>{message && <div className="form-success">{message}</div>}<button className="teacher-primary" type="submit">Guardar anotación</button></form></section></>;
+}
+
 function Header({ kicker, title, subtitle }) {
   return (
     <header className="page-header">
@@ -190,15 +339,18 @@ function Header({ kicker, title, subtitle }) {
 }
 
 function Dashboard({ data, onOpenStudent, onNavigate }) {
-  const prioritized = data.students.filter(({ risk }) => risk !== "low");
+  const workspace = data.teacherWorkspace;
+  const assignedStudentIds = [...new Set(workspace.assignments.flatMap(({ studentIds }) => studentIds))];
+  const prioritized = data.students.filter(({ id, risk }) => assignedStudentIds.includes(id) && risk !== "low");
+  const plannedClasses = workspace.classSessions.filter(({ status }) => status === "planned");
   return (
     <>
-      <Header kicker="Segundo semestre · 2026" title="Resumen del curso" subtitle="Señales prioritarias para el profesor jefe y UTP" />
+      <Header kicker="Segundo semestre · 2026" title="Resumen docente" subtitle="Tus cursos, próximas clases y estudiantes que requieren atención" />
       <section className="metrics-grid" aria-label="Indicadores principales">
-        <Metric label="Estudiantes activos" value={data.metrics.activeStudents} detail="2 cursos de demostración" trend={[3, 4, 5, 5, 7]} />
-        <Metric label="Asistencia promedio" value={`${data.metrics.averageAttendance}%`} detail="Umbral preventivo: 75%" accent="gold" trend={[6, 5, 7, 6, 8]} />
-        <Metric label="Alertas abiertas" value={data.metrics.openAlerts} detail="4 visibles en el prototipo" accent="clay" trend={[8, 7, 6, 5, 4]} />
-        <Metric label="Seguimientos activos" value={data.metrics.activeFollowUps} detail="Responsable asignado" accent="blue" trend={[2, 3, 5, 4, 7]} />
+        <Metric label="Asignaciones vigentes" value={workspace.assignments.length} detail="2 cursos · 2 asignaturas" trend={[2, 3, 3, 3, 3]} />
+        <Metric label="Estudiantes en alcance" value={assignedStudentIds.length} detail="Según matrícula de tus cursos" accent="gold" trend={[4, 5, 5, 5, 5]} />
+        <Metric label="Clases planificadas" value={plannedClasses.length} detail="Próximas sesiones" accent="blue" trend={[2, 3, 4, 4, 6]} />
+        <Metric label="Anotaciones recientes" value={workspace.annotations.length} detail="Positivas y negativas" accent="clay" trend={[1, 2, 2, 3, 4]} />
       </section>
       <section className="content-grid">
         <article className="panel panel--wide">
@@ -215,15 +367,7 @@ function Dashboard({ data, onOpenStudent, onNavigate }) {
             ))}
           </div>
         </article>
-        <article className="panel">
-          <div className="panel__header"><div><p>Alertas</p><h2>Actividad reciente</h2></div><button onClick={() => onNavigate("alerts")} type="button">Abrir bandeja</button></div>
-          <div className="alert-stack">
-            {data.alerts.slice(0, 3).map((alert) => {
-              const student = data.students.find(({ id }) => id === alert.studentId);
-              return <div className="alert-card" key={alert.id}><RiskBadge value={alert.severity} /><strong>{alert.title}</strong><span>{student?.name}</span><small>{alert.evidence}</small></div>;
-            })}
-          </div>
-        </article>
+        <article className="panel"><div className="panel__header"><div><p>Agenda</p><h2>Próximas clases</h2></div><button onClick={() => onNavigate("classes")} type="button">Abrir planificación</button></div><div className="alert-stack">{plannedClasses.slice(0, 3).map((session) => { const assignment = assignmentBySession(workspace, session); return <div className="alert-card" key={session.id}><span className="class-status">Planificada</span><strong>{session.title}</strong><span>{assignment.courseName} · {assignment.subjectName}</span><small>{formatSchoolDate(session.date)} · {session.startTime}</small></div>; })}</div></article>
       </section>
     </>
   );
@@ -316,7 +460,12 @@ export default function App() {
 
   const content = useMemo(() => {
     if (!data) return <div className="loading-state"><span /><p>Cargando prototipo…</p></div>;
+    const updateTeacherWorkspace = (workspace) => setData((current) => ({ ...current, teacherWorkspace: workspace }));
     if (studentId) return <StudentDetail data={data} studentId={studentId} onBack={() => { setStudentId(null); setView("students"); }} />;
+    if (view === "courses") return <TeacherCourses data={data} onNavigate={setView} />;
+    if (view === "classes") return <TeacherClasses data={data} onWorkspaceChange={updateTeacherWorkspace} />;
+    if (view === "grades") return <TeacherGrades data={data} onWorkspaceChange={updateTeacherWorkspace} />;
+    if (view === "annotations") return <TeacherAnnotations data={data} onWorkspaceChange={updateTeacherWorkspace} />;
     if (view === "students") return <Students data={data} onOpenStudent={setStudentId} />;
     if (view === "alerts") return <Alerts data={data} onOpenStudent={setStudentId} />;
     return <Dashboard data={data} onNavigate={setView} onOpenStudent={setStudentId} />;

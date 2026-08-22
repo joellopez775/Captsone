@@ -154,3 +154,15 @@ criterio de interacción y acabado, sin copiar su identidad visual.
 - Etiquetas e iconos conservados para facilitar el reconocimiento.
 - Espaciado inferior compatible con `safe-area-inset-bottom` en iPhone.
 - Implementación equivalente para los portales docente y estudiante.
+
+## Espacio de trabajo docente — 21 de agosto de 2026
+
+La vista de personal evolucionó a un modelo docente operacional con múltiples
+asignaciones. El profesor puede navegar por sus cursos, planificar clases
+futuras, registrar asistencia, crear evaluaciones, ingresar notas y agregar
+anotaciones positivas o negativas. La API rechaza escrituras sin rol docente y
+valida que cada estudiante pertenezca a la asignación indicada.
+
+La experiencia fue comprobada de extremo a extremo con datos sintéticos. Las
+escrituras son temporales hasta conectar la API con PostgreSQL; el esquema
+físico correspondiente ya está disponible en la migración 004.

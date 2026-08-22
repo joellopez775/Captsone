@@ -8,6 +8,28 @@ export const prototypeData = {
     { id: "est-004", name: "Tomás Herrera", identifier: "EST-2026-004", course: "2° Medio B", level: "Enseñanza Media", attendance: 81, average: 3.8, risk: "high", alertIds: ["alt-004"] },
     { id: "est-005", name: "Fernanda Silva", identifier: "EST-2026-005", course: "2° Medio B", level: "Enseñanza Media", attendance: 89, average: 5.7, risk: "low", alertIds: [] },
   ],
+  teacherWorkspace: {
+    teacher: { id: "teacher-001", name: "Daniela Rojas", title: "Profesora de Matemática · Profesora jefe", headCourseId: "course-2a" },
+    assignments: [
+      { id: "ca-mat-2a", courseId: "course-2a", courseName: "2° Medio A", subjectCode: "MAT-2M", subjectName: "Matemática", room: "Sala 12", schedule: "Lun y mié · 08:00", studentIds: ["est-001", "est-002", "est-003"], isHeadTeacher: true },
+      { id: "ca-mat-2b", courseId: "course-2b", courseName: "2° Medio B", subjectCode: "MAT-2M", subjectName: "Matemática", room: "Sala 14", schedule: "Mar y jue · 10:15", studentIds: ["est-004", "est-005"], isHeadTeacher: false },
+      { id: "ca-tut-2a", courseId: "course-2a", courseName: "2° Medio A", subjectCode: "ORI-2M", subjectName: "Orientación", room: "Sala 12", schedule: "Vie · 09:30", studentIds: ["est-001", "est-002", "est-003"], isHeadTeacher: true },
+    ],
+    classSessions: [
+      { id: "class-001", courseSubjectId: "ca-mat-2a", date: "2026-08-28", startTime: "08:00", block: "Bloque 1", title: "Funciones lineales", objective: "Representar y analizar funciones lineales en contextos cotidianos.", status: "completed", attendance: { "est-001": "present", "est-002": "late", "est-003": "present" } },
+      { id: "class-002", courseSubjectId: "ca-mat-2b", date: "2026-08-28", startTime: "10:15", block: "Bloque 3", title: "Pendiente de una recta", objective: "Calcular e interpretar la pendiente usando tablas y gráficos.", status: "completed", attendance: { "est-004": "absent", "est-005": "present" } },
+      { id: "class-003", courseSubjectId: "ca-mat-2a", date: "2026-09-02", startTime: "08:00", block: "Bloque 1", title: "Sistemas de ecuaciones", objective: "Resolver sistemas de dos ecuaciones mediante representación gráfica.", status: "planned", attendance: {} },
+    ],
+    evaluations: [
+      { id: "eval-001", courseSubjectId: "ca-mat-2a", name: "Control de álgebra", date: "2026-08-20", weight: 20, grades: { "est-001": 5.6, "est-002": 4.9, "est-003": 6.4 } },
+      { id: "eval-002", courseSubjectId: "ca-mat-2a", name: "Guía de funciones", date: "2026-08-27", weight: 30, grades: { "est-001": 5.1, "est-002": 5.5, "est-003": 6.0 } },
+      { id: "eval-003", courseSubjectId: "ca-mat-2b", name: "Control de álgebra", date: "2026-08-22", weight: 25, grades: { "est-004": 3.8, "est-005": 5.9 } },
+    ],
+    annotations: [
+      { id: "note-001", courseId: "course-2a", studentId: "est-003", courseSubjectId: "ca-mat-2a", type: "positive", category: "Participación", text: "Explicó su estrategia de resolución y apoyó respetuosamente al grupo.", author: "Daniela Rojas", createdAt: "2026-08-28T12:10:00.000Z" },
+      { id: "note-002", courseId: "course-2b", studentId: "est-004", courseSubjectId: "ca-mat-2b", type: "negative", category: "Responsabilidad", text: "No presentó la guía de trabajo después de dos recordatorios.", author: "Daniela Rojas", createdAt: "2026-08-27T15:30:00.000Z" },
+    ],
+  },
   studentPortal: {
     studentId: "est-001",
     course: "2° Medio A",

@@ -22,6 +22,7 @@ Fecha de corte simulada: 28 de agosto de 2026. El compromiso definitivo requiere
 | Corregir dominio universitario a escolar | PB-035 | Migración 003, UI y documentación | Implementado; pendiente aceptación PO |
 | Validar migración escolar desde cero | PB-035 | Ejecución 001 → 002 → 003 y metadatos 0.3.0 | Terminado |
 | Desplegar corrección escolar en servidor | PB-035 | Respaldo, healthchecks y consulta de esquema | Terminado |
+| Implementar espacio docente mult curso | PB-038 | UI, API demo, migración 004 y pruebas | En revisión PO |
 
 ## Lectura de estados
 

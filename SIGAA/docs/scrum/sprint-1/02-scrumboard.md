@@ -26,6 +26,7 @@ Fecha de corte simulada: 28 de agosto de 2026.
 - PB-009: casos de uso y secuencia principal.
 - PB-010: documento y presentación preparados; faltan feedback real, ensayo y aceptación.
 - PB-035: esquema, prototipo y documentación escolar implementados; pendiente aceptación PO.
+- PB-038: modelo docente con cursos, clases, asistencia, notas y anotaciones; pendiente aceptación PO.
 
 ## Terminado
 
@@ -38,6 +39,7 @@ Fecha de corte simulada: 28 de agosto de 2026.
 - Documento 1.5 y presentación institucional actualizados.
 - Corrección integral del modelo escolar implementada y validada localmente.
 - Migración 0.3.0 y prototipo escolar desplegados en el servidor con respaldo previo.
+- Pruebas técnicas y recorrido funcional del espacio docente completados.
 
 ## Política WIP
 

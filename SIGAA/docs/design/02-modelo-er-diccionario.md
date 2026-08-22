@@ -1,9 +1,9 @@
 # Modelo ER y diccionario de datos escolar — Sprint 1
 
-Estado: esquema físico implementado y validado en la migración
-`infra/postgres/init/003_school_domain.sql`; pendiente conectar los repositorios de la API.
+Estado: esquema físico escolar y modelo docente implementados en las migraciones
+`003_school_domain.sql` y `004_teacher_model.sql`; pendiente conectar repositorios productivos.
 
-Versión de esquema: `0.3.0`. Perfil: `escolar`.
+Versión de esquema: `0.4.0`. Perfil: `escolar`.
 
 ## Corrección de dominio
 
@@ -22,14 +22,17 @@ erDiagram
     ESTABLECIMIENTO ||--o{ PERIODO_ESCOLAR : organiza
     PERIODO_ESCOLAR ||--o{ CURSO : contiene
     NIVEL_EDUCATIVO ||--o{ CURSO : clasifica
-    USUARIO o|--o{ CURSO : lidera
+    USUARIO ||--o| FUNCIONARIO : representa
+    FUNCIONARIO ||--o{ PROFESOR_JEFATURA : ejerce
+    CURSO ||--o{ PROFESOR_JEFATURA : posee
     ESTUDIANTE ||--o{ MATRICULA : registra
     CURSO ||--o{ MATRICULA : recibe
     ESTUDIANTE ||--o{ ESTUDIANTE_APODERADO : vincula
     APODERADO ||--o{ ESTUDIANTE_APODERADO : representa
     CURSO ||--o{ CURSO_ASIGNATURA : imparte
     ASIGNATURA ||--o{ CURSO_ASIGNATURA : compone
-    USUARIO o|--o{ CURSO_ASIGNATURA : ensena
+    FUNCIONARIO ||--o{ ASIGNACION_DOCENTE : recibe
+    CURSO_ASIGNATURA ||--o{ ASIGNACION_DOCENTE : habilita
     CURSO_ASIGNATURA ||--o{ EVALUACION : define
     EVALUACION ||--o{ CALIFICACION : produce
     ESTUDIANTE ||--o{ CALIFICACION : obtiene
@@ -37,6 +40,8 @@ erDiagram
     SESION_CLASE ||--o{ ASISTENCIA : registra
     ESTUDIANTE ||--o{ ASISTENCIA : posee
     ESTUDIANTE ||--o{ JUSTIFICACION_AUSENCIA : presenta
+    ESTUDIANTE ||--o{ ANOTACION_ESTUDIANTE : recibe
+    CURSO ||--o{ ANOTACION_ESTUDIANTE : contextualiza
     REGLA_ALERTA ||--o{ ALERTA : explica
     ESTUDIANTE ||--o{ ALERTA : genera
     CURSO o|--o{ ALERTA : contextualiza
@@ -54,6 +59,9 @@ erDiagram
 | curso | periodo_id, nivel_id, letra, profesor_jefe_id | combinación año, nivel y letra única |
 | asignatura | código, nombre, estado | código único; sin créditos universitarios |
 | curso_asignatura | curso_id, asignatura_id, profesor_id | una oferta por asignatura y curso |
+| funcionario | usuario_id, RUN, nombres, estado | identidad laboral separada del acceso |
+| asignacion_docente | curso_asignatura_id, funcionario_id, función, vigencia, capacidades | permite múltiples profesores y reemplazos |
+| profesor_jefatura | curso_id, funcionario_id, vigencia | una jefatura titular vigente por curso |
 | usuario / rol | email, estado / código, nombre | email y código únicos; autorización en backend |
 | estudiante | RUN, identificador, nombres, apellidos, estado | identificador interno único |
 | apoderado | RUN, nombres, contacto, estado | vínculo a uno o más estudiantes |
@@ -64,6 +72,7 @@ erDiagram
 | sesion_clase | curso_asignatura_id, fecha, bloque | sesión única por bloque |
 | asistencia | sesion_id, estudiante_id, estado | un registro por sesión y estudiante |
 | justificacion_ausencia | estudiante_id, rango, motivo, estado | rango válido y revisión trazable |
+| anotacion_estudiante | estudiante_id, curso_id, tipo, categoría, detalle, autor | positiva o negativa; anulable, no eliminable |
 | regla_alerta | código, versión, tipo, parámetros | código y versión únicos |
 | alerta | estudiante_id, curso_id, regla_id, evidencia | conserva la regla y evidencia original |
 | intervencion | alerta_id, usuario_id, tipo, nota | no se elimina; nuevas entradas corrigen historial |
@@ -99,7 +108,7 @@ La migración 003 es transaccional. Antes de modificar el esquema verifica que
 no existan registros operacionales; si los encuentra, aborta con error y exige
 una conversión explícita. En el estado actual se verificaron cero usuarios,
 estudiantes, matrículas, calificaciones y asistencias. La secuencia completa
-001 → 002 → 003 fue validada sobre una base temporal limpia.
+001 → 002 → 003 → 004 fue validada sobre una base temporal limpia.
 
 ## Datos sintéticos mínimos
 

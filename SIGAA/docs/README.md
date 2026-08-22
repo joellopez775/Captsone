@@ -26,6 +26,7 @@ Este directorio conserva la documentación viva de SIGAA. Los documentos entrega
 | ADR-002 | Entorno Docker | Aceptado | Equipo | 2026-08-21 |
 | DIS-001 | Arquitectura, ER y UML | En revisión | Arquitectura | 2026-08-28 |
 | DIS-002 | [Modelo ER objetivo escolar](design/05-modelo-er-objetivo-escolar.md) | Arquitectura objetivo | Arquitectura | 2026-08-21 |
+| DIS-003 | [Modelo funcional del profesor](design/06-modelo-profesor.md) | Incremento demo implementado | Arquitectura | 2026-08-21 |
 | PRO-001 | Prototipo navegable Sprint 1 | Verificado internamente | Equipo | 2026-08-28 |
 | F1-02 | Documento 1.5 y presentación | Preparados para revisión | Equipo | 2026-08-28 |
 | TEC-001 | Guía de ejecución Docker | Verificado | DevOps | 2026-08-21 |
