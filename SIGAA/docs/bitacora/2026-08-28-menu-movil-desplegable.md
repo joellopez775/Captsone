@@ -30,3 +30,10 @@ no fue modificada.
 - Contenedores web, API y base de datos saludables.
 - Acceso local sin desbordamiento horizontal.
 - Página y healthcheck disponibles mediante el túnel público de Cloudflare.
+
+## Corrección posterior
+
+Durante la validación del Product Owner se detectó que el botón cambiaba de
+estado, pero el panel quedaba recortado por la altura y el desbordamiento del
+encabezado. Se corrigió haciendo que el encabezado abierto ocupe `100dvh` y
+posicionando el panel dentro de esa capa de pantalla completa.
