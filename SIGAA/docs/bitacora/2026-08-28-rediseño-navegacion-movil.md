@@ -18,6 +18,13 @@ de Apple en teléfonos.
 - Mantener la paleta institucional de SIGAA.
 - Reservar espacio para el área segura inferior de iOS.
 
+## Iteración posterior
+
+El dock inferior fue reemplazado posteriormente por un menú hamburger circular
+y un panel de pantalla completa, después de una nueva revisión del Product
+Owner. La decisión vigente se documenta en
+`2026-08-28-menu-movil-desplegable.md`.
+
 ## Alcance
 
 El cambio afecta únicamente resoluciones de hasta 760 px y se aplica a las

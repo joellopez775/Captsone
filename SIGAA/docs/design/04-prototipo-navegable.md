@@ -129,7 +129,8 @@ y respeto por las áreas seguras del dispositivo. La referencia se utilizó como
 criterio de interacción y acabado, sin copiar su identidad visual.
 
 - Encabezado superior compacto de 54 px con marca y perfil.
-- Navegación principal trasladada a un dock inferior flotante.
+- Menú circular tipo hamburger en la esquina superior derecha.
+- Navegación desplegable a pantalla completa con transición escalonada.
 - Fondo translúcido con desenfoque y separación visual ligera.
 - Etiquetas e iconos conservados para facilitar el reconocimiento.
 - Espaciado inferior compatible con `safe-area-inset-bottom` en iPhone.

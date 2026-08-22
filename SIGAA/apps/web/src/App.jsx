@@ -41,20 +41,23 @@ function BrandMark() {
 }
 
 function AppShell({ activeView, onNavigate, onLogout, children, system }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigation = [["dashboard", "Resumen", "dashboard"], ["students", "Estudiantes", "students"], ["alerts", "Alertas", "alerts"]];
   return (
     <div className="app-shell">
-      <aside className="sidebar">
+      <aside className={mobileMenuOpen ? "sidebar mobile-menu-open" : "sidebar"}>
         <div className="brand">
           <BrandMark />
           <div><strong>SIGAA</strong><small>Academic Intelligence</small></div>
         </div>
-        <span className="mobile-avatar" aria-label="Perfil de Daniela Rojas">DR</span>
+        <button className="mobile-menu-toggle" aria-expanded={mobileMenuOpen} aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"} onClick={() => setMobileMenuOpen((open) => !open)} type="button"><span /><span /></button>
         <nav aria-label="Navegación principal">
           <span className="nav-caption">Espacio de trabajo</span>
           {navigation.map(([view, label, icon]) => (
-            <button className={activeView === view ? "nav-button nav-button--active" : "nav-button"} key={view} onClick={() => onNavigate(view)} type="button"><Icon name={icon} /><span>{label}</span>{view === "alerts" && <em>12</em>}</button>
+            <button className={activeView === view ? "nav-button nav-button--active" : "nav-button"} key={view} onClick={() => { onNavigate(view); setMobileMenuOpen(false); }} type="button"><Icon name={icon} /><span>{label}</span>{view === "alerts" && <em>12</em>}</button>
           ))}
+          <div className="mobile-menu-account"><span>DR</span><div><strong>Daniela Rojas</strong><small>Docente</small></div></div>
+          <button className="mobile-menu-logout" onClick={onLogout} type="button"><span>Cerrar sesión</span><span>↗</span></button>
         </nav>
         <div className="sidebar__footer">
           <div className="profile-card"><span className="profile-card__avatar">DR</span><div><strong>Daniela Rojas</strong><small>Docente</small></div><button aria-label="Salir de demo" onClick={onLogout} type="button">•••</button></div>
@@ -138,14 +141,15 @@ function CourseCard({ course }) {
 }
 
 function StudentPortal({ data, onLogout, system }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const portal = data.studentPortal;
   const student = data.students.find(({ id }) => id === portal.studentId);
   return (
     <div className="student-portal-shell">
-      <aside className="student-sidebar">
+      <aside className={mobileMenuOpen ? "student-sidebar mobile-menu-open" : "student-sidebar"}>
         <div className="brand"><BrandMark /><div><strong>SIGAA</strong><small>Portal del estudiante</small></div></div>
-        <span className="mobile-avatar" aria-label={`Perfil de ${student.name}`}>CS</span>
-        <nav aria-label="Navegación del estudiante"><span className="nav-caption">Mi experiencia</span><button className="nav-button nav-button--active" type="button"><Icon name="dashboard" /><span>Mi inicio</span></button><button className="nav-button" type="button"><Icon name="book" /><span>Mis asignaturas</span></button><button className="nav-button" type="button"><Icon name="calendar" /><span>Calendario</span></button></nav>
+        <button className="mobile-menu-toggle" aria-expanded={mobileMenuOpen} aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"} onClick={() => setMobileMenuOpen((open) => !open)} type="button"><span /><span /></button>
+        <nav aria-label="Navegación del estudiante"><span className="nav-caption">Mi experiencia</span><button className="nav-button nav-button--active" onClick={() => setMobileMenuOpen(false)} type="button"><Icon name="dashboard" /><span>Mi inicio</span></button><button className="nav-button" onClick={() => setMobileMenuOpen(false)} type="button"><Icon name="book" /><span>Mis asignaturas</span></button><button className="nav-button" onClick={() => setMobileMenuOpen(false)} type="button"><Icon name="calendar" /><span>Calendario</span></button><div className="mobile-menu-account"><span>CS</span><div><strong>{student.name}</strong><small>{student.program}</small></div></div><button className="mobile-menu-logout" onClick={onLogout} type="button"><span>Cerrar sesión</span><span>↗</span></button></nav>
         <div className="student-profile"><span className="student-profile__avatar">CS</span><div><strong>{student.name}</strong><small>{student.program}</small></div></div>
         <div className="system-status"><div className={`system-dot system-dot--${system.status}`} /><span>{system.message}</span></div>
       </aside>
