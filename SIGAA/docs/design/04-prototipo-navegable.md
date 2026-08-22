@@ -13,6 +13,8 @@ Validar navegación, jerarquía de información y explicabilidad antes de constr
 3. Estudiantes: búsqueda y listado con asistencia, promedio y nivel de riesgo.
 4. Ficha: contexto académico, indicadores, alertas e historial de intervención.
 5. Alertas: bandeja filtrable con severidad, regla y evidencia.
+6. Portal del estudiante: avance curricular, promedio, asistencia, asignaturas,
+   notas parciales, agenda y recomendaciones personales.
 
 ## Navegación de prueba
 
@@ -81,3 +83,23 @@ Verificación de la iteración:
 - Contenedor web reconstruido y operativo.
 - Consola del navegador sin errores en login y dashboard.
 - Vista móvil comprobada sin desborde horizontal.
+
+## Portal del estudiante - 28 de agosto de 2026
+
+Se incorporó una experiencia diferenciada para evitar que el estudiante vea
+controles o información propios de coordinación. El selector de perfil permite
+ingresar como coordinación académica o como estudiante de demostración.
+
+La vista de estudiante incluye:
+
+- Identidad, carrera, semestre y estado académico.
+- Avance curricular y créditos aprobados.
+- Promedio general, asistencia global y carga inscrita.
+- Cuatro asignaturas con docente, asistencia y promedio actual.
+- Tres calificaciones sintéticas por asignatura, con ponderación.
+- Tabla de últimas calificaciones.
+- Agenda de evaluaciones y entregas próximas.
+- Mensaje de acompañamiento académico.
+
+Los datos siguen siendo exclusivamente sintéticos. Esta experiencia no expone
+las reglas internas, la bandeja global ni los antecedentes de otros estudiantes.

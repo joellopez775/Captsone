@@ -44,6 +44,9 @@ test("GET /prototype returns explicitly synthetic dashboard data", async () => {
   assert.equal(body.meta.synthetic, true);
   assert.equal(body.students.length, 5);
   assert.equal(body.alerts.length, 4);
+  assert.equal(body.studentPortal.studentId, "est-001");
+  assert.equal(body.studentPortal.courses.length, 4);
+  assert.equal(body.studentPortal.courses[0].grades.length, 3);
 });
 
 test("GET /prototype/students/:id returns a contextual student view", async () => {
