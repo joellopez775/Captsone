@@ -156,41 +156,49 @@ function CourseCard({ course }) {
   );
 }
 
-function StudentPortal({ data, onLogout, system }) {
+const studentViews = [["home", "Mi inicio", "dashboard"], ["subjects", "Mis asignaturas", "book"], ["attendance", "Mi asistencia", "grades"], ["calendar", "Calendario", "calendar"], ["annotations", "Mis anotaciones", "notes"]];
+const attendanceLabels = { present: "Presente", absent: "Ausente", late: "Atraso", excused: "Justificada" };
+
+function StudentHome({ workspace }) {
+  const { student } = workspace;
+  return <><header className="student-welcome"><div><p>{student.course.toUpperCase()} · SEGUNDO SEMESTRE 2026</p><h1>Hola, {student.name.split(" ")[0]}.</h1><span>Este es tu pulso escolar actualizado.</span></div><div className="student-id"><span>Estudiante regular</span><strong>{student.identifier}</strong></div></header><section className="student-overview"><article className="academic-progress"><div><p>Avance del año escolar</p><strong>{workspace.schoolYearProgress}%</strong><span>{workspace.completedAssessments} de {workspace.totalAssessments} evaluaciones registradas</span></div><div className="progress-ring" style={{ "--progress": `${workspace.schoolYearProgress * 3.6}deg` }}><span>{workspace.schoolYearProgress}%</span></div></article><article className="student-stat"><span>Promedio general</span><strong>{student.average.toFixed(1)}</strong><small>Escala de 1,0 a 7,0</small></article><article className="student-stat student-stat--warning"><span>Asistencia global</span><strong>{student.attendance}%</strong><small>Meta recomendada: 75%</small></article><article className="student-stat"><span>Curso actual</span><strong>{student.course}</strong><small>{workspace.enrollment.school}</small></article></section><section className="student-layout"><div><div className="section-heading"><div><p>Mis asignaturas</p><h2>Notas del semestre</h2></div><span>{workspace.subjects.length} asignaturas inscritas</span></div><div className="course-grid">{workspace.subjects.map((course) => <CourseCard course={course} key={course.code} />)}</div><article className="gradebook panel"><div className="panel__header"><div><p>Detalle</p><h2>Últimas calificaciones publicadas</h2></div></div><div className="gradebook__head"><span>Evaluación</span><span>Asignatura</span><span>Ponderación</span><span>Nota</span></div>{workspace.subjects.flatMap((course) => course.grades.slice(-1).map((grade) => <div className="gradebook__row" key={grade.id}><span><strong>{grade.label}</strong><small>{formatSchoolDate(grade.date)}</small></span><span>{course.name}</span><span>{grade.weight}%</span><strong className={grade.value < 4 ? "grade-value grade-value--low" : "grade-value"}>{grade.value.toFixed(1)}</strong></div>))}</article></div><aside className="student-rail"><article className="student-message"><span>ACOMPAÑAMIENTO</span><h3>{workspace.messages[0].title}</h3><p>{workspace.messages[0].detail}</p><small>{workspace.messages[0].author}</small></article><article className="upcoming-panel"><div className="section-heading"><div><p>Agenda</p><h2>Próximamente</h2></div></div>{workspace.calendar.map((item) => <div className="upcoming-item" key={item.id}><time><strong>{item.day}</strong><span>{item.month}</span></time><div><span>{item.type}</span><strong>{item.title}</strong><small>{item.course} · {item.time}</small></div></div>)}</article></aside></section></>;
+}
+
+function StudentSubjects({ workspace }) {
+  return <><header className="student-section-header"><p>TRAYECTORIA ACADÉMICA</p><h1>Mis asignaturas</h1><span>Solo ves calificaciones que ya fueron publicadas por tus profesores.</span></header><section className="subject-detail-grid">{workspace.subjects.map((subject) => <article className={`subject-detail subject-detail--${subject.color}`} key={subject.code}><div className="subject-detail__head"><div><span>{subject.code}</span><h2>{subject.name}</h2><p>{subject.professor} · {subject.schedule} · {subject.room}</p></div><strong>{subject.average.toFixed(1)}</strong></div><div className="subject-detail__meta"><span>{subject.attendance}% asistencia</span><span>{subject.grades.length} notas publicadas</span></div><div className="subject-grades">{subject.grades.map((grade) => <div key={grade.id}><span><strong>{grade.label}</strong><small>{formatSchoolDate(grade.date)} · {grade.weight}%</small></span><b className={grade.value < 4 ? "grade-value--low" : ""}>{grade.value.toFixed(1)}</b></div>)}</div></article>)}</section></>;
+}
+
+function StudentAttendance({ workspace }) {
+  const summary = workspace.attendanceSummary;
+  return <><header className="student-section-header"><p>REGISTRO PERSONAL</p><h1>Mi asistencia</h1><span>Consulta tus registros y solicita revisión al establecimiento si encuentras una diferencia.</span></header><section className="attendance-summary"><article><span>Asistencia global</span><strong>{workspace.student.attendance}%</strong><small>{summary.total} clases registradas</small></article>{[["present", summary.present], ["absent", summary.absent], ["late", summary.late], ["excused", summary.excused]].map(([status, value]) => <article className={`attendance-count attendance-count--${status}`} key={status}><span>{attendanceLabels[status]}</span><strong>{value}</strong><small>registro{value === 1 ? "" : "s"}</small></article>)}</section><section className="student-two-column"><article className="panel student-attendance-list"><div className="panel__header"><div><p>Historial reciente</p><h2>Últimas clases</h2></div></div>{workspace.attendanceSessions.map((session) => <div className="attendance-session" key={session.id}><time>{formatSchoolDate(session.date)}</time><span><strong>{session.course}</strong><small>{session.title} · {session.block}</small></span><em className={`attendance-pill attendance-pill--${session.status}`}>{attendanceLabels[session.status]}</em></div>)}</article><article className="panel subject-attendance"><div className="panel__header"><div><p>Por asignatura</p><h2>Detalle del semestre</h2></div></div>{workspace.subjects.map((subject) => <div key={subject.code}><span><strong>{subject.name}</strong><small>{subject.attendance}%</small></span><div><i style={{ width: `${subject.attendance}%` }} /></div></div>)}</article></section></>;
+}
+
+function StudentCalendar({ workspace }) {
+  return <><header className="student-section-header"><p>PLANIFICACIÓN PERSONAL</p><h1>Calendario</h1><span>Evaluaciones, entregas y actividades publicadas para tu curso.</span></header><section className="calendar-board">{workspace.calendar.map((item) => <article className="calendar-card" key={item.id}><time><strong>{item.day}</strong><span>{item.month}</span></time><div><span>{item.type}</span><h2>{item.title}</h2><p>{item.course}</p><small>{item.time} · Publicado para {workspace.student.course}</small></div></article>)}</section></>;
+}
+
+function StudentAnnotations({ workspace }) {
+  return <><header className="student-section-header"><p>DESARROLLO Y CONVIVENCIA</p><h1>Mis anotaciones</h1><span>Aquí aparecen únicamente registros que el establecimiento decidió compartir contigo.</span></header><section className="student-annotation-feed">{workspace.annotations.map((annotation) => <article className={`student-annotation student-annotation--${annotation.type}`} key={annotation.id}><span>{annotation.type === "positive" ? "+" : "−"}</span><div><div><em>{annotation.type === "positive" ? "Positiva" : "Por mejorar"}</em><time>{new Date(annotation.createdAt).toLocaleDateString("es-CL")}</time></div><h2>{annotation.category}</h2><p>{annotation.text}</p><small>{annotation.author}</small></div></article>)}</section><article className="privacy-note"><strong>Tu privacidad importa</strong><p>Las observaciones internas del equipo escolar y los datos de otros estudiantes nunca se muestran en este espacio.</p></article></>;
+}
+
+function StudentPortal({ workspace, onLogout, system }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const portal = data.studentPortal;
-  const student = data.students.find(({ id }) => id === portal.studentId);
+  const [activeView, setActiveView] = useState("home");
+  const student = workspace.student;
+  const navigate = (next) => { setActiveView(next); setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }); };
+  const content = activeView === "subjects" ? <StudentSubjects workspace={workspace} /> : activeView === "attendance" ? <StudentAttendance workspace={workspace} /> : activeView === "calendar" ? <StudentCalendar workspace={workspace} /> : activeView === "annotations" ? <StudentAnnotations workspace={workspace} /> : <StudentHome workspace={workspace} />;
   return (
     <div className="student-portal-shell">
       <aside className={mobileMenuOpen ? "student-sidebar mobile-menu-open" : "student-sidebar"}>
         <div className="brand"><BrandMark /><div><strong>SIGAA</strong><small>Portal del estudiante</small></div></div>
         <button className="mobile-menu-toggle" aria-expanded={mobileMenuOpen} aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"} onClick={() => setMobileMenuOpen((open) => !open)} type="button"><span /><span /></button>
-        <nav aria-label="Navegación del estudiante"><span className="nav-caption">Mi experiencia</span><button className="nav-button nav-button--active" onClick={() => setMobileMenuOpen(false)} type="button"><Icon name="dashboard" /><span>Mi inicio</span></button><button className="nav-button" onClick={() => setMobileMenuOpen(false)} type="button"><Icon name="book" /><span>Mis asignaturas</span></button><button className="nav-button" onClick={() => setMobileMenuOpen(false)} type="button"><Icon name="calendar" /><span>Calendario</span></button><div className="mobile-menu-account"><span>CS</span><div><strong>{student.name}</strong><small>{student.course}</small></div></div><button className="mobile-menu-logout" onClick={onLogout} type="button"><span>Cerrar sesión</span><span>↗</span></button></nav>
+        <nav aria-label="Navegación del estudiante"><span className="nav-caption">Mi experiencia</span>{studentViews.map(([view, label, icon]) => <button className={activeView === view ? "nav-button nav-button--active" : "nav-button"} key={view} onClick={() => navigate(view)} type="button"><Icon name={icon} /><span>{label}</span></button>)}<div className="mobile-menu-account"><span>CS</span><div><strong>{student.name}</strong><small>{student.course}</small></div></div><button className="mobile-menu-logout" onClick={onLogout} type="button"><span>Cerrar sesión</span><span>↗</span></button></nav>
         <div className="student-profile"><span className="student-profile__avatar">CS</span><div><strong>{student.name}</strong><small>{student.course}</small></div></div>
         <div className="system-status"><div className={`system-dot system-dot--${system.status}`} /><span>{system.message}</span></div>
       </aside>
       <div className="student-stage">
-        <header className="student-topbar"><div><span>Portal académico</span><i>/</i><strong>Mi inicio</strong></div><div><button className="notification-button" aria-label="Notificaciones" type="button"><Icon name="alerts" /><i /></button><button className="student-logout" onClick={onLogout} type="button">Cerrar sesión</button></div></header>
-        <main className="student-workspace">
-          <header className="student-welcome"><div><p>{portal.course.toUpperCase()} · {data.meta.period.toUpperCase()}</p><h1>Hola, Camila.</h1><span>Este es tu pulso escolar actualizado.</span></div><div className="student-id"><span>Estudiante regular</span><strong>{student.identifier}</strong></div></header>
-          <section className="student-overview">
-            <article className="academic-progress"><div><p>Avance del año escolar</p><strong>{portal.schoolYearProgress}%</strong><span>{portal.completedAssessments} de {portal.totalAssessments} evaluaciones registradas</span></div><div className="progress-ring" style={{ "--progress": `${portal.schoolYearProgress * 3.6}deg` }}><span>{portal.schoolYearProgress}%</span></div></article>
-            <article className="student-stat"><span>Promedio general</span><strong>{student.average.toFixed(1)}</strong><small>Escala de 1,0 a 7,0</small></article>
-            <article className="student-stat student-stat--warning"><span>Asistencia global</span><strong>{student.attendance}%</strong><small>Meta recomendada: 75%</small></article>
-            <article className="student-stat"><span>Curso actual</span><strong>{portal.course}</strong><small>{data.meta.school}</small></article>
-          </section>
-          <section className="student-layout">
-            <div>
-              <div className="section-heading"><div><p>Mis asignaturas</p><h2>Notas del semestre</h2></div><span>{portal.courses.length} asignaturas inscritas</span></div>
-              <div className="course-grid">{portal.courses.map((course) => <CourseCard course={course} key={course.code} />)}</div>
-              <article className="gradebook panel"><div className="panel__header"><div><p>Detalle</p><h2>Últimas calificaciones</h2></div></div><div className="gradebook__head"><span>Evaluación</span><span>Asignatura</span><span>Ponderación</span><span>Nota</span></div>{portal.courses.flatMap((course) => course.grades.slice(-1).map((grade) => <div className="gradebook__row" key={`${course.code}-${grade.label}`}><span><strong>{grade.label}</strong><small>{course.code}</small></span><span>{course.name}</span><span>{grade.weight}%</span><strong className={grade.value < 4 ? "grade-value grade-value--low" : "grade-value"}>{grade.value.toFixed(1)}</strong></div>))}</article>
-            </div>
-            <aside className="student-rail">
-              <article className="student-message"><span>ACOMPAÑAMIENTO</span><h3>{portal.messages[0].title}</h3><p>{portal.messages[0].detail}</p><button type="button">Ver recomendaciones</button></article>
-              <article className="upcoming-panel"><div className="section-heading"><div><p>Agenda</p><h2>Próximamente</h2></div></div>{portal.upcoming.map((item) => <div className="upcoming-item" key={item.title}><time><strong>{item.day}</strong><span>{item.month}</span></time><div><span>{item.type}</span><strong>{item.title}</strong><small>{item.course}</small></div></div>)}</article>
-            </aside>
-          </section>
-        </main>
+        <header className="student-topbar"><div><span>Portal académico</span><i>/</i><strong>{studentViews.find(([view]) => view === activeView)?.[1]}</strong></div><div><button className="notification-button" aria-label="Notificaciones" type="button"><Icon name="alerts" /></button><button className="student-logout" onClick={onLogout} type="button">Cerrar sesión</button></div></header>
+        <main className="student-workspace">{content}</main>
       </div>
     </div>
   );
@@ -433,6 +441,7 @@ export default function App() {
   const [persona, setPersona] = useState("staff");
   const [view, setView] = useState("dashboard");
   const [studentId, setStudentId] = useState(null);
+  const [studentWorkspace, setStudentWorkspace] = useState(null);
   const [data, setData] = useState(null);
   const [system, setSystem] = useState({ status: "checking", message: "Verificando servicios…" });
 
@@ -454,6 +463,11 @@ export default function App() {
     const response = await fetch("/api/auth/demo-login", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email, password }) });
     if (!response.ok) throw new Error("invalid_credentials");
     const session = await response.json();
+    if (session.role === "student") {
+      const workspaceResponse = await fetch(`/api/student/workspace/${session.profile.studentId}`, { headers: { "x-demo-role": "student", "x-demo-student-id": session.profile.studentId } });
+      if (!workspaceResponse.ok) throw new Error("student_workspace_unavailable");
+      setStudentWorkspace(await workspaceResponse.json());
+    }
     setPersona(session.role === "student" ? "student" : "staff");
     setEntered(true);
   }
@@ -472,6 +486,6 @@ export default function App() {
   }, [data, studentId, view]);
 
   if (!entered) return <Login onAuthenticate={authenticate} system={system} />;
-  if (persona === "student" && data) return <StudentPortal data={data} onLogout={() => setEntered(false)} system={system} />;
+  if (persona === "student" && studentWorkspace) return <StudentPortal workspace={studentWorkspace} onLogout={() => { setEntered(false); setStudentWorkspace(null); }} system={system} />;
   return <AppShell activeView={view} onLogout={() => setEntered(false)} onNavigate={(next) => { setStudentId(null); setView(next); }} system={system}>{content}</AppShell>;
 }

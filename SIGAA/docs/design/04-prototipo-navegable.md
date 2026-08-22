@@ -100,9 +100,17 @@ La vista de estudiante incluye:
 - Tabla de últimas calificaciones.
 - Agenda de evaluaciones y entregas próximas.
 - Mensaje de acompañamiento académico.
+- Navegación funcional entre inicio, asignaturas, asistencia, calendario y anotaciones.
+- Historial de asistencia y porcentajes por asignatura.
+- Anotaciones positivas o por mejorar publicadas expresamente al estudiante.
 
 Los datos siguen siendo exclusivamente sintéticos. Esta experiencia no expone
 las reglas internas, la bandeja global ni los antecedentes de otros estudiantes.
+
+El endpoint `GET /api/student/workspace/:id` verifica el rol y la coincidencia
+entre el estudiante de la sesión demo y el identificador solicitado. Las pruebas
+automatizadas cubren ausencia de rol, intento de acceso cruzado y exclusión de
+alertas internas.
 
 ### Cuentas demo
 

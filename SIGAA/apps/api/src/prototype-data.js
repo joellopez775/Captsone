@@ -26,6 +26,8 @@ export const prototypeData = {
       { id: "eval-003", courseSubjectId: "ca-mat-2b", name: "Control de álgebra", date: "2026-08-22", weight: 25, grades: { "est-004": 3.8, "est-005": 5.9 } },
     ],
     annotations: [
+      { id: "note-003", courseId: "course-2a", studentId: "est-001", courseSubjectId: "ca-mat-2a", type: "positive", category: "Esfuerzo", text: "Persistió en la resolución de ejercicios y solicitó retroalimentación para mejorar.", author: "Daniela Rojas", createdAt: "2026-08-26T13:15:00.000Z", visibleToStudent: true },
+      { id: "note-004", courseId: "course-2a", studentId: "est-001", courseSubjectId: "ca-tut-2a", type: "negative", category: "Responsabilidad", text: "Llegó sin los materiales solicitados para la actividad de orientación.", author: "Daniela Rojas", createdAt: "2026-08-21T10:10:00.000Z", visibleToStudent: true },
       { id: "note-001", courseId: "course-2a", studentId: "est-003", courseSubjectId: "ca-mat-2a", type: "positive", category: "Participación", text: "Explicó su estrategia de resolución y apoyó respetuosamente al grupo.", author: "Daniela Rojas", createdAt: "2026-08-28T12:10:00.000Z" },
       { id: "note-002", courseId: "course-2b", studentId: "est-004", courseSubjectId: "ca-mat-2b", type: "negative", category: "Responsabilidad", text: "No presentó la guía de trabajo después de dos recordatorios.", author: "Daniela Rojas", createdAt: "2026-08-27T15:30:00.000Z" },
     ],
@@ -33,22 +35,31 @@ export const prototypeData = {
   studentPortal: {
     studentId: "est-001",
     course: "2° Medio A",
+    enrollment: { status: "regular", schoolYear: 2026, level: "Enseñanza Media", headTeacher: "Daniela Rojas", school: "Liceo Bicentenario Los Arrayanes" },
     schoolYearProgress: 68,
     completedAssessments: 18,
     totalAssessments: 26,
     courses: [
-      { code: "MAT-2M", name: "Matemática", professor: "Paula Contreras", attendance: 82, average: 5.2, color: "sage", grades: [{ label: "Control de álgebra", weight: 20, value: 5.6 }, { label: "Guía de funciones", weight: 30, value: 5.1 }, { label: "Prueba de unidad", weight: 50, value: 5.1 }] },
-      { code: "LEN-2M", name: "Lengua y Literatura", professor: "Cristóbal Reyes", attendance: 76, average: 4.5, color: "blue", grades: [{ label: "Ensayo argumentativo", weight: 25, value: 5.0 }, { label: "Control de lectura", weight: 25, value: 4.7 }, { label: "Prueba de unidad", weight: 50, value: 4.1 }] },
-      { code: "HIS-2M", name: "Historia, Geografía y Cs. Sociales", professor: "Francisca Mella", attendance: 68, average: 3.8, color: "gold", grades: [{ label: "Línea de tiempo", weight: 30, value: 4.8 }, { label: "Control de fuentes", weight: 20, value: 3.2 }, { label: "Prueba de unidad", weight: 50, value: 3.4 }] },
-      { code: "CIE-2M", name: "Ciencias Naturales", professor: "Andrés Navarro", attendance: 61, average: 3.1, color: "clay", grades: [{ label: "Informe de laboratorio", weight: 25, value: 4.0 }, { label: "Actividad experimental", weight: 25, value: 3.4 }, { label: "Prueba de unidad", weight: 50, value: 2.5 }] },
+      { code: "MAT-2M", name: "Matemática", professor: "Daniela Rojas", schedule: "Lun y mié · 08:00", room: "Sala 12", attendance: 82, average: 5.2, color: "sage", grades: [{ id: "g-001", label: "Control de álgebra", date: "2026-08-20", weight: 20, value: 5.6, published: true }, { id: "g-002", label: "Guía de funciones", date: "2026-08-27", weight: 30, value: 5.1, published: true }, { id: "g-003", label: "Prueba de unidad", date: "2026-08-12", weight: 50, value: 5.1, published: true }] },
+      { code: "LEN-2M", name: "Lengua y Literatura", professor: "Cristóbal Reyes", schedule: "Mar y jue · 08:00", room: "Sala 12", attendance: 76, average: 4.5, color: "blue", grades: [{ id: "g-004", label: "Ensayo argumentativo", date: "2026-08-19", weight: 25, value: 5.0, published: true }, { id: "g-005", label: "Control de lectura", date: "2026-08-25", weight: 25, value: 4.7, published: true }, { id: "g-006", label: "Prueba de unidad", date: "2026-08-13", weight: 50, value: 4.1, published: true }] },
+      { code: "HIS-2M", name: "Historia, Geografía y Cs. Sociales", professor: "Francisca Mella", schedule: "Mar · 11:45", room: "Sala 8", attendance: 68, average: 3.8, color: "gold", grades: [{ id: "g-007", label: "Línea de tiempo", date: "2026-08-18", weight: 30, value: 4.8, published: true }, { id: "g-008", label: "Control de fuentes", date: "2026-08-24", weight: 20, value: 3.2, published: true }, { id: "g-009", label: "Prueba de unidad", date: "2026-08-11", weight: 50, value: 3.4, published: true }] },
+      { code: "CIE-2M", name: "Ciencias Naturales", professor: "Andrés Navarro", schedule: "Vie · 10:15", room: "Laboratorio 2", attendance: 61, average: 3.1, color: "clay", grades: [{ id: "g-010", label: "Informe de laboratorio", date: "2026-08-17", weight: 25, value: 4.0, published: true }, { id: "g-011", label: "Actividad experimental", date: "2026-08-23", weight: 25, value: 3.4, published: true }, { id: "g-012", label: "Prueba de unidad", date: "2026-08-10", weight: 50, value: 2.5, published: true }] },
     ],
     upcoming: [
-      { day: "02", month: "SEP", title: "Guía de funciones", course: "Matemática", type: "Entrega" },
-      { day: "05", month: "SEP", title: "Prueba de unidad", course: "Ciencias Naturales", type: "Evaluación" },
-      { day: "08", month: "SEP", title: "Exposición grupal", course: "Historia", type: "Presentación" },
+      { id: "cal-001", date: "2026-09-02", time: "08:00", day: "02", month: "SEP", title: "Guía de funciones", course: "Matemática", type: "Entrega" },
+      { id: "cal-002", date: "2026-09-05", time: "10:15", day: "05", month: "SEP", title: "Prueba de unidad", course: "Ciencias Naturales", type: "Evaluación" },
+      { id: "cal-003", date: "2026-09-08", time: "11:45", day: "08", month: "SEP", title: "Exposición grupal", course: "Historia", type: "Presentación" },
     ],
     messages: [
-      { title: "Plan de acompañamiento disponible", detail: "Tu profesor jefe dejó recomendaciones para organizar tus próximas evaluaciones." },
+      { id: "msg-001", title: "Plan de acompañamiento disponible", detail: "Tu profesora jefe recomienda organizar las próximas evaluaciones en bloques breves y revisar el calendario cada lunes.", author: "Daniela Rojas", publishedAt: "2026-08-27" },
+    ],
+    attendanceSummary: { present: 32, absent: 8, late: 5, excused: 2, total: 47 },
+    attendanceSessions: [
+      { id: "att-001", date: "2026-08-28", course: "Matemática", title: "Funciones lineales", block: "Bloque 1", status: "present" },
+      { id: "att-002", date: "2026-08-27", course: "Lengua y Literatura", title: "Lectura argumentativa", block: "Bloque 2", status: "present" },
+      { id: "att-003", date: "2026-08-26", course: "Historia", title: "Fuentes primarias", block: "Bloque 3", status: "late" },
+      { id: "att-004", date: "2026-08-25", course: "Ciencias Naturales", title: "Diseño experimental", block: "Bloque 2", status: "absent" },
+      { id: "att-005", date: "2026-08-24", course: "Matemática", title: "Pendiente de una recta", block: "Bloque 1", status: "excused" },
     ],
   },
   alerts: [

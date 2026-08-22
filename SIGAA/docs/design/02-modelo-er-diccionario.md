@@ -1,9 +1,9 @@
 # Modelo ER y diccionario de datos escolar — Sprint 1
 
-Estado: esquema físico escolar y modelo docente implementados en las migraciones
-`003_school_domain.sql` y `004_teacher_model.sql`; pendiente conectar repositorios productivos.
+Estado: esquema físico escolar y modelos docente/estudiante implementados hasta
+`005_student_portal.sql`; pendiente conectar repositorios productivos.
 
-Versión de esquema: `0.4.0`. Perfil: `escolar`.
+Versión de esquema: `0.5.0`. Perfil: `escolar`.
 
 ## Corrección de dominio
 
@@ -41,6 +41,7 @@ erDiagram
     ESTUDIANTE ||--o{ ASISTENCIA : posee
     ESTUDIANTE ||--o{ JUSTIFICACION_AUSENCIA : presenta
     ESTUDIANTE ||--o{ ANOTACION_ESTUDIANTE : recibe
+    ESTUDIANTE ||--o{ COMUNICACION_ESTUDIANTE : recibe
     CURSO ||--o{ ANOTACION_ESTUDIANTE : contextualiza
     REGLA_ALERTA ||--o{ ALERTA : explica
     ESTUDIANTE ||--o{ ALERTA : genera
@@ -73,6 +74,7 @@ erDiagram
 | asistencia | sesion_id, estudiante_id, estado | un registro por sesión y estudiante |
 | justificacion_ausencia | estudiante_id, rango, motivo, estado | rango válido y revisión trazable |
 | anotacion_estudiante | estudiante_id, curso_id, tipo, categoría, detalle, autor | positiva o negativa; anulable, no eliminable |
+| comunicacion_estudiante | estudiante_id, tipo, título, detalle, visibilidad | mensaje personal publicable y trazable |
 | regla_alerta | código, versión, tipo, parámetros | código y versión únicos |
 | alerta | estudiante_id, curso_id, regla_id, evidencia | conserva la regla y evidencia original |
 | intervencion | alerta_id, usuario_id, tipo, nota | no se elimina; nuevas entradas corrigen historial |

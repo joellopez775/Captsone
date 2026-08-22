@@ -476,6 +476,39 @@ button { cursor: pointer; }
 .annotation-type__positive.annotation-type--active { color: #fff; background: #347052; }
 .annotation-type__negative.annotation-type--active { color: #fff; background: #945045; }
 
+/* Modelo estudiante */
+.student-section-header { max-width: 760px; margin-bottom: 34px; }
+.student-section-header > p { margin: 0 0 10px; color: var(--gold); font-size: .65rem; font-weight: 850; letter-spacing: .16em; }
+.student-section-header h1 { margin: 0; font-family: Georgia, serif; font-size: clamp(3rem, 5vw, 4.8rem); font-weight: 400; letter-spacing: -.055em; line-height: .98; }
+.student-section-header > span { display: block; margin-top: 13px; color: #737d77; font-size: .82rem; line-height: 1.5; }
+.subject-detail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.subject-detail { padding: 25px; background: #fff; border: 1px solid var(--line); border-top: 4px solid #285342; border-radius: 18px; box-shadow: 0 15px 40px rgb(35 50 42 / 5%); }
+.subject-detail--blue { border-top-color: #40566b; }.subject-detail--gold { border-top-color: #b79b54; }.subject-detail--clay { border-top-color: #87594c; }
+.subject-detail__head { display: flex; justify-content: space-between; gap: 20px; }
+.subject-detail__head span { color: #8c958f; font-size: .59rem; font-weight: 800; letter-spacing: .08em; }
+.subject-detail__head h2 { margin: 8px 0 5px; font-family: Georgia, serif; font-size: 1.4rem; font-weight: 500; }
+.subject-detail__head p { margin: 0; color: #8c958f; font-size: .64rem; }
+.subject-detail__head > strong { font-family: Georgia, serif; font-size: 2.5rem; font-weight: 500; }
+.subject-detail__meta { display: flex; gap: 8px; margin: 22px 0 10px; }
+.subject-detail__meta span { padding: 6px 8px; color: #68736c; background: #eeefeb; border-radius: 8px; font-size: .58rem; }
+.subject-grades > div { display: flex; justify-content: space-between; align-items: center; padding: 13px 2px; border-top: 1px solid #ecece7; }
+.subject-grades strong, .subject-grades small { display: block; }.subject-grades strong { font-family: Georgia, serif; font-size: .78rem; }.subject-grades small { margin-top: 4px; color: #939a95; font-size: .58rem; }
+.subject-grades b { padding: 6px 9px; color: #315b48; background: #e0ece5; border-radius: 8px; font-family: Georgia, serif; font-size: .8rem; }
+.subject-grades b.grade-value--low { color: #884739; background: #f2dfda; }
+.attendance-summary { display: grid; grid-template-columns: 1.35fr repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+.attendance-summary article { min-height: 145px; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; background: #fff; border: 1px solid var(--line); border-radius: 16px; }
+.attendance-summary article:first-child { color: #f6f1e5; background: var(--forest); }.attendance-summary span { color: #7b857f; font-size: .66rem; font-weight: 760; }.attendance-summary article:first-child span { color: #d3c28f; }
+.attendance-summary strong { font-family: Georgia, serif; font-size: 2.35rem; font-weight: 500; }.attendance-summary small { color: #969d98; font-size: .59rem; }.attendance-summary article:first-child small { color: rgb(246 241 229 / 55%); }
+.attendance-count--present { border-top: 3px solid #3f8060 !important; }.attendance-count--absent { border-top: 3px solid #a15447 !important; }.attendance-count--late { border-top: 3px solid #b28d3e !important; }.attendance-count--excused { border-top: 3px solid #547591 !important; }
+.student-two-column { display: grid; grid-template-columns: 1.25fr .75fr; gap: 16px; }.student-attendance-list, .subject-attendance { padding: 22px; }
+.attendance-session { display: grid; grid-template-columns: 110px 1fr auto; gap: 14px; align-items: center; padding: 14px 0; border-top: 1px solid #ecece7; }
+.attendance-session time { color: #8b938e; font-size: .63rem; }.attendance-session strong, .attendance-session small { display: block; }.attendance-session strong { font-family: Georgia, serif; font-size: .8rem; }.attendance-session small { margin-top: 3px; color: #919894; font-size: .58rem; }
+.attendance-pill { padding: 6px 8px; color: #397157; background: #e1ede6; border-radius: 999px; font-size: .57rem; font-style: normal; font-weight: 760; }.attendance-pill--absent { color: #914b40; background: #f2dfda; }.attendance-pill--late { color: #7c672d; background: #eee6ca; }.attendance-pill--excused { color: #46677f; background: #e0e9ef; }
+.subject-attendance > div:not(.panel__header) { margin: 18px 0; }.subject-attendance > div > span { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: .68rem; }.subject-attendance small { color: #8e9690; }.subject-attendance > div > div { height: 7px; overflow: hidden; background: #ecece7; border-radius: 99px; }.subject-attendance i { display: block; height: 100%; background: linear-gradient(90deg, #2f674e, #91ac7d); border-radius: inherit; }
+.calendar-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }.calendar-card { display: grid; grid-template-columns: 70px 1fr; gap: 18px; min-height: 230px; padding: 24px; background: #fff; border: 1px solid var(--line); border-radius: 18px; }.calendar-card time { display: grid; height: 72px; place-content: center; color: #f5f0e3; background: var(--forest); border-radius: 16px; text-align: center; }.calendar-card time strong { font-family: Georgia, serif; font-size: 1.5rem; }.calendar-card time span { color: #d4c18b; font-size: .55rem; }.calendar-card > div > span { color: var(--gold); font-size: .58rem; font-weight: 800; text-transform: uppercase; }.calendar-card h2 { margin: 22px 0 6px; font-family: Georgia, serif; font-size: 1.25rem; font-weight: 500; }.calendar-card p { margin: 0 0 34px; color: #68736c; font-size: .72rem; }.calendar-card small { color: #979e99; font-size: .59rem; }
+.student-annotation-feed { display: grid; gap: 12px; max-width: 900px; }.student-annotation { display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 23px; background: #fff; border: 1px solid var(--line); border-radius: 17px; }.student-annotation > span { display: grid; width: 44px; height: 44px; place-items: center; color: #fff; background: #347052; border-radius: 13px; font-family: Georgia, serif; font-size: 1.5rem; }.student-annotation--negative > span { background: #965144; }.student-annotation > div > div { display: flex; justify-content: space-between; }.student-annotation em { color: #347052; font-size: .59rem; font-style: normal; font-weight: 800; text-transform: uppercase; }.student-annotation--negative em { color: #965144; }.student-annotation time { color: #999f9b; font-size: .6rem; }.student-annotation h2 { margin: 8px 0 5px; font-family: Georgia, serif; font-size: 1rem; }.student-annotation p { margin: 0 0 10px; color: #66716a; font-size: .72rem; line-height: 1.55; }.student-annotation small { color: #979d99; font-size: .58rem; }
+.privacy-note { max-width: 900px; margin-top: 16px; padding: 18px 21px; color: #5e654f; background: #eee9d9; border-radius: 14px; }.privacy-note strong { font-family: Georgia, serif; }.privacy-note p { margin: 6px 0 0; font-size: .68rem; line-height: 1.5; }
+
 @media (max-width: 1100px) {
   .login-page { grid-template-columns: 1fr; gap: 42px; }
   .login-logo { margin-bottom: 30px; }
@@ -488,6 +521,9 @@ button { cursor: pointer; }
   .student-rail { grid-template-columns: 1fr 1fr; }
   .teacher-course-grid { grid-template-columns: 1fr 1fr; }
   .teacher-work-grid { grid-template-columns: 1fr; }
+  .attendance-summary { grid-template-columns: repeat(3, 1fr); }
+  .attendance-summary article:first-child { grid-row: span 2; }
+  .calendar-board { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 760px) {
@@ -609,6 +645,10 @@ button { cursor: pointer; }
   .class-entry > button { grid-column: 1 / -1; }
   .attendance-row { grid-template-columns: 38px 1fr; }
   .attendance-options { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .subject-detail-grid, .student-two-column { grid-template-columns: 1fr; }
+  .attendance-summary { grid-template-columns: repeat(2, 1fr); }
+  .attendance-summary article:first-child { grid-row: auto; }
+  .calendar-board { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 540px) {
@@ -633,6 +673,8 @@ button { cursor: pointer; }
   .gradebook__row > span:nth-child(2), .gradebook__row > span:nth-child(3) { display: none; }
   .form-split { grid-template-columns: 1fr; }
   .attendance-options { grid-template-columns: 1fr 1fr; }
+  .attendance-session { grid-template-columns: 1fr auto; }
+  .attendance-session time { grid-column: 1 / -1; }
   .grade-entry__head, .grade-entry__row { grid-template-columns: 1fr 74px; }
   .grade-entry__head span:last-child, .grade-entry__row .grade-state { display: none; }
 }

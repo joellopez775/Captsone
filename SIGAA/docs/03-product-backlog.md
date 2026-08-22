@@ -66,6 +66,7 @@ Este documento presenta una vista revisable en GitHub. Los puntos y la asignaci�
 | PB-036 | Gestión de apoderados y vínculo con estudiantes | Must | 5 | Sprint 3 | Modelo físico adelantado; UI pendiente |
 | PB-037 | Gestión de justificaciones por Inspectoría | Must | 5 | Sprint 4 | Modelo físico adelantado; UI pendiente |
 | PB-038 | Modelo docente: cursos, clases, asistencia, notas y anotaciones | Must | 13 | Sprint 1 | Incremento demo implementado; persistencia productiva pendiente |
+| PB-039 | Modelo estudiante: asignaturas, notas, asistencia, calendario y anotaciones visibles | Must | 13 | Sprint 1 | Incremento demo implementado; persistencia productiva pendiente |
 
 ## Política de cambios
 

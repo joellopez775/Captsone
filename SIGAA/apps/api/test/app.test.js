@@ -58,6 +58,33 @@ test("teacher workspace rejects requests without the teacher role", async () => 
   assert.deepEqual(await response.json(), { error: "teacher_role_required" });
 });
 
+test("student workspace requires the student role and matching identity", async () => {
+  const missingRole = await fetch(`${baseUrl}/student/workspace/est-001`);
+  assert.equal(missingRole.status, 403);
+
+  const crossStudent = await fetch(`${baseUrl}/student/workspace/est-002`, {
+    headers: { "x-demo-role": "student", "x-demo-student-id": "est-001" },
+  });
+  assert.equal(crossStudent.status, 403);
+  assert.deepEqual(await crossStudent.json(), { error: "student_scope_violation" });
+});
+
+test("student workspace exposes only published, self-scoped academic information", async () => {
+  const response = await fetch(`${baseUrl}/student/workspace/est-001`, {
+    headers: { "x-demo-role": "student", "x-demo-student-id": "est-001" },
+  });
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body.student.id, "est-001");
+  assert.equal(body.subjects.length, 4);
+  assert.ok(body.subjects.every(({ grades }) => grades.every(({ published }) => published)));
+  assert.ok(body.annotations.every(({ id }) => ["note-003", "note-004"].includes(id)));
+  const serialized = JSON.stringify(body);
+  assert.equal(serialized.includes("alerts"), false);
+  assert.equal(serialized.includes("ASISTENCIA_MENOR_75_V1"), false);
+  assert.equal(serialized.includes("Diego Morales"), false);
+});
+
 test("teacher can schedule a class and record attendance", async () => {
   const headers = { "content-type": "application/json", "x-demo-role": "teacher" };
   const createResponse = await fetch(`${baseUrl}/teacher/classes`, {

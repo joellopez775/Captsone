@@ -18,6 +18,41 @@ function requireDemoTeacher(request, response, next) {
   next();
 }
 
+function requireDemoStudent(request, response, next) {
+  if (request.get("x-demo-role") !== "student") {
+    response.status(403).json({ error: "student_role_required" });
+    return;
+  }
+  const authenticatedStudentId = request.get("x-demo-student-id");
+  if (!authenticatedStudentId || authenticatedStudentId !== request.params.id) {
+    response.status(403).json({ error: "student_scope_violation" });
+    return;
+  }
+  next();
+}
+
+function studentWorkspace(studentId) {
+  const student = prototypeData.students.find(({ id }) => id === studentId);
+  if (!student || prototypeData.studentPortal.studentId !== studentId) return null;
+  const portal = prototypeData.studentPortal;
+  return {
+    synthetic: true,
+    student: { id: student.id, name: student.name, identifier: student.identifier, course: student.course, level: student.level, attendance: student.attendance, average: student.average },
+    enrollment: portal.enrollment,
+    schoolYearProgress: portal.schoolYearProgress,
+    completedAssessments: portal.completedAssessments,
+    totalAssessments: portal.totalAssessments,
+    subjects: portal.courses.map((subject) => ({ ...subject, grades: subject.grades.filter(({ published }) => published) })),
+    attendanceSummary: portal.attendanceSummary,
+    attendanceSessions: portal.attendanceSessions,
+    calendar: portal.upcoming,
+    annotations: prototypeData.teacherWorkspace.annotations
+      .filter((annotation) => annotation.studentId === studentId && annotation.visibleToStudent)
+      .map(({ id, type, category, text, author, createdAt }) => ({ id, type, category, text, author, createdAt })),
+    messages: portal.messages,
+  };
+}
+
 function assignmentById(id) {
   return prototypeData.teacherWorkspace.assignments.find((assignment) => assignment.id === id);
 }
@@ -62,6 +97,15 @@ export function createApp({ pool }) {
 
   app.get("/teacher/workspace", requireDemoTeacher, (_request, response) => {
     response.json({ synthetic: true, ...prototypeData.teacherWorkspace });
+  });
+
+  app.get("/student/workspace/:id", requireDemoStudent, (request, response) => {
+    const workspace = studentWorkspace(request.params.id);
+    if (!workspace) {
+      response.status(404).json({ error: "student_workspace_not_found" });
+      return;
+    }
+    response.json(workspace);
   });
 
   app.post("/teacher/classes", requireDemoTeacher, (request, response) => {
