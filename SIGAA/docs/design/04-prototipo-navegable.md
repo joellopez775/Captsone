@@ -13,7 +13,7 @@ Validar navegación, jerarquía de información y explicabilidad antes de constr
 3. Estudiantes: búsqueda y listado con asistencia, promedio y nivel de riesgo.
 4. Ficha: contexto académico, indicadores, alertas e historial de intervención.
 5. Alertas: bandeja filtrable con severidad, regla y evidencia.
-6. Portal del estudiante: avance curricular, promedio, asistencia, asignaturas,
+6. Portal del estudiante: avance del año escolar, promedio, asistencia, asignaturas,
    notas parciales, agenda y recomendaciones personales.
 
 ## Navegación de prueba
@@ -45,7 +45,7 @@ Validar navegación, jerarquía de información y explicabilidad antes de constr
 | Caso | Resultado esperado | Estado |
 |---|---|---|
 | Ingreso demo | Mostrar dashboard | Aprobado en navegador |
-| Buscar estudiante | Filtrar por nombre, identificador o sección | Aprobado: 1 resultado para Camila |
+| Buscar estudiante | Filtrar por nombre, identificador o curso | Aprobado: 1 resultado para Camila |
 | Abrir ficha | Mostrar indicadores y alertas | Aprobado: evidencia de asistencia visible |
 | Filtrar alertas | Reducir resultados visibles | Aprobado: 2 alertas de severidad alta |
 | API no disponible | Mostrar aviso controlado | Cubierto por estado de error; prueba de interrupción pendiente |
@@ -61,7 +61,7 @@ Validar navegación, jerarquía de información y explicabilidad antes de constr
 ## Iteración visual premium - 28 de agosto de 2026
 
 Después de la primera revisión visual se descartó la apariencia SaaS genérica y
-se definió una identidad más cercana a un campus universitario de alto nivel,
+se definió una identidad cercana a un establecimiento educacional de alto nivel,
 con referencias de interacción propias de macOS.
 
 Cambios aplicados:
@@ -92,9 +92,9 @@ la API y dirige a la vista docente o estudiante según la cuenta autenticada.
 
 La vista de estudiante incluye:
 
-- Identidad, carrera, semestre y estado académico.
-- Avance curricular y créditos aprobados.
-- Promedio general, asistencia global y carga inscrita.
+- Identidad, curso, nivel y estado escolar.
+- Avance del año escolar y evaluaciones registradas.
+- Promedio general, asistencia global y establecimiento.
 - Cuatro asignaturas con docente, asistencia y promedio actual.
 - Tres calificaciones sintéticas por asignatura, con ponderación.
 - Tabla de últimas calificaciones.
@@ -112,6 +112,25 @@ las reglas internas, la bandeja global ni los antecedentes de otros estudiantes.
 El endpoint `POST /auth/demo-login` valida ambos perfiles y responde `401` para
 credenciales incorrectas. No genera una sesión persistente ni sustituye la
 autenticación segura planificada para Sprint 2.
+
+## Corrección al dominio escolar — 21 de agosto de 2026
+
+El Product Owner confirmó que SIGAA se utilizará en colegios y liceos. Se
+conservaron la identidad premium, la navegación responsiva y los flujos de
+demostración, pero se sustituyó todo contexto universitario visible:
+
+- El acceso identifica una comunidad educativa y un portal del establecimiento.
+- La vista de personal representa a una profesora jefe de 2° Medio A.
+- Las secciones universitarias se reemplazaron por cursos escolares.
+- Carrera, cohorte y créditos se reemplazaron por nivel, curso, año escolar y
+  evaluaciones registradas.
+- Las asignaturas de educación superior se sustituyeron por Matemática, Lengua
+  y Literatura, Historia y Ciencias Naturales.
+- El acompañamiento se atribuye a profesor jefe y UTP.
+
+El alcance actual sigue siendo un prototipo sintético: la API entrega datos de
+demostración y la persistencia funcional será implementada en los siguientes
+sprints sobre el esquema escolar 0.3.0.
 
 ## Identidad visual oficial - 28 de agosto de 2026
 

@@ -3,7 +3,7 @@ import express from "express";
 import { prototypeData } from "./prototype-data.js";
 
 const demoAccounts = [
-  { email: "docente@sigaa.demo", password: "Docente2026!", role: "teacher", profile: { name: "Daniela Rojas", title: "Docente" } },
+  { email: "docente@sigaa.demo", password: "Docente2026!", role: "teacher", profile: { name: "Daniela Rojas", title: "Profesora jefe", course: "2° Medio A" } },
   { email: "estudiante@sigaa.demo", password: "Estudiante2026!", role: "student", profile: { name: "Camila Soto", title: "Estudiante", studentId: "est-001" } },
 ];
 

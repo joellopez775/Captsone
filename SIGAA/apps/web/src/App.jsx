@@ -48,7 +48,7 @@ function AppShell({ activeView, onNavigate, onLogout, children, system }) {
       <aside className={mobileMenuOpen ? "sidebar mobile-menu-open" : "sidebar"}>
         <div className="brand">
           <BrandMark />
-          <div><strong>SIGAA</strong><small>Academic Intelligence</small></div>
+          <div><strong>SIGAA</strong><small>Gestión escolar inteligente</small></div>
         </div>
         <button className="mobile-menu-toggle" aria-expanded={mobileMenuOpen} aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"} onClick={() => setMobileMenuOpen((open) => !open)} type="button"><span /><span /></button>
         <nav aria-label="Navegación principal">
@@ -56,17 +56,17 @@ function AppShell({ activeView, onNavigate, onLogout, children, system }) {
           {navigation.map(([view, label, icon]) => (
             <button className={activeView === view ? "nav-button nav-button--active" : "nav-button"} key={view} onClick={() => { onNavigate(view); setMobileMenuOpen(false); }} type="button"><Icon name={icon} /><span>{label}</span>{view === "alerts" && <em>12</em>}</button>
           ))}
-          <div className="mobile-menu-account"><span>DR</span><div><strong>Daniela Rojas</strong><small>Docente</small></div></div>
+          <div className="mobile-menu-account"><span>DR</span><div><strong>Daniela Rojas</strong><small>Profesora jefe · 2° Medio A</small></div></div>
           <button className="mobile-menu-logout" onClick={onLogout} type="button"><span>Cerrar sesión</span><span>↗</span></button>
         </nav>
         <div className="sidebar__footer">
-          <div className="profile-card"><span className="profile-card__avatar">DR</span><div><strong>Daniela Rojas</strong><small>Docente</small></div><button aria-label="Salir de demo" onClick={onLogout} type="button">•••</button></div>
+          <div className="profile-card"><span className="profile-card__avatar">DR</span><div><strong>Daniela Rojas</strong><small>Profesora jefe · 2° Medio A</small></div><button aria-label="Salir de demo" onClick={onLogout} type="button">•••</button></div>
           <div className="system-status"><div className={`system-dot system-dot--${system.status}`} /><span>{system.message}</span></div>
         </div>
       </aside>
       <div className="app-stage">
         <header className="topbar">
-          <div className="topbar__context"><span>Campus digital</span><i>/</i><strong>{navigation.find(([view]) => view === activeView)?.[1]}</strong></div>
+          <div className="topbar__context"><span>Panel institucional</span><i>/</i><strong>{navigation.find(([view]) => view === activeView)?.[1]}</strong></div>
           <div className="topbar__actions"><button className="command-button" type="button"><Icon name="search" /><span>Buscar en SIGAA</span><kbd>⌘ K</kbd></button><button className="notification-button" aria-label="Notificaciones" type="button"><Icon name="alerts" /><i /></button><span className="topbar__avatar">DR</span></div>
         </header>
         <main className="workspace">{children}</main>
@@ -108,21 +108,21 @@ function Login({ onAuthenticate, system }) {
   return (
     <main className="login-page">
       <section className="login-intro">
-        <div className="login-logo"><img src={sigaaLogo} alt="SIGAA Academic Intelligence" /></div>
-        <p className="eyebrow">Inteligencia académica · Comunidad universitaria</p>
-        <h1>Excelencia que se puede acompañar.</h1>
-        <p>Una experiencia académica diseñada para convertir señales tempranas en decisiones humanas, oportunas y trazables.</p>
+        <div className="login-logo"><img src={sigaaLogo} alt="SIGAA Gestión Escolar Inteligente" /></div>
+        <p className="eyebrow">Gestión escolar · Comunidad educativa</p>
+        <h1>Cada estudiante merece llegar más lejos.</h1>
+        <p>Una experiencia escolar diseñada para convertir señales tempranas en acompañamiento humano, oportuno y trazable.</p>
         <div className="prototype-note"><span className="prototype-note__dot" /><strong>Entorno de demostración</strong><span>Información completamente sintética.</span></div>
       </section>
       <form className="login-card" aria-labelledby="demo-title" onSubmit={submit}>
-        <div className="login-card__header"><span className="login-card__logo"><img src={sigaaLogo} alt="SIGAA" /></span><span>Portal institucional</span></div>
+        <div className="login-card__header"><span className="login-card__logo"><img src={sigaaLogo} alt="SIGAA" /></span><span>Portal del establecimiento</span></div>
         <h2 id="demo-title">Bienvenido de vuelta</h2>
-        <p>Tu cuenta determina automáticamente la experiencia y los permisos disponibles.</p>
+        <p>Tu cuenta determina automáticamente si ingresas como profesor, estudiante u otro integrante autorizado.</p>
         <label>Correo institucional<input autoComplete="username" onChange={(event) => setEmail(event.target.value)} placeholder="nombre@sigaa.demo" required type="email" value={email} /></label>
         <label>Contraseña<input autoComplete="current-password" onChange={(event) => setPassword(event.target.value)} placeholder="Ingresa tu contraseña" required type="password" value={password} /></label>
         {error && <div className="login-error" role="alert">{error}</div>}
         <button className="primary-button" disabled={submitting} type="submit"><span>{submitting ? "Validando…" : "Ingresar al portal"}</span><span>→</span></button>
-        <div className="demo-accounts"><span>Accesos de demostración</span><div><button onClick={() => useDemoAccount("teacher")} type="button">Usar cuenta docente</button><button onClick={() => useDemoAccount("student")} type="button">Usar cuenta estudiante</button></div></div>
+        <div className="demo-accounts"><span>Accesos de demostración</span><div><button onClick={() => useDemoAccount("teacher")} type="button">Usar cuenta profesor jefe</button><button onClick={() => useDemoAccount("student")} type="button">Usar cuenta estudiante</button></div></div>
         <small className={`connection connection--${system.status}`}>{system.message}</small>
       </form>
     </main>
@@ -149,19 +149,19 @@ function StudentPortal({ data, onLogout, system }) {
       <aside className={mobileMenuOpen ? "student-sidebar mobile-menu-open" : "student-sidebar"}>
         <div className="brand"><BrandMark /><div><strong>SIGAA</strong><small>Portal del estudiante</small></div></div>
         <button className="mobile-menu-toggle" aria-expanded={mobileMenuOpen} aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"} onClick={() => setMobileMenuOpen((open) => !open)} type="button"><span /><span /></button>
-        <nav aria-label="Navegación del estudiante"><span className="nav-caption">Mi experiencia</span><button className="nav-button nav-button--active" onClick={() => setMobileMenuOpen(false)} type="button"><Icon name="dashboard" /><span>Mi inicio</span></button><button className="nav-button" onClick={() => setMobileMenuOpen(false)} type="button"><Icon name="book" /><span>Mis asignaturas</span></button><button className="nav-button" onClick={() => setMobileMenuOpen(false)} type="button"><Icon name="calendar" /><span>Calendario</span></button><div className="mobile-menu-account"><span>CS</span><div><strong>{student.name}</strong><small>{student.program}</small></div></div><button className="mobile-menu-logout" onClick={onLogout} type="button"><span>Cerrar sesión</span><span>↗</span></button></nav>
-        <div className="student-profile"><span className="student-profile__avatar">CS</span><div><strong>{student.name}</strong><small>{student.program}</small></div></div>
+        <nav aria-label="Navegación del estudiante"><span className="nav-caption">Mi experiencia</span><button className="nav-button nav-button--active" onClick={() => setMobileMenuOpen(false)} type="button"><Icon name="dashboard" /><span>Mi inicio</span></button><button className="nav-button" onClick={() => setMobileMenuOpen(false)} type="button"><Icon name="book" /><span>Mis asignaturas</span></button><button className="nav-button" onClick={() => setMobileMenuOpen(false)} type="button"><Icon name="calendar" /><span>Calendario</span></button><div className="mobile-menu-account"><span>CS</span><div><strong>{student.name}</strong><small>{student.course}</small></div></div><button className="mobile-menu-logout" onClick={onLogout} type="button"><span>Cerrar sesión</span><span>↗</span></button></nav>
+        <div className="student-profile"><span className="student-profile__avatar">CS</span><div><strong>{student.name}</strong><small>{student.course}</small></div></div>
         <div className="system-status"><div className={`system-dot system-dot--${system.status}`} /><span>{system.message}</span></div>
       </aside>
       <div className="student-stage">
         <header className="student-topbar"><div><span>Portal académico</span><i>/</i><strong>Mi inicio</strong></div><div><button className="notification-button" aria-label="Notificaciones" type="button"><Icon name="alerts" /><i /></button><button className="student-logout" onClick={onLogout} type="button">Cerrar sesión</button></div></header>
         <main className="student-workspace">
-          <header className="student-welcome"><div><p>SEMESTRE {portal.semester} · {data.meta.period}</p><h1>Hola, Camila.</h1><span>Este es tu pulso académico actualizado.</span></div><div className="student-id"><span>Estudiante regular</span><strong>{student.identifier}</strong></div></header>
+          <header className="student-welcome"><div><p>{portal.course.toUpperCase()} · {data.meta.period.toUpperCase()}</p><h1>Hola, Camila.</h1><span>Este es tu pulso escolar actualizado.</span></div><div className="student-id"><span>Estudiante regular</span><strong>{student.identifier}</strong></div></header>
           <section className="student-overview">
-            <article className="academic-progress"><div><p>Avance curricular</p><strong>{portal.progress}%</strong><span>{portal.approvedCredits} créditos aprobados</span></div><div className="progress-ring" style={{ "--progress": `${portal.progress * 3.6}deg` }}><span>{portal.progress}%</span></div></article>
+            <article className="academic-progress"><div><p>Avance del año escolar</p><strong>{portal.schoolYearProgress}%</strong><span>{portal.completedAssessments} de {portal.totalAssessments} evaluaciones registradas</span></div><div className="progress-ring" style={{ "--progress": `${portal.schoolYearProgress * 3.6}deg` }}><span>{portal.schoolYearProgress}%</span></div></article>
             <article className="student-stat"><span>Promedio general</span><strong>{student.average.toFixed(1)}</strong><small>Escala de 1,0 a 7,0</small></article>
             <article className="student-stat student-stat--warning"><span>Asistencia global</span><strong>{student.attendance}%</strong><small>Meta recomendada: 75%</small></article>
-            <article className="student-stat"><span>Carga actual</span><strong>{portal.enrolledCredits}</strong><small>Créditos inscritos</small></article>
+            <article className="student-stat"><span>Curso actual</span><strong>{portal.course}</strong><small>{data.meta.school}</small></article>
           </section>
           <section className="student-layout">
             <div>
@@ -184,7 +184,7 @@ function Header({ kicker, title, subtitle }) {
   return (
     <header className="page-header">
       <div><p>{kicker}</p><h1>{title}</h1><span>{subtitle}</span></div>
-      <div className="header-meta"><span className="demo-chip"><i /> Datos sintéticos</span><span className="academic-cycle">Ciclo académico · 2026</span></div>
+      <div className="header-meta"><span className="demo-chip"><i /> Datos sintéticos</span><span className="academic-cycle">Año escolar · 2026</span></div>
     </header>
   );
 }
@@ -193,9 +193,9 @@ function Dashboard({ data, onOpenStudent, onNavigate }) {
   const prioritized = data.students.filter(({ risk }) => risk !== "low");
   return (
     <>
-      <Header kicker="Periodo 2026-2" title="Resumen académico" subtitle="Señales prioritarias para la coordinación" />
+      <Header kicker="Segundo semestre · 2026" title="Resumen del curso" subtitle="Señales prioritarias para el profesor jefe y UTP" />
       <section className="metrics-grid" aria-label="Indicadores principales">
-        <Metric label="Estudiantes activos" value={data.metrics.activeStudents} detail="2 secciones de demostración" trend={[3, 4, 5, 5, 7]} />
+        <Metric label="Estudiantes activos" value={data.metrics.activeStudents} detail="2 cursos de demostración" trend={[3, 4, 5, 5, 7]} />
         <Metric label="Asistencia promedio" value={`${data.metrics.averageAttendance}%`} detail="Umbral preventivo: 75%" accent="gold" trend={[6, 5, 7, 6, 8]} />
         <Metric label="Alertas abiertas" value={data.metrics.openAlerts} detail="4 visibles en el prototipo" accent="clay" trend={[8, 7, 6, 5, 4]} />
         <Metric label="Seguimientos activos" value={data.metrics.activeFollowUps} detail="Responsable asignado" accent="blue" trend={[2, 3, 5, 4, 7]} />
@@ -207,7 +207,7 @@ function Dashboard({ data, onOpenStudent, onNavigate }) {
             {prioritized.map((student) => (
               <button className="student-row" key={student.id} onClick={() => onOpenStudent(student.id)} type="button">
                 <span className="avatar">{student.name.split(" ").map((part) => part[0]).join("")}</span>
-                <span className="student-row__identity"><strong>{student.name}</strong><small>{student.section}</small></span>
+                <span className="student-row__identity"><strong>{student.name}</strong><small>{student.course}</small></span>
                 <span><small>Asistencia</small><strong>{student.attendance}%</strong></span>
                 <span><small>Promedio</small><strong>{student.average.toFixed(1)}</strong></span>
                 <RiskBadge value={student.risk} />
@@ -231,15 +231,15 @@ function Dashboard({ data, onOpenStudent, onNavigate }) {
 
 function Students({ data, onOpenStudent }) {
   const [query, setQuery] = useState("");
-  const filtered = data.students.filter((student) => `${student.name} ${student.identifier} ${student.section}`.toLowerCase().includes(query.toLowerCase()));
+  const filtered = data.students.filter((student) => `${student.name} ${student.identifier} ${student.course}`.toLowerCase().includes(query.toLowerCase()));
   return (
     <>
-      <Header kicker="Directorio" title="Estudiantes" subtitle="Búsqueda y contexto académico sintético" />
-      <section className="toolbar"><label htmlFor="student-search">Buscar estudiante</label><input id="student-search" onChange={(event) => setQuery(event.target.value)} placeholder="Nombre, identificador o sección" value={query} /></section>
+      <Header kicker="Directorio escolar" title="Estudiantes" subtitle="Búsqueda y contexto escolar sintético" />
+      <section className="toolbar"><label htmlFor="student-search">Buscar estudiante</label><input id="student-search" onChange={(event) => setQuery(event.target.value)} placeholder="Nombre, identificador o curso" value={query} /></section>
       <section className="panel table-panel">
-        <div className="table-heading"><span>Estudiante</span><span>Sección</span><span>Asistencia</span><span>Promedio</span><span>Riesgo</span></div>
+        <div className="table-heading"><span>Estudiante</span><span>Curso</span><span>Asistencia</span><span>Promedio</span><span>Riesgo</span></div>
         {filtered.map((student) => (
-          <button className="table-row" key={student.id} onClick={() => onOpenStudent(student.id)} type="button"><span><strong>{student.name}</strong><small>{student.identifier}</small></span><span>{student.section}</span><span>{student.attendance}%</span><span>{student.average.toFixed(1)}</span><RiskBadge value={student.risk} /></button>
+          <button className="table-row" key={student.id} onClick={() => onOpenStudent(student.id)} type="button"><span><strong>{student.name}</strong><small>{student.identifier}</small></span><span>{student.course}</span><span>{student.attendance}%</span><span>{student.average.toFixed(1)}</span><RiskBadge value={student.risk} /></button>
         ))}
         {filtered.length === 0 && <div className="empty-state">No hay estudiantes que coincidan con la búsqueda.</div>}
       </section>
@@ -259,7 +259,7 @@ function Alerts({ data, onOpenStudent }) {
       <section className="alert-board">
         {alerts.map((alert) => {
           const student = data.students.find(({ id }) => id === alert.studentId);
-          return <article className="alert-detail" key={alert.id}><div className="alert-detail__top"><RiskBadge value={alert.severity} /><span>{labels[alert.status]}</span></div><h2>{alert.title}</h2><button className="link-button" onClick={() => onOpenStudent(alert.studentId)} type="button">{student?.name} · {student?.section}</button><dl><div><dt>Regla aplicada</dt><dd>{alert.rule}</dd></div><div><dt>Evidencia</dt><dd>{alert.evidence}</dd></div></dl></article>;
+          return <article className="alert-detail" key={alert.id}><div className="alert-detail__top"><RiskBadge value={alert.severity} /><span>{labels[alert.status]}</span></div><h2>{alert.title}</h2><button className="link-button" onClick={() => onOpenStudent(alert.studentId)} type="button">{student?.name} · {student?.course}</button><dl><div><dt>Regla aplicada</dt><dd>{alert.rule}</dd></div><div><dt>Evidencia</dt><dd>{alert.evidence}</dd></div></dl></article>;
         })}
       </section>
     </>
@@ -274,7 +274,7 @@ function StudentDetail({ data, studentId, onBack }) {
   return (
     <>
       <button className="back-button" onClick={onBack} type="button">← Volver a estudiantes</button>
-      <Header kicker={student.identifier} title={student.name} subtitle={`${student.program} · ${student.section}`} />
+      <Header kicker={student.identifier} title={student.name} subtitle={`${student.course} · ${student.level}`} />
       <section className="metrics-grid metrics-grid--three"><Metric label="Asistencia" value={`${student.attendance}%`} detail="Ejemplo del periodo" /><Metric label="Promedio" value={student.average.toFixed(1)} detail="Escala referencial 1,0 a 7,0" /><Metric label="Nivel de riesgo" value={labels[student.risk]} detail={`${alerts.length} alerta(s) relacionada(s)`} /></section>
       <section className="content-grid">
         <article className="panel panel--wide"><div className="panel__header"><div><p>Explicabilidad</p><h2>Alertas relacionadas</h2></div></div>{alerts.length ? alerts.map((alert) => <div className="timeline-item" key={alert.id}><RiskBadge value={alert.severity} /><div><strong>{alert.title}</strong><span>{alert.rule}</span><small>{alert.evidence}</small></div></div>) : <div className="empty-state">Sin alertas abiertas.</div>}</article>

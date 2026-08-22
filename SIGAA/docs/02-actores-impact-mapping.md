@@ -7,10 +7,11 @@ Estado: borrador; requiere validación con una contraparte educativa.
 | Actor | Influencia | Interés | Participación esperada | Riesgo si no participa |
 |---|---|---|---|---|
 | Dirección/UTP | Alta | Alta | Prioriza indicadores y valida utilidad | Producto sin valor de gestión |
-| Docentes | Media | Alta | Valida registro de notas y alertas | Flujo poco usable |
+| Profesor jefe | Media | Alta | Valida seguimiento integral del curso | Alertas sin responsable cercano |
+| Profesor de asignatura | Media | Alta | Valida registro de notas y asistencia | Flujo poco usable |
 | Inspectoría/orientación | Media | Alta | Valida asistencia y seguimiento | Casos sin acciones realistas |
 | Administrador | Alta | Media | Valida estructura, usuarios y permisos | Configuración inconsistente |
-| Estudiantes | Baja | Alta | Beneficiarios; retroalimentación indirecta | Intervenciones desconectadas |
+| Estudiantes y apoderados | Baja | Alta | Validan consulta y comprensión de la información | Intervenciones desconectadas |
 | Docente Capstone | Alta | Alta | Retroalimenta alcance y evidencias | Incumplimiento académico |
 | Equipo de desarrollo | Alta | Alta | Diseña, implementa, prueba y documenta | Desviación de calidad/plazo |
 
@@ -24,7 +25,7 @@ Detectar y gestionar oportunamente estudiantes en riesgo académico mediante inf
 flowchart LR
     O["Objetivo: detección y seguimiento oportunos"]
     O --> A1["Dirección / UTP"]
-    O --> A2["Docentes"]
+    O --> A2["Profesor jefe y profesores de asignatura"]
     O --> A3["Inspectoría / orientación"]
     O --> A4["Administración"]
 
@@ -53,9 +54,10 @@ flowchart LR
 - Visualizar el estado de las alertas y acciones pendientes.
 - Revisar indicadores agregados por periodo, curso o asignatura.
 
-### Docentes
+### Profesor jefe y profesores de asignatura
 
 - Registrar o importar información con validaciones claras.
+- El profesor jefe consulta el contexto integral de su curso; cada profesor modifica solo su ámbito.
 - Consultar alertas sin tener que interpretar fórmulas ocultas.
 - Evitar duplicación de datos y correcciones no trazadas.
 

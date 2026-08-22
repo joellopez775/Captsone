@@ -16,7 +16,7 @@ Fecha de corte simulada: 28 de agosto de 2026.
 
 ## En curso
 
-- Sin historias técnicas activas al corte; quedan actividades externas y de equipo.
+- PB-035: despliegue y verificación final de la corrección al dominio escolar.
 
 ## En revisión
 
@@ -25,6 +25,7 @@ Fecha de corte simulada: 28 de agosto de 2026.
 - PB-008: prototipo verificado internamente; falta validación con usuarios y aceptación PO.
 - PB-009: casos de uso y secuencia principal.
 - PB-010: documento y presentación preparados; faltan feedback real, ensayo y aceptación.
+- PB-035: esquema, prototipo y documentación escolar implementados; pendiente aceptación PO.
 
 ## Terminado
 
@@ -35,6 +36,7 @@ Fecha de corte simulada: 28 de agosto de 2026.
 - Recorrido interno del prototipo verificado en escritorio y móvil.
 - Pruebas API y build web ejecutados sin errores.
 - Documento 1.5 y presentación institucional actualizados.
+- Corrección integral del modelo escolar implementada y validada localmente.
 
 ## Política WIP
 

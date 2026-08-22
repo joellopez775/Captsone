@@ -1,108 +1,108 @@
-# Modelo ER y diccionario de datos - Sprint 1
+# Modelo ER y diccionario de datos escolar — Sprint 1
 
-Estado: núcleo implementado en la migración `infra/postgres/init/002_core_academic.sql`;
-pendiente conectar los repositorios de la API y validar reglas institucionales.
+Estado: esquema físico implementado y validado en la migración
+`infra/postgres/init/003_school_domain.sql`; pendiente conectar los repositorios de la API.
 
-Versión de esquema: `0.2.0`.
+Versión de esquema: `0.3.0`. Perfil: `escolar`.
 
-## Modelo lógico
+## Corrección de dominio
+
+El modelo 0.2.0 interpretó erróneamente SIGAA como una solución universitaria.
+La definición confirmada por el Product Owner y los flujos operativos establece
+que el producto está dirigido a colegios y liceos. La migración 0.3.0 elimina
+conceptos de carrera, créditos, cohorte y matrícula por sección, y los sustituye
+por establecimiento, año escolar, nivel, curso, profesor jefe y apoderado.
+
+## Modelo lógico vigente
 
 ```mermaid
 erDiagram
     USUARIO ||--o{ USUARIO_ROL : posee
     ROL ||--o{ USUARIO_ROL : asigna
-    PERIODO ||--o{ SECCION : contiene
-    ASIGNATURA ||--o{ SECCION : imparte
-    USUARIO ||--o{ SECCION_DOCENTE : participa
-    SECCION ||--o{ SECCION_DOCENTE : asigna
+    ESTABLECIMIENTO ||--o{ PERIODO_ESCOLAR : organiza
+    PERIODO_ESCOLAR ||--o{ CURSO : contiene
+    NIVEL_EDUCATIVO ||--o{ CURSO : clasifica
+    USUARIO o|--o{ CURSO : lidera
     ESTUDIANTE ||--o{ MATRICULA : registra
-    SECCION ||--o{ MATRICULA : recibe
-    SECCION ||--o{ EVALUACION : define
+    CURSO ||--o{ MATRICULA : recibe
+    ESTUDIANTE ||--o{ ESTUDIANTE_APODERADO : vincula
+    APODERADO ||--o{ ESTUDIANTE_APODERADO : representa
+    CURSO ||--o{ CURSO_ASIGNATURA : imparte
+    ASIGNATURA ||--o{ CURSO_ASIGNATURA : compone
+    USUARIO o|--o{ CURSO_ASIGNATURA : ensena
+    CURSO_ASIGNATURA ||--o{ EVALUACION : define
     EVALUACION ||--o{ CALIFICACION : produce
     ESTUDIANTE ||--o{ CALIFICACION : obtiene
-    SECCION ||--o{ SESION_CLASE : programa
+    CURSO_ASIGNATURA ||--o{ SESION_CLASE : programa
     SESION_CLASE ||--o{ ASISTENCIA : registra
     ESTUDIANTE ||--o{ ASISTENCIA : posee
+    ESTUDIANTE ||--o{ JUSTIFICACION_AUSENCIA : presenta
     REGLA_ALERTA ||--o{ ALERTA : explica
     ESTUDIANTE ||--o{ ALERTA : genera
-    SECCION ||--o{ ALERTA : contextualiza
+    CURSO o|--o{ ALERTA : contextualiza
     ALERTA ||--o{ INTERVENCION : recibe
     USUARIO ||--o{ INTERVENCION : realiza
-    USUARIO ||--o{ EVENTO_AUDITORIA : ejecuta
 ```
 
 ## Entidades principales
 
-| Entidad | Clave y atributos esenciales | Regla de integridad |
+| Entidad | Atributos esenciales | Regla de integridad |
 |---|---|---|
-| usuario | id UUID, email, nombre, password_hash, estado | email único; no exponer hash |
-| rol | id, codigo, nombre | código único y estable |
-| usuario_rol | usuario_id, rol_id, vigente_desde, vigente_hasta | combinación sin duplicados vigentes |
-| periodo | id, codigo, fecha_inicio, fecha_fin, estado | inicio anterior a fin |
-| asignatura | id, codigo, nombre | código único |
-| seccion | id, periodo_id, asignatura_id, codigo | única por periodo, asignatura y código |
-| seccion_docente | seccion_id, usuario_id | usuario debe poseer rol permitido |
-| estudiante | id, identificador_interno, nombre, email_institucional | identificador único; RUT no requerido para demo |
-| matricula | id, estudiante_id, seccion_id, estado | una matrícula activa por estudiante y sección |
-| evaluacion | id, seccion_id, nombre, ponderacion, fecha | ponderación entre 0 y 100 |
-| calificacion | id, evaluacion_id, estudiante_id, valor | valor dentro de escala configurada |
-| sesion_clase | id, seccion_id, fecha, bloque | no duplicar sección, fecha y bloque |
+| establecimiento | rbd, nombre, tipo, dependencia | tipo colegio o liceo; RBD único cuando exista |
+| periodo_escolar | establecimiento_id, año, fechas, estado | un año por establecimiento; inicio anterior a fin |
+| nivel_educativo | código, nombre, ciclo, orden | código único; ciclo escolar controlado |
+| curso | periodo_id, nivel_id, letra, profesor_jefe_id | combinación año, nivel y letra única |
+| asignatura | código, nombre, estado | código único; sin créditos universitarios |
+| curso_asignatura | curso_id, asignatura_id, profesor_id | una oferta por asignatura y curso |
+| usuario / rol | email, estado / código, nombre | email y código únicos; autorización en backend |
+| estudiante | RUN, identificador, nombres, apellidos, estado | identificador interno único |
+| apoderado | RUN, nombres, contacto, estado | vínculo a uno o más estudiantes |
+| estudiante_apoderado | estudiante_id, apoderado_id, es_principal | vínculo único; notificación configurable |
+| matricula | estudiante_id, curso_id, estado | matrícula activa por estudiante y curso |
+| evaluacion | curso_asignatura_id, fecha, ponderación | ponderación entre 0 y 100 |
+| calificacion | evaluacion_id, estudiante_id, valor | nota entre 1,0 y 7,0; una por evaluación |
+| sesion_clase | curso_asignatura_id, fecha, bloque | sesión única por bloque |
 | asistencia | sesion_id, estudiante_id, estado | un registro por sesión y estudiante |
-| regla_alerta | id, codigo, version, tipo, parametros_json, activa | código y versión únicos |
-| alerta | id, estudiante_id, seccion_id, regla_id, severidad, estado, evidencia_json | conservar regla y evidencia que originaron la alerta |
-| intervencion | id, alerta_id, usuario_id, tipo, nota, creada_en | no eliminar; corregir mediante nueva entrada |
-| evento_auditoria | id, usuario_id, accion, entidad, entidad_id, cambios_json, creada_en | inmutable y sin secretos |
+| justificacion_ausencia | estudiante_id, rango, motivo, estado | rango válido y revisión trazable |
+| regla_alerta | código, versión, tipo, parámetros | código y versión únicos |
+| alerta | estudiante_id, curso_id, regla_id, evidencia | conserva la regla y evidencia original |
+| intervencion | alerta_id, usuario_id, tipo, nota | no se elimina; nuevas entradas corrigen historial |
+| evento_auditoria | actor, acción, entidad, valores, fecha | inmutable y sin secretos |
 
-## Catálogos controlados
+## Roles escolares
 
-- Estado de usuario: activo, bloqueado, inactivo.
-- Estado de matrícula: activa, retirada, finalizada.
-- Asistencia: presente, ausente, justificada, pendiente.
-- Severidad: informativa, media, alta, crítica.
-- Estado de alerta: abierta, asignada, en_seguimiento, resuelta, descartada.
+1. Administrador.
+2. Dirección / UTP.
+3. Profesor jefe.
+4. Profesor de asignatura.
+5. Inspectoría.
+6. Estudiante.
+7. Apoderado.
 
-## Reglas de diseño
+El profesor jefe consulta el contexto integral de su curso, pero solo modifica
+información para la que posee permiso. El profesor de asignatura registra notas
+y asistencia únicamente en sus asignaturas. Inspectoría administra asistencia,
+atrasos y justificaciones. Estudiante y apoderado son perfiles de consulta.
 
-1. Usar UUID para identificadores técnicos expuestos por API.
-2. Conservar códigos institucionales como claves naturales únicas, no como claves primarias.
-3. Versionar `regla_alerta`; una alerta histórica referencia la versión aplicada.
-4. Guardar evidencia estructurada para explicar cada alerta sin recalcular el pasado.
-5. Evitar datos personales innecesarios en ambientes de desarrollo.
-6. Aplicar borrado lógico a usuarios y catálogos referenciados.
-7. Registrar cambios sensibles en `evento_auditoria`.
+## Reglas de diseño y seguridad
 
-## Índices previstos
+- UUID como identificador técnico y códigos escolares como claves naturales.
+- Autorización en la API por rol y alcance; ocultar controles no reemplaza RBAC.
+- Alertas explicables con regla versionada y evidencia estructurada.
+- Auditoría de cambios sensibles e intervenciones no eliminables.
+- Datos sintéticos durante el desarrollo; no usar datos reales sin autorización.
+- Respaldo obligatorio antes de una migración de dominio.
 
-- `usuario(email)` único.
-- `estudiante(identificador_interno)` único.
-- `matricula(seccion_id, estudiante_id)` único para estados activos.
-- `alerta(estado, severidad, creada_en)` para la bandeja.
-- `alerta(estudiante_id, seccion_id)` para historial.
-- `evento_auditoria(entidad, entidad_id, creada_en)` para trazabilidad.
+## Estrategia de migración
+
+La migración 003 es transaccional. Antes de modificar el esquema verifica que
+no existan registros operacionales; si los encuentra, aborta con error y exige
+una conversión explícita. En el estado actual se verificaron cero usuarios,
+estudiantes, matrículas, calificaciones y asistencias. La secuencia completa
+001 → 002 → 003 fue validada sobre una base temporal limpia.
 
 ## Datos sintéticos mínimos
 
-El prototipo utilizará al menos cinco estudiantes, dos secciones, cuatro alertas y tres intervenciones. Los nombres y correos serán ficticios y se rotularán como datos de demostración.
-
-## Pendientes de validación
-
-- Escala real de calificaciones.
-- Cálculo de asistencia y tratamiento de justificaciones.
-- Umbrales y responsables por severidad.
-- Política de retención y acceso a observaciones.
-
-## Implementación física
-
-La primera migración funcional incorpora el modelo universitario y agrega
-`programa_academico` como contexto para carreras. También implementa:
-
-- UUID generados por PostgreSQL y correos sin distinción de mayúsculas.
-- Seis roles universitarios con asignaciones y alcance JSON.
-- Restricciones para fechas, estados, escala de notas y ponderaciones.
-- Unicidad de matrículas activas, calificaciones y registros de asistencia.
-- Marcas de actualización automáticas mediante triggers.
-- Auditoría inmutable e intervenciones que no pueden eliminarse.
-- Índices para bandejas de alertas, historiales y consultas académicas.
-
-La migración es idempotente y se ejecuta automáticamente sobre volúmenes nuevos.
-En instalaciones existentes debe aplicarse explícitamente mediante `psql`.
+El prototipo representa un liceo ficticio, dos cursos de segundo medio, cinco
+estudiantes, cuatro alertas y dos intervenciones. Los nombres, identificadores,
+cuentas y resultados son exclusivamente demostrativos.

@@ -19,6 +19,9 @@ Fecha de corte simulada: 28 de agosto de 2026. El compromiso definitivo requiere
 | Completar y revisar documento 1.5 | PB-010 | DOCX actualizado | Preparado para revisión |
 | Preparar presentación Fase 1 | PB-010 | PPTX editable | Preparada y verificada |
 | Ensayar exposición y preguntas | PB-010 | Acta/registro | Pendiente |
+| Corregir dominio universitario a escolar | PB-035 | Migración 003, UI y documentación | Implementado; pendiente aceptación PO |
+| Validar migración escolar desde cero | PB-035 | Ejecución 001 → 002 → 003 y metadatos 0.3.0 | Terminado |
+| Desplegar corrección escolar en servidor | PB-035 | Respaldo, healthchecks y consulta de esquema | En curso |
 
 ## Lectura de estados
 

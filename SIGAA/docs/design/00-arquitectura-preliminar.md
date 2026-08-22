@@ -4,7 +4,7 @@ Estado: borrador de Sprint 1. Debe validarse mediante una prueba técnica y ADR-
 
 ## Objetivos arquitectónicos
 
-- Separar reglas académicas de la interfaz y persistencia.
+- Separar reglas escolares de la interfaz y persistencia.
 - Proteger datos mediante autenticación, autorización y auditoría.
 - Mantener alertas explicables y verificables.
 - Facilitar pruebas unitarias e integración.
@@ -29,8 +29,8 @@ flowchart LR
 | Módulo | Responsabilidad |
 |---|---|
 | Identidad y acceso | Usuarios, autenticación, roles y permisos |
-| Estructura académica | Periodos, cursos, asignaturas y secciones |
-| Estudiantes y matrículas | Datos base e inscripción académica |
+| Estructura escolar | Establecimiento, años escolares, niveles, cursos y asignaturas |
+| Comunidad educativa | Estudiantes, apoderados y matrículas anuales por curso |
 | Evaluación y asistencia | Evaluaciones, notas, sesiones y asistencia |
 | Alertas | Reglas, ejecución, evidencia, severidad y deduplicación |
 | Seguimiento | Asignación, intervenciones, estados y cierre |
@@ -43,15 +43,17 @@ flowchart LR
 erDiagram
     USUARIO ||--o{ USUARIO_ROL : posee
     ROL ||--o{ USUARIO_ROL : asigna
-    PERIODO ||--o{ SECCION : contiene
-    CURSO ||--o{ SECCION : organiza
-    ASIGNATURA ||--o{ SECCION : imparte
+    ESTABLECIMIENTO ||--o{ PERIODO_ESCOLAR : organiza
+    PERIODO_ESCOLAR ||--o{ CURSO : contiene
+    NIVEL_EDUCATIVO ||--o{ CURSO : clasifica
     ESTUDIANTE ||--o{ MATRICULA : registra
-    SECCION ||--o{ MATRICULA : recibe
-    SECCION ||--o{ EVALUACION : define
+    CURSO ||--o{ MATRICULA : recibe
+    CURSO ||--o{ CURSO_ASIGNATURA : imparte
+    ASIGNATURA ||--o{ CURSO_ASIGNATURA : compone
+    CURSO_ASIGNATURA ||--o{ EVALUACION : define
     EVALUACION ||--o{ CALIFICACION : produce
     ESTUDIANTE ||--o{ CALIFICACION : obtiene
-    SECCION ||--o{ SESION : programa
+    CURSO_ASIGNATURA ||--o{ SESION : programa
     SESION ||--o{ ASISTENCIA : registra
     ESTUDIANTE ||--o{ ASISTENCIA : posee
     ESTUDIANTE ||--o{ ALERTA : genera
@@ -75,7 +77,7 @@ sequenceDiagram
     Web->>API: Envía dato validado
     API->>BD: Persiste y audita cambio
     API->>Motor: Solicita evaluar reglas
-    Motor->>BD: Consulta contexto académico
+    Motor->>BD: Consulta contexto escolar
     Motor->>BD: Registra o actualiza alerta explicable
     UTP->>Web: Consulta bandeja priorizada
     Web->>API: Solicita alertas autorizadas

@@ -1,6 +1,6 @@
 # Product Vision — SIGAA
 
-Estado: borrador para validación durante Sprint 0.
+Estado: dominio escolar confirmado por el Product Owner; pendiente validación externa.
 
 ## Declaración de visión
 
@@ -23,10 +23,11 @@ La información académica suele estar distribuida entre planillas, correos y pl
 | Grupo | Necesidad principal | Valor esperado |
 |---|---|---|
 | Dirección y UTP | Visión consolidada y priorización | Indicadores y casos críticos visibles |
-| Docentes | Registro y consulta simple | Menor duplicación y alertas comprensibles |
-| Inspectoría/orientación | Seguimiento coordinado | Responsables, intervenciones e historial |
-| Administración | Control de usuarios y estructura académica | Datos consistentes y permisos definidos |
-| Estudiantes | Apoyo oportuno | Intervenciones antes de una situación crítica |
+| Profesor jefe | Seguimiento integral de su curso | Alertas e intervenciones comprensibles |
+| Profesor de asignatura | Registro de notas y asistencia | Menor duplicación y permisos acotados |
+| Inspectoría/orientación | Asistencia y seguimiento coordinado | Justificaciones, responsables e historial |
+| Administración | Control de usuarios y estructura escolar | Datos consistentes y permisos definidos |
+| Estudiantes y apoderados | Consulta y apoyo oportuno | Información clara antes de una situación crítica |
 
 ## Cuatro pilares
 
@@ -55,8 +56,8 @@ Desarrollar y validar durante el semestre 2026 un MVP web que centralice informa
 Incluye:
 
 - Autenticación y control de acceso por roles.
-- Gestión de periodos, cursos, asignaturas y secciones.
-- Gestión de estudiantes y matrículas.
+- Gestión de establecimiento, años escolares, niveles, cursos y asignaturas.
+- Gestión de estudiantes, apoderados y matrículas anuales por curso.
 - Registro o importación controlada de calificaciones y asistencia.
 - Tres reglas configurables de alerta.
 - Bandeja priorizada de alertas.

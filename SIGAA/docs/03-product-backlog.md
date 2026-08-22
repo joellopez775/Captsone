@@ -18,7 +18,7 @@ Este documento presenta una vista revisable en GitHub. Los puntos y la asignaci�
 | Descubrimiento y producto | Problema, usuarios, visión y backlog validados | Sprint 0–1 |
 | Diseño y arquitectura | Arquitectura, ER, UML, API y NFR coherentes | Sprint 1–2 |
 | Seguridad y plataforma | Autenticación, RBAC, CI y Docker | Sprint 2 |
-| Gestión académica | Catálogos, estudiantes, matrículas y calificaciones | Sprint 2–3 |
+| Gestión escolar | Establecimiento, niveles, cursos, estudiantes, apoderados, matrículas y notas | Sprint 2–3 |
 | Asistencia y alertas | Asistencia, reglas y bandeja priorizada | Sprint 4 |
 | Seguimiento | Casos, intervenciones, ficha 360 y avisos | Sprint 5 |
 | Analítica y auditoría | Dashboard, reportes y trazabilidad | Sprint 6 |
@@ -40,7 +40,7 @@ Este documento presenta una vista revisable en GitHub. Los puntos y la asignaci�
 | PB-010 | Entrega y presentación Fase 1 | Must | 5 | Sprint 1 | En revisión; feedback y ensayo pendientes |
 | PB-011 | Autenticación segura | Must | 8 | Sprint 2 | Pendiente |
 | PB-012 | Roles y permisos | Must | 8 | Sprint 2 | Pendiente |
-| PB-013 | Estructura académica | Must | 8 | Sprint 2 | Pendiente |
+| PB-013 | Estructura escolar: establecimiento, año, niveles, cursos y asignaturas | Must | 8 | Sprint 2 | Modelo físico adelantado en 0.3.0 |
 | PB-014 | Entorno Docker reproducible | Must | 5 | Sprint 2 | En revisión (adelantado) |
 | PB-015 | Gestión de estudiantes | Must | 8 | Sprint 3 | Pendiente |
 | PB-016 | Matrículas | Must | 5 | Sprint 3 | Pendiente |
@@ -62,6 +62,9 @@ Este documento presenta una vista revisable en GitHub. Los puntos y la asignaci�
 | PB-032 | Innovación y propuesta de valor | Must | 3 | Sprint 7 | Pendiente |
 | PB-033 | Entrega final Fase 2 | Must | 8 | Sprint 7 | Pendiente |
 | PB-034 | Defensa y retrospectiva del proyecto | Must | 5 | Release final | Pendiente |
+| PB-035 | Corregir dominio universitario a escolar y validar migración 0.3.0 | Must | 8 | Sprint 1 | Implementado; pendiente aceptación PO |
+| PB-036 | Gestión de apoderados y vínculo con estudiantes | Must | 5 | Sprint 3 | Modelo físico adelantado; UI pendiente |
+| PB-037 | Gestión de justificaciones por Inspectoría | Must | 5 | Sprint 4 | Modelo físico adelantado; UI pendiente |
 
 ## Política de cambios
 

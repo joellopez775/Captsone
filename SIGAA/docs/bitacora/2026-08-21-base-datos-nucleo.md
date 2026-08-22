@@ -1,5 +1,10 @@
 # Implementación del núcleo de base de datos
 
+> **Artefacto histórico superado.** Esta entrada documenta el modelo 0.2.0,
+> construido bajo una interpretación universitaria incorrecta. El Product Owner
+> confirmó el dominio escolar y la migración 0.3.0 lo reemplaza. Véase
+> `2026-08-21-correccion-dominio-escolar.md`.
+
 Fecha: 21 de agosto de 2026  
 Sprint: 1  
 Versión de esquema: `0.2.0`

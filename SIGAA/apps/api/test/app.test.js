@@ -45,6 +45,8 @@ test("GET /prototype returns explicitly synthetic dashboard data", async () => {
   assert.equal(body.students.length, 5);
   assert.equal(body.alerts.length, 4);
   assert.equal(body.studentPortal.studentId, "est-001");
+  assert.equal(body.meta.school, "Liceo Bicentenario Los Arrayanes");
+  assert.equal(body.students[0].course, "2° Medio A");
   assert.equal(body.studentPortal.courses.length, 4);
   assert.equal(body.studentPortal.courses[0].grades.length, 3);
 });
@@ -55,6 +57,7 @@ test("POST /auth/demo-login resolves the teacher role", async () => {
   const body = await response.json();
   assert.equal(body.synthetic, true);
   assert.equal(body.role, "teacher");
+  assert.equal(body.profile.title, "Profesora jefe");
 });
 
 test("POST /auth/demo-login resolves the student role", async () => {

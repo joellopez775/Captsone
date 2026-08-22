@@ -8,7 +8,7 @@ Validar que el problema, los actores, los datos mínimos y las reglas de alerta 
 
 ## Perfil de la contraparte
 
-- Docente, coordinador académico, jefe de carrera o profesional que participe en seguimiento estudiantil.
+- Profesor jefe, profesor de asignatura, integrante de Dirección/UTP o Inspectoría de un colegio o liceo.
 - Conocimiento de asistencia, calificaciones, alertas o acompañamiento.
 - Sin uso de datos personales reales durante la sesión.
 

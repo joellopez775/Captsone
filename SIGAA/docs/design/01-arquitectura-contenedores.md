@@ -10,8 +10,11 @@ SIGAA adopta una arquitectura modular en tres contenedores para el MVP: aplicaci
 
 ```mermaid
 flowchart LR
-    DOC[Docente] --> SIGAA[SIGAA]
-    UTP[Coordinación o UTP] --> SIGAA
+    PJ[Profesor jefe] --> SIGAA[SIGAA]
+    PA[Profesor de asignatura] --> SIGAA
+    UTP[Dirección o UTP] --> SIGAA
+    INS[Inspectoría] --> SIGAA
+    EST[Estudiante o apoderado] --> SIGAA
     ADM[Administrador] --> SIGAA
     SIGAA --> MAIL[Canal de notificación simulado]
 ```
@@ -39,7 +42,7 @@ flowchart LR
 | API | Autorización, casos de uso, validación y contratos JSON | Depender de detalles visuales |
 | PostgreSQL | Integridad, relaciones, persistencia y consultas | Resolver flujos de interfaz |
 | Identidad | Usuarios, sesiones, roles y permisos | Mezclar permisos con componentes visuales |
-| Académico | Periodos, asignaturas, secciones, matrículas y evaluaciones | Generar alertas sin reglas versionadas |
+| Escolar | Establecimiento, años, niveles, cursos, asignaturas, matrículas y evaluaciones | Generar alertas sin reglas versionadas |
 | Alertas | Evaluar reglas, explicar evidencia, deduplicar y priorizar | Ocultar el motivo de una alerta |
 | Seguimiento | Intervenciones, responsables, estados y cierre | Modificar evidencia histórica |
 | Auditoría | Actor, acción, entidad, fecha y cambios relevantes | Almacenar secretos o contraseñas |
@@ -49,12 +52,13 @@ flowchart LR
 | Método | Ruta prevista | Uso | Rol mínimo |
 |---|---|---|---|
 | POST | `/api/auth/login` | Iniciar sesión | Público |
-| GET | `/api/dashboard` | Resumen autorizado | Docente |
-| GET | `/api/estudiantes` | Buscar estudiantes | Docente |
-| GET | `/api/estudiantes/:id` | Consultar ficha | Docente |
-| GET | `/api/alertas` | Bandeja priorizada | Docente |
-| POST | `/api/alertas/:id/intervenciones` | Registrar seguimiento | Docente |
-| PATCH | `/api/alertas/:id` | Cambiar estado | Coordinación |
+| GET | `/api/dashboard` | Resumen autorizado por curso/establecimiento | Profesor de asignatura |
+| GET | `/api/estudiantes` | Buscar estudiantes dentro del alcance | Profesor de asignatura |
+| GET | `/api/estudiantes/:id` | Consultar ficha | Profesor de asignatura |
+| GET | `/api/alertas` | Bandeja priorizada | Profesor jefe |
+| POST | `/api/alertas/:id/intervenciones` | Registrar seguimiento | Profesor jefe |
+| PATCH | `/api/alertas/:id` | Cambiar estado | Dirección / UTP |
+| POST | `/api/justificaciones` | Registrar justificación | Inspectoría |
 | POST | `/api/configuracion/reglas` | Versionar regla | Administrador |
 
 Las rutas de prototipo pueden devolver datos sintéticos antes de implementar autenticación y persistencia productivas.
@@ -90,6 +94,6 @@ Las rutas de prototipo pueden devolver datos sintéticos antes de implementar au
 ## Riesgos y decisiones pendientes
 
 - Ratificar Express frente a NestJS con todo el equipo.
-- Confirmar reglas académicas y permisos con contraparte.
+- Confirmar reglas escolares, escala y permisos con contraparte.
 - Definir estrategia de sesión en PB-011.
 - Medir volumen y rendimiento con dataset sintético en Fase 2.
