@@ -112,3 +112,11 @@ las reglas internas, la bandeja global ni los antecedentes de otros estudiantes.
 El endpoint `POST /auth/demo-login` valida ambos perfiles y responde `401` para
 credenciales incorrectas. No genera una sesión persistente ni sustituye la
 autenticación segura planificada para Sprint 2.
+
+## Identidad visual oficial - 28 de agosto de 2026
+
+Se incorporó el logo oficial entregado por el Product Owner como activo del
+producto. La versión completa identifica la pantalla de acceso y una variante
+compacta, obtenida mediante recorte visual no destructivo, aparece en las barras
+laterales de los portales docente y estudiante. El archivo fuente se conserva
+sin modificaciones en `apps/web/src/assets/sigaa-logo.png`.

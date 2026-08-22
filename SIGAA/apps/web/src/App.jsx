@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import sigaaLogo from "./assets/sigaa-logo.png";
 
 const labels = {
   high: "Alto",
@@ -35,13 +36,17 @@ function RiskBadge({ value }) {
   return <span className={`badge badge--${value}`}>{labels[value] ?? value}</span>;
 }
 
+function BrandMark() {
+  return <span className="brand-logo" aria-hidden="true"><img src={sigaaLogo} alt="" /></span>;
+}
+
 function AppShell({ activeView, onNavigate, onLogout, children, system }) {
   const navigation = [["dashboard", "Resumen", "dashboard"], ["students", "Estudiantes", "students"], ["alerts", "Alertas", "alerts"]];
   return (
     <div className="app-shell">
       <aside className="sidebar">
         <div className="brand">
-          <span className="brand__mark"><span>S</span></span>
+          <BrandMark />
           <div><strong>SIGAA</strong><small>Academic Intelligence</small></div>
         </div>
         <nav aria-label="Navegación principal">
@@ -99,14 +104,14 @@ function Login({ onAuthenticate, system }) {
   return (
     <main className="login-page">
       <section className="login-intro">
-        <div className="login-seal"><span>S</span><small>2026</small></div>
+        <div className="login-logo"><img src={sigaaLogo} alt="SIGAA Academic Intelligence" /></div>
         <p className="eyebrow">Inteligencia académica · Comunidad universitaria</p>
         <h1>Excelencia que se puede acompañar.</h1>
         <p>Una experiencia académica diseñada para convertir señales tempranas en decisiones humanas, oportunas y trazables.</p>
         <div className="prototype-note"><span className="prototype-note__dot" /><strong>Entorno de demostración</strong><span>Información completamente sintética.</span></div>
       </section>
       <form className="login-card" aria-labelledby="demo-title" onSubmit={submit}>
-        <div className="login-card__header"><span className="login-card__tag">SIGAA</span><span>Portal institucional</span></div>
+        <div className="login-card__header"><span className="login-card__logo"><img src={sigaaLogo} alt="SIGAA" /></span><span>Portal institucional</span></div>
         <h2 id="demo-title">Bienvenido de vuelta</h2>
         <p>Tu cuenta determina automáticamente la experiencia y los permisos disponibles.</p>
         <label>Correo institucional<input autoComplete="username" onChange={(event) => setEmail(event.target.value)} placeholder="nombre@sigaa.demo" required type="email" value={email} /></label>
@@ -137,7 +142,7 @@ function StudentPortal({ data, onLogout, system }) {
   return (
     <div className="student-portal-shell">
       <aside className="student-sidebar">
-        <div className="brand"><span className="brand__mark"><span>S</span></span><div><strong>SIGAA</strong><small>Portal del estudiante</small></div></div>
+        <div className="brand"><BrandMark /><div><strong>SIGAA</strong><small>Portal del estudiante</small></div></div>
         <nav aria-label="Navegación del estudiante"><span className="nav-caption">Mi experiencia</span><button className="nav-button nav-button--active" type="button"><Icon name="dashboard" /><span>Mi inicio</span></button><button className="nav-button" type="button"><Icon name="book" /><span>Mis asignaturas</span></button><button className="nav-button" type="button"><Icon name="calendar" /><span>Calendario</span></button></nav>
         <div className="student-profile"><span className="student-profile__avatar">CS</span><div><strong>{student.name}</strong><small>{student.program}</small></div></div>
         <div className="system-status"><div className={`system-dot system-dot--${system.status}`} /><span>{system.message}</span></div>
