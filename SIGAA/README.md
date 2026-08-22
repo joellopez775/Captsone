@@ -23,6 +23,19 @@ Para comprobar los servicios después de levantarlos:
 sh scripts/verify-docker.sh
 ```
 
+## Accesos de demostración
+
+El mismo formulario de inicio de sesión resuelve el rol y abre la experiencia
+correspondiente:
+
+| Perfil | Correo | Contraseña |
+|---|---|---|
+| Docente | `docente@sigaa.demo` | `Docente2026!` |
+| Estudiante | `estudiante@sigaa.demo` | `Estudiante2026!` |
+
+Estas cuentas son sintéticas y se incluyen únicamente para el prototipo local.
+No deben reutilizarse en ambientes productivos.
+
 La plantilla de integración continua está en `ci/sigaa-ci.yml.example`. Para activarla se debe copiar a `.github/workflows/sigaa-ci.yml` usando una credencial de GitHub con permiso `workflow`.
 
 ## Estado

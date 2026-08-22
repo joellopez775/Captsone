@@ -2,6 +2,11 @@ import cors from "cors";
 import express from "express";
 import { prototypeData } from "./prototype-data.js";
 
+const demoAccounts = [
+  { email: "docente@sigaa.demo", password: "Docente2026!", role: "teacher", profile: { name: "Daniela Rojas", title: "Docente" } },
+  { email: "estudiante@sigaa.demo", password: "Estudiante2026!", role: "student", profile: { name: "Camila Soto", title: "Estudiante", studentId: "est-001" } },
+];
+
 export function createApp({ pool }) {
   const app = express();
 
@@ -34,6 +39,19 @@ export function createApp({ pool }) {
 
   app.get("/prototype", (_request, response) => {
     response.json(prototypeData);
+  });
+
+  app.post("/auth/demo-login", (request, response) => {
+    const email = String(request.body?.email ?? "").trim().toLowerCase();
+    const password = String(request.body?.password ?? "");
+    const account = demoAccounts.find((candidate) => candidate.email === email && candidate.password === password);
+
+    if (!account) {
+      response.status(401).json({ error: "invalid_credentials" });
+      return;
+    }
+
+    response.json({ synthetic: true, role: account.role, profile: account.profile });
   });
 
   app.get("/prototype/students/:id", (request, response) => {

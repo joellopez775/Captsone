@@ -35,7 +35,7 @@ function RiskBadge({ value }) {
   return <span className={`badge badge--${value}`}>{labels[value] ?? value}</span>;
 }
 
-function AppShell({ activeView, onNavigate, onLogout, onSwitchPersona, children, system }) {
+function AppShell({ activeView, onNavigate, onLogout, children, system }) {
   const navigation = [["dashboard", "Resumen", "dashboard"], ["students", "Estudiantes", "students"], ["alerts", "Alertas", "alerts"]];
   return (
     <div className="app-shell">
@@ -51,14 +51,14 @@ function AppShell({ activeView, onNavigate, onLogout, onSwitchPersona, children,
           ))}
         </nav>
         <div className="sidebar__footer">
-          <div className="profile-card"><span className="profile-card__avatar">JL</span><div><strong>Joel López</strong><small>Product Owner</small></div><button aria-label="Salir de demo" onClick={onLogout} type="button">•••</button></div>
+          <div className="profile-card"><span className="profile-card__avatar">DR</span><div><strong>Daniela Rojas</strong><small>Docente</small></div><button aria-label="Salir de demo" onClick={onLogout} type="button">•••</button></div>
           <div className="system-status"><div className={`system-dot system-dot--${system.status}`} /><span>{system.message}</span></div>
         </div>
       </aside>
       <div className="app-stage">
         <header className="topbar">
           <div className="topbar__context"><span>Campus digital</span><i>/</i><strong>{navigation.find(([view]) => view === activeView)?.[1]}</strong></div>
-          <div className="topbar__actions"><button className="persona-switch" onClick={onSwitchPersona} type="button">Vista estudiante</button><button className="command-button" type="button"><Icon name="search" /><span>Buscar en SIGAA</span><kbd>⌘ K</kbd></button><button className="notification-button" aria-label="Notificaciones" type="button"><Icon name="alerts" /><i /></button><span className="topbar__avatar">JL</span></div>
+          <div className="topbar__actions"><button className="command-button" type="button"><Icon name="search" /><span>Buscar en SIGAA</span><kbd>⌘ K</kbd></button><button className="notification-button" aria-label="Notificaciones" type="button"><Icon name="alerts" /><i /></button><span className="topbar__avatar">DR</span></div>
         </header>
         <main className="workspace">{children}</main>
       </div>
@@ -66,7 +66,36 @@ function AppShell({ activeView, onNavigate, onLogout, onSwitchPersona, children,
   );
 }
 
-function Login({ onEnter, onPersonaChange, persona, system }) {
+function Login({ onAuthenticate, system }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  async function submit(event) {
+    event.preventDefault();
+    setSubmitting(true);
+    setError("");
+    try {
+      await onAuthenticate(email, password);
+    } catch (_error) {
+      setError("Correo o contraseña incorrectos.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  function useDemoAccount(type) {
+    if (type === "teacher") {
+      setEmail("docente@sigaa.demo");
+      setPassword("Docente2026!");
+    } else {
+      setEmail("estudiante@sigaa.demo");
+      setPassword("Estudiante2026!");
+    }
+    setError("");
+  }
+
   return (
     <main className="login-page">
       <section className="login-intro">
@@ -76,20 +105,17 @@ function Login({ onEnter, onPersonaChange, persona, system }) {
         <p>Una experiencia académica diseñada para convertir señales tempranas en decisiones humanas, oportunas y trazables.</p>
         <div className="prototype-note"><span className="prototype-note__dot" /><strong>Entorno de demostración</strong><span>Información completamente sintética.</span></div>
       </section>
-      <section className="login-card" aria-labelledby="demo-title">
+      <form className="login-card" aria-labelledby="demo-title" onSubmit={submit}>
         <div className="login-card__header"><span className="login-card__tag">SIGAA</span><span>Portal institucional</span></div>
         <h2 id="demo-title">Bienvenido de vuelta</h2>
-        <p>Ingresa al entorno académico de demostración.</p>
-        <span className="role-label">Selecciona una experiencia</span>
-        <div className="role-selector" aria-label="Seleccionar perfil">
-          <button className={persona === "staff" ? "role-option role-option--active" : "role-option"} onClick={() => onPersonaChange("staff")} type="button"><span>Coordinación</span><small>Gestión y alertas</small></button>
-          <button className={persona === "student" ? "role-option role-option--active" : "role-option"} onClick={() => onPersonaChange("student")} type="button"><span>Estudiante</span><small>Notas y agenda</small></button>
-        </div>
-        <label>Perfil simulado<input disabled value={persona === "student" ? "Camila Soto · Estudiante" : "Coordinación académica"} /></label>
-        <label>Periodo<input disabled value="2026 - Segundo semestre" /></label>
-        <button className="primary-button" onClick={onEnter} type="button"><span>Ingresar al portal</span><span>→</span></button>
+        <p>Tu cuenta determina automáticamente la experiencia y los permisos disponibles.</p>
+        <label>Correo institucional<input autoComplete="username" onChange={(event) => setEmail(event.target.value)} placeholder="nombre@sigaa.demo" required type="email" value={email} /></label>
+        <label>Contraseña<input autoComplete="current-password" onChange={(event) => setPassword(event.target.value)} placeholder="Ingresa tu contraseña" required type="password" value={password} /></label>
+        {error && <div className="login-error" role="alert">{error}</div>}
+        <button className="primary-button" disabled={submitting} type="submit"><span>{submitting ? "Validando…" : "Ingresar al portal"}</span><span>→</span></button>
+        <div className="demo-accounts"><span>Accesos de demostración</span><div><button onClick={() => useDemoAccount("teacher")} type="button">Usar cuenta docente</button><button onClick={() => useDemoAccount("student")} type="button">Usar cuenta estudiante</button></div></div>
         <small className={`connection connection--${system.status}`}>{system.message}</small>
-      </section>
+      </form>
     </main>
   );
 }
@@ -105,7 +131,7 @@ function CourseCard({ course }) {
   );
 }
 
-function StudentPortal({ data, onLogout, onSwitchPersona, system }) {
+function StudentPortal({ data, onLogout, system }) {
   const portal = data.studentPortal;
   const student = data.students.find(({ id }) => id === portal.studentId);
   return (
@@ -117,7 +143,7 @@ function StudentPortal({ data, onLogout, onSwitchPersona, system }) {
         <div className="system-status"><div className={`system-dot system-dot--${system.status}`} /><span>{system.message}</span></div>
       </aside>
       <div className="student-stage">
-        <header className="student-topbar"><div><span>Portal académico</span><i>/</i><strong>Mi inicio</strong></div><div><button className="persona-switch" onClick={onSwitchPersona} type="button">Vista coordinación</button><button className="notification-button" aria-label="Notificaciones" type="button"><Icon name="alerts" /><i /></button><button className="student-logout" onClick={onLogout} type="button">Cerrar sesión</button></div></header>
+        <header className="student-topbar"><div><span>Portal académico</span><i>/</i><strong>Mi inicio</strong></div><div><button className="notification-button" aria-label="Notificaciones" type="button"><Icon name="alerts" /><i /></button><button className="student-logout" onClick={onLogout} type="button">Cerrar sesión</button></div></header>
         <main className="student-workspace">
           <header className="student-welcome"><div><p>SEMESTRE {portal.semester} · {data.meta.period}</p><h1>Hola, Camila.</h1><span>Este es tu pulso académico actualizado.</span></div><div className="student-id"><span>Estudiante regular</span><strong>{student.identifier}</strong></div></header>
           <section className="student-overview">
@@ -269,6 +295,14 @@ export default function App() {
     loadPrototype();
   }, []);
 
+  async function authenticate(email, password) {
+    const response = await fetch("/api/auth/demo-login", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email, password }) });
+    if (!response.ok) throw new Error("invalid_credentials");
+    const session = await response.json();
+    setPersona(session.role === "student" ? "student" : "staff");
+    setEntered(true);
+  }
+
   const content = useMemo(() => {
     if (!data) return <div className="loading-state"><span /><p>Cargando prototipo…</p></div>;
     if (studentId) return <StudentDetail data={data} studentId={studentId} onBack={() => { setStudentId(null); setView("students"); }} />;
@@ -277,7 +311,7 @@ export default function App() {
     return <Dashboard data={data} onNavigate={setView} onOpenStudent={setStudentId} />;
   }, [data, studentId, view]);
 
-  if (!entered) return <Login onEnter={() => setEntered(true)} onPersonaChange={setPersona} persona={persona} system={system} />;
-  if (persona === "student" && data) return <StudentPortal data={data} onLogout={() => setEntered(false)} onSwitchPersona={() => setPersona("staff")} system={system} />;
-  return <AppShell activeView={view} onLogout={() => setEntered(false)} onNavigate={(next) => { setStudentId(null); setView(next); }} onSwitchPersona={() => setPersona("student")} system={system}>{content}</AppShell>;
+  if (!entered) return <Login onAuthenticate={authenticate} system={system} />;
+  if (persona === "student" && data) return <StudentPortal data={data} onLogout={() => setEntered(false)} system={system} />;
+  return <AppShell activeView={view} onLogout={() => setEntered(false)} onNavigate={(next) => { setStudentId(null); setView(next); }} system={system}>{content}</AppShell>;
 }

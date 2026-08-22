@@ -24,7 +24,7 @@ sin acceder a información de terceros ni a herramientas de gestión interna.
 | Control | Resultado |
 |---|---|
 | Build web | Correcto |
-| Pruebas API | 6/6 aprobadas |
+| Pruebas API | 9/9 aprobadas después de incorporar login por roles |
 | Docker Compose | Servicios operativos |
 | Entrada como estudiante | Operativa |
 | Asignaturas visibles | 4 |

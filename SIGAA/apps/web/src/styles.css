@@ -98,11 +98,19 @@ button { cursor: pointer; }
 .login-card > p { margin: 0 0 34px; color: #7e857f; font-size: .9rem; }
 .login-card label { display: grid; gap: 8px; margin: 18px 0; color: #656d67; font-size: .7rem; font-weight: 700; letter-spacing: .04em; }
 .login-card input { width: 100%; padding: 15px 16px; color: #233029; background: #f0efe9; border: 1px solid rgb(25 55 42 / 10%); border-radius: 12px; }
+.login-card input:focus { border-color: rgb(37 91 71 / 42%); box-shadow: 0 0 0 4px rgb(37 91 71 / 7%); outline: none; }
 .primary-button { display: flex; width: 100%; justify-content: space-between; margin: 24px 0 18px; padding: 17px 19px; color: #f8f5ea; background: var(--forest); border: 0; border-radius: 13px; font-weight: 720; box-shadow: 0 14px 32px rgb(23 63 49 / 18%); transition: transform .18s ease, background .18s ease; }
 .primary-button:hover { background: #0e3427; transform: translateY(-1px); }
+.primary-button:disabled { cursor: wait; opacity: .68; transform: none; }
 .connection { display: block; color: #919892; text-align: center; font-size: .72rem; }
 .connection--ready { color: #398061; }
 .connection--error { color: #a4473e; }
+.login-error { padding: 10px 12px; color: #8a3f36; background: #f4e3df; border: 1px solid #ead0ca; border-radius: 9px; font-size: .7rem; }
+.demo-accounts { display: grid; gap: 9px; margin: 20px 0; padding: 14px; background: #ecebe5; border: 1px solid rgb(25 55 42 / 7%); border-radius: 12px; }
+.demo-accounts > span { color: #818882; font-size: .6rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.demo-accounts > div { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.demo-accounts button { padding: 9px; color: #345747; background: #f8f7f2; border: 1px solid rgb(25 55 42 / 9%); border-radius: 8px; font-size: .64rem; font-weight: 720; }
+.demo-accounts button:hover { background: #e5ece7; }
 .role-label { display: block; margin: 26px 0 9px; color: #656d67; font-size: .7rem; font-weight: 700; letter-spacing: .04em; }
 .role-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .role-option { display: grid; gap: 4px; padding: 13px; color: #677069; background: #ecebe5; border: 1px solid transparent; border-radius: 11px; text-align: left; }

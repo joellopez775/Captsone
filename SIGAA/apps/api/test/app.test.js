@@ -49,6 +49,28 @@ test("GET /prototype returns explicitly synthetic dashboard data", async () => {
   assert.equal(body.studentPortal.courses[0].grades.length, 3);
 });
 
+test("POST /auth/demo-login resolves the teacher role", async () => {
+  const response = await fetch(`${baseUrl}/auth/demo-login`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: "docente@sigaa.demo", password: "Docente2026!" }) });
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body.synthetic, true);
+  assert.equal(body.role, "teacher");
+});
+
+test("POST /auth/demo-login resolves the student role", async () => {
+  const response = await fetch(`${baseUrl}/auth/demo-login`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: "estudiante@sigaa.demo", password: "Estudiante2026!" }) });
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body.role, "student");
+  assert.equal(body.profile.studentId, "est-001");
+});
+
+test("POST /auth/demo-login rejects invalid credentials", async () => {
+  const response = await fetch(`${baseUrl}/auth/demo-login`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: "estudiante@sigaa.demo", password: "incorrecta" }) });
+  assert.equal(response.status, 401);
+  assert.deepEqual(await response.json(), { error: "invalid_credentials" });
+});
+
 test("GET /prototype/students/:id returns a contextual student view", async () => {
   const response = await fetch(`${baseUrl}/prototype/students/est-001`);
   assert.equal(response.status, 200);

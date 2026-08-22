@@ -8,7 +8,7 @@ Validar navegación, jerarquía de información y explicabilidad antes de constr
 
 ## Pantallas
 
-1. Acceso demo: identifica el carácter sintético y permite ingresar sin credenciales reales.
+1. Acceso demo: identifica el carácter sintético y determina el rol mediante credenciales de demostración.
 2. Dashboard: indicadores, estudiantes prioritarios y alertas recientes.
 3. Estudiantes: búsqueda y listado con asistencia, promedio y nivel de riesgo.
 4. Ficha: contexto académico, indicadores, alertas e historial de intervención.
@@ -87,8 +87,8 @@ Verificación de la iteración:
 ## Portal del estudiante - 28 de agosto de 2026
 
 Se incorporó una experiencia diferenciada para evitar que el estudiante vea
-controles o información propios de coordinación. El selector de perfil permite
-ingresar como coordinación académica o como estudiante de demostración.
+controles o información propios de coordinación. Un único formulario consulta
+la API y dirige a la vista docente o estudiante según la cuenta autenticada.
 
 La vista de estudiante incluye:
 
@@ -103,3 +103,12 @@ La vista de estudiante incluye:
 
 Los datos siguen siendo exclusivamente sintéticos. Esta experiencia no expone
 las reglas internas, la bandeja global ni los antecedentes de otros estudiantes.
+
+### Cuentas demo
+
+- Docente: `docente@sigaa.demo` / `Docente2026!`.
+- Estudiante: `estudiante@sigaa.demo` / `Estudiante2026!`.
+
+El endpoint `POST /auth/demo-login` valida ambos perfiles y responde `401` para
+credenciales incorrectas. No genera una sesión persistente ni sustituye la
+autenticación segura planificada para Sprint 2.
