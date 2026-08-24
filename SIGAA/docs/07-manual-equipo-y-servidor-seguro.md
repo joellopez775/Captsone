@@ -2,6 +2,10 @@
 
 Estado: procedimiento operativo propuesto y configuración versionada.
 
+Versión ilustrada para distribuir al equipo:
+
+`../output/pdf/Manual_Instalacion_Desarrollo_y_Colaboracion_SIGAA.pdf`
+
 ## Decisión de seguridad
 
 Los integrantes del equipo no reciben acceso al Mac servidor ni a PostgreSQL.

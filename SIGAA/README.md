@@ -52,6 +52,7 @@ Product Owner confirmado: Joel López. Los demás roles continúan propuestos ha
 - `entregables/fase-1/Presentacion_SIGAA_Fase_1_Sprint1.pptx`: presentación editable del avance y decisiones solicitadas al Product Owner.
 - `entregables/gestion/Plan_Maestro_Scrum_SIGAA.xlsx`: calendario oficial, roadmap de sprints, Product Backlog, carta Gantt, matriz de entregables, cobertura de rúbrica, RACI, riesgos, Definition of Done y plantilla de burndown.
 - `entregables/gestion/Cronograma_Sprints_SIGAA_2026.png`: infografía del cronograma y los sprints.
+- `output/pdf/Manual_Instalacion_Desarrollo_y_Colaboracion_SIGAA.pdf`: manual ilustrado para instalar Docker, clonar, modificar, probar y subir cambios.
 
 ## Documentación viva
 
