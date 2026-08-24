@@ -1,4 +1,6 @@
 .env
+.env.server
+.secrets/
 **/node_modules/
 **/dist/
 **/coverage/

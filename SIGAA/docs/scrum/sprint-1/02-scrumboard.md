@@ -28,6 +28,7 @@ Fecha de corte simulada: 28 de agosto de 2026.
 - PB-035: esquema, prototipo y documentación escolar implementados; pendiente aceptación PO.
 - PB-038: modelo docente con cursos, clases, asistencia, notas y anotaciones; pendiente aceptación PO.
 - PB-039: modelo estudiante con consulta privada de notas, asistencia, calendario y anotaciones; pendiente aceptación PO.
+- PB-040: manual Docker y aislamiento del servidor implementados; activación del túnel permanente pendiente del PO.
 
 ## Terminado
 

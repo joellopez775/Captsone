@@ -31,6 +31,7 @@ Este directorio conserva la documentación viva de SIGAA. Los documentos entrega
 | PRO-001 | Prototipo navegable Sprint 1 | Verificado internamente | Equipo | 2026-08-28 |
 | F1-02 | Documento 1.5 y presentación | Preparados para revisión | Equipo | 2026-08-28 |
 | TEC-001 | Guía de ejecución Docker | Verificado | DevOps | 2026-08-21 |
+| TEC-002 | [Manual Docker y servidor seguro](07-manual-equipo-y-servidor-seguro.md) | Configuración validada; activación pendiente | DevOps | 2026-08-24 |
 
 ## Reglas de trazabilidad
 

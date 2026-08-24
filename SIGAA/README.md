@@ -16,6 +16,8 @@ docker compose up --build
 - Diagnóstico de base de datos: <http://localhost:3000/db-health>
 
 La guía completa está en [`docs/06-docker-entorno.md`](docs/06-docker-entorno.md).
+El procedimiento para el equipo y el despliegue aislado está en
+[`docs/07-manual-equipo-y-servidor-seguro.md`](docs/07-manual-equipo-y-servidor-seguro.md).
 
 Para comprobar los servicios después de levantarlos:
 

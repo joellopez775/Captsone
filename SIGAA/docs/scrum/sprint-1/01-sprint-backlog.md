@@ -24,6 +24,7 @@ Fecha de corte simulada: 28 de agosto de 2026. El compromiso definitivo requiere
 | Desplegar corrección escolar en servidor | PB-035 | Respaldo, healthchecks y consulta de esquema | Terminado |
 | Implementar espacio docente mult curso | PB-038 | UI, API demo, migración 004, pruebas y despliegue | En revisión PO |
 | Implementar portal estudiantil privado de consulta | PB-039 | UI, API demo, migración 005, pruebas y despliegue | En revisión PO |
+| Documentar Docker del equipo y aislar servidor/base de datos | PB-040 | Manual, Compose seguro, verificación y Cloudflare Access | Configuración terminada; activación pendiente PO |
 
 ## Lectura de estados
 
