@@ -2,6 +2,8 @@
 
 Revisión realizada el 25 de agosto de 2026 sobre el curso `CAPSTONE_003V` del Campus Virtual Duoc UC.
 
+La revisión integral de cronograma, rúbricas, plantillas, instructivo, video de GitHub y estado de SIGAA está en [Guía maestra CAPSTONE — SIGAA](./GUIA_MAESTRA_CAPSTONE_SIGAA.md).
+
 ## Estado general del curso
 
 - No hay anuncios publicados.
@@ -39,4 +41,3 @@ La bibliografía obligatoria indicada es:
 - Pantaleo, G. (2015). *Ingeniería de software*. Alfaomega.
 - Sommerville, I. (2011). *Ingeniería de Software*, 9.ª edición. Pearson.
 - Project Management Institute (2017). *Guía de los fundamentos para la dirección de proyectos (PMBOK)*, 6.ª edición.
-
