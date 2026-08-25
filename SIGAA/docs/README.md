@@ -34,6 +34,7 @@ Este directorio conserva la documentación viva de SIGAA. Los documentos entrega
 | TEC-002 | [Manual Docker y servidor seguro](07-manual-equipo-y-servidor-seguro.md) | Configuración validada; activación pendiente | DevOps | 2026-08-24 |
 | TEC-003 | [Manual PDF de instalación y colaboración](../output/pdf/Manual_Instalacion_Desarrollo_y_Colaboracion_SIGAA.pdf) | Generado y verificado visualmente | Equipo | 2026-08-24 |
 | CAP-001 | [Matriz de cumplimiento CAPSTONE](08-matriz-cumplimiento-capstone.md) | Auditada contra material oficial | Product Owner | 2026-08-25 |
+| CAP-002 | [Plan PDF de trabajo, calendario y responsabilidades](../output/pdf/Plan_de_Trabajo_Calendario_y_Responsabilidades_SIGAA.pdf) | Generado y verificado visualmente | Product Owner | 2026-08-25 |
 
 ## Reglas de trazabilidad
 
