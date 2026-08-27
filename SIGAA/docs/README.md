@@ -37,6 +37,7 @@ Este directorio conserva la documentación viva de SIGAA. Los documentos entrega
 | CAP-002 | [Plan PDF de trabajo, calendario y responsabilidades](../output/pdf/Plan_de_Trabajo_Calendario_y_Responsabilidades_SIGAA.pdf) | Generado y verificado visualmente | Product Owner | 2026-08-25 |
 | CAP-003 | [Carta Gantt completa SIGAA](../output/pdf/Carta_Gantt_Completa_SIGAA_2026.pdf) | Generada y verificada visualmente | Product Owner | 2026-08-26 |
 | CAP-004 | [Informe de tecnologías a utilizar](../output/pdf/Informe_Tecnologias_a_Utilizar_SIGAA.pdf) | Generado y verificado visualmente | Equipo | 2026-08-26 |
+| CAP-005 | [Manual de actividades de la Carta Gantt](../output/pdf/Manual_de_Actividades_Carta_Gantt_SIGAA_2026.pdf) | Generado y verificado visualmente | Equipo | 2026-08-26 |
 
 ## Reglas de trazabilidad
 
