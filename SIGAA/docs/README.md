@@ -35,9 +35,9 @@ Este directorio conserva la documentación viva de SIGAA. Los documentos entrega
 | TEC-003 | [Manual PDF de instalación y colaboración](../output/pdf/Manual_Instalacion_Desarrollo_y_Colaboracion_SIGAA.pdf) | Generado y verificado visualmente | Equipo | 2026-08-24 |
 | CAP-001 | [Matriz de cumplimiento CAPSTONE](08-matriz-cumplimiento-capstone.md) | Auditada contra material oficial | Product Owner | 2026-08-25 |
 | CAP-002 | [Plan PDF de trabajo, calendario y responsabilidades](../output/pdf/Plan_de_Trabajo_Calendario_y_Responsabilidades_SIGAA.pdf) | Generado y verificado visualmente | Product Owner | 2026-08-25 |
-| CAP-003 | [Carta Gantt completa SIGAA](../output/pdf/Carta_Gantt_Completa_SIGAA_2026.pdf) | Generada y verificada visualmente | Product Owner | 2026-08-26 |
+| CAP-003 | [Carta Gantt alineada al cronograma oficial](../output/pdf/Carta_Gantt_SIGAA_Alineada_Cronograma_Oficial_2026.pdf) | Corregida y verificada contra Excel docente | Product Owner | 2026-08-26 |
 | CAP-004 | [Informe de tecnologías a utilizar](../output/pdf/Informe_Tecnologias_a_Utilizar_SIGAA.pdf) | Generado y verificado visualmente | Equipo | 2026-08-26 |
-| CAP-005 | [Manual de actividades de la Carta Gantt](../output/pdf/Manual_de_Actividades_Carta_Gantt_SIGAA_2026.pdf) | Generado y verificado visualmente | Equipo | 2026-08-26 |
+| CAP-005 | [Manual de actividades alineado al cronograma oficial](../output/pdf/Manual_Actividades_Gantt_Alineado_Cronograma_Oficial_2026.pdf) | Corregido y verificado visualmente | Equipo | 2026-08-26 |
 
 ## Reglas de trazabilidad
 
