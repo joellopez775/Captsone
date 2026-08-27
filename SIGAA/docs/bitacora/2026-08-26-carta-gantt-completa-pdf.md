@@ -25,3 +25,7 @@ Se genero una carta Gantt completa en formato A3 horizontal con:
 - Renderizado completo y revision visual sin cortes ni superposiciones.
 - Los roles de Agustin y Matias se mantienen como propuestos hasta ratificacion.
 - La hora exacta de las entregas continua pendiente de confirmacion docente.
+
+## Revision de distribucion
+
+El mismo 26 de agosto se genero una segunda version con las tareas individuales distribuidas equitativamente: 11 para Joel, 11 para Agustin y 11 para Matias. Las tareas de equipo se conservaron compartidas.
