@@ -30,7 +30,7 @@ Este directorio conserva la documentación viva de SIGAA. Los documentos entrega
 | DIS-004 | [Modelo funcional del estudiante](design/07-modelo-estudiante.md) | Incremento demo implementado | Arquitectura | 2026-08-21 |
 | PRO-001 | Prototipo navegable Sprint 1 | Verificado internamente | Equipo | 2026-08-28 |
 | F1-02 | Documento 1.5 y presentación | Preparados para revisión | Equipo | 2026-08-28 |
-| F1-03 | [Autoevaluación de competencias de Joel contextualizada a SIGAA](../output/docx/Lopez_Joel_1.1_AutoevaluacionCompetencias_Fase1_SIGAA.docx) | Completada y verificada visualmente | Joel López | 2026-08-26 |
+| F1-03 | [Autoevaluación de competencias de Joel contextualizada a SIGAA](../output/docx/Lopez_Joel_1.1_AutoevaluacionCompetencias_Fase1_SIGAA_Corregida.docx) | Corregida con competencias confirmadas y verificada visualmente | Joel López | 2026-08-27 |
 | TEC-001 | Guía de ejecución Docker | Verificado | DevOps | 2026-08-21 |
 | TEC-002 | [Manual Docker y servidor seguro](07-manual-equipo-y-servidor-seguro.md) | Configuración validada; activación pendiente | DevOps | 2026-08-24 |
 | TEC-003 | [Manual PDF de instalación y colaboración](../output/pdf/Manual_Instalacion_Desarrollo_y_Colaboracion_SIGAA.pdf) | Generado y verificado visualmente | Equipo | 2026-08-24 |
