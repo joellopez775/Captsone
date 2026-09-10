@@ -18,7 +18,7 @@ Se generó el informe técnico que propone y justifica la línea base tecnológi
 
 ## Evidencia
 
-- PDF: `output/pdf/Informe_Tecnologias_a_Utilizar_SIGAA.pdf`
+- PDF: `output/pdf/Informe de Tecnologías a Utilizar - SIGAA.pdf`
 - Extensión: 12 páginas A4.
 - Fecha: 2026-08-26.
 - Responsable documental: Equipo SIGAA.

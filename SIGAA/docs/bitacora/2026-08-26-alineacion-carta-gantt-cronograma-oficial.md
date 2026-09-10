@@ -27,7 +27,7 @@ La semana 4 comienza el 31 de agosto y corresponde a la presentación evaluada d
 
 ## Evidencias actualizadas
 
-- `output/pdf/Carta_Gantt_SIGAA_Alineada_Cronograma_Oficial_2026.pdf`
+- `output/pdf/Carta Gantt SIGAA - Cronograma Oficial 2026.pdf`
 - `output/pdf/Manual_Actividades_Gantt_Alineado_Cronograma_Oficial_2026.pdf`
 
 ## Verificación
