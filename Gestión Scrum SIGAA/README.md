@@ -29,10 +29,15 @@ Conserva las evidencias disponibles de los Sprints 0 a 3. El Sprint 3 incluye:
 Los documentos distinguen lo realizado de lo regularizado o programado. No se
 presentan reuniones futuras ni métricas reconstruidas como si ya hubieran ocurrido.
 
+El registro consolidado contiene exactamente 21 Daily. Para los sprints de
+desarrollo cerrados existen dos retrospectivas: Sprint 1 y Sprint 2. La
+Retrospective del Sprint 3 permanece programada para su cierre.
+
 ### 03 Jira
 
 Incluye la guía aplicada al espacio `SIGAA`, el respaldo del backlog inicial y la
-carga complementaria de una épica con 20 tareas documentales.
+carga complementaria de una épica con 20 tareas documentales. También conserva la
+carga de seguimiento con 5 backlogs, 21 Daily y 2 retrospectivas.
 
 Sitio: <https://sigaa-duoc-2026.atlassian.net>
 

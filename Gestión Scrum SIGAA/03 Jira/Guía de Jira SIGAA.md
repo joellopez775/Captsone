@@ -14,6 +14,9 @@ Fecha de actualización: 24 de septiembre de 2026.
   correctamente, compuestas por 8 épicas, 40 historias y 12 subtareas.
 - Importación complementaria ejecutada el 24 de septiembre de 2026: 21 actividades
   creadas correctamente, compuestas por 1 épica documental y 20 tareas.
+- Segunda regularización ejecutada el 24 de septiembre de 2026: 29 actividades
+  creadas correctamente, compuestas por 1 épica, 5 backlogs, 21 Daily y 2
+  retrospectivas. Todas ingresaron en estado `En revisión`.
 - Jira se adopta operativamente desde el Sprint 3; no se reconstruyen métricas
   ficticias para los sprints anteriores.
 
