@@ -3,6 +3,13 @@
 Expediente independiente para revisar, entregar y mantener la gestión ágil del
 proyecto SIGAA. Fecha de corte: 24 de septiembre de 2026.
 
+## Formato oficial de entrega
+
+Todos los informes de esta carpeta cuentan con una versión final en `PDF/`,
+manteniendo la misma organización de Producto, Sprints, Jira y Evidencias. Los
+archivos Markdown se conservan únicamente como fuente editable y los CSV como
+respaldo técnico para importaciones de Jira.
+
 ## Contenido
 
 ### 01 Producto
