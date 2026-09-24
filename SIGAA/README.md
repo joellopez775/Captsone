@@ -42,7 +42,7 @@ La plantilla de integración continua está en `ci/sigaa-ci.yml.example`. Para a
 
 ## Estado
 
-Sprint 1 avanzado en la semana simulada del 24 al 28 de agosto de 2026. Existen decisiones de arquitectura, modelo lógico, UML, un prototipo navegable verificado internamente y artefactos de Fase 1 preparados para revisión. Las historias no se consideran aceptadas hasta registrar la decisión del Product Owner.
+Fase 2, semana 7 y Sprint 3 al 24 de septiembre de 2026. Existen decisiones de arquitectura, modelo lógico escolar 0.5.0, UML y un prototipo navegable para docente y estudiante. El prototipo aún utiliza autenticación y datos sintéticos; el Sprint Goal vigente es implementar autenticación, RBAC y persistencia real de estudiantes y matrículas en PostgreSQL. Las historias no se consideran aceptadas hasta registrar la decisión del Product Owner en Sprint Review.
 
 Product Owner confirmado: Joel López. Los demás roles continúan propuestos hasta ratificación del equipo.
 
@@ -69,6 +69,9 @@ Product Owner confirmado: Joel López. Los demás roles continúan propuestos ha
 - [`docs/scrum/sprint-0/07-informe-cierre.md`](docs/scrum/sprint-0/07-informe-cierre.md): informe auditado para decisión del Product Owner.
 - [`docs/scrum/sprint-0/08-acta-aprobacion-po.md`](docs/scrum/sprint-0/08-acta-aprobacion-po.md): acta de aprobación pendiente.
 - [`docs/scrum/sprint-1/`](docs/scrum/sprint-1/): Planning, backlog, tablero, Daily y burndown del Sprint 1.
+- [`docs/scrum/sprint-2/`](docs/scrum/sprint-2/): Review y Retrospective preparadas para regularización y ratificación.
+- [`docs/scrum/sprint-3/`](docs/scrum/sprint-3/): Planning, Sprint Backlog, estructura Jira y guía de Review/Retro vigentes.
+- [`docs/defensa/01-arquitectura-metodologia-y-sprints.md`](docs/defensa/01-arquitectura-metodologia-y-sprints.md): defensa consolidada y estado real del proyecto.
 - [`docs/design/00-arquitectura-preliminar.md`](docs/design/00-arquitectura-preliminar.md): diseño técnico inicial.
 - [`docs/design/01-arquitectura-contenedores.md`](docs/design/01-arquitectura-contenedores.md): arquitectura de contenedores.
 - [`docs/design/02-modelo-er-diccionario.md`](docs/design/02-modelo-er-diccionario.md): modelo lógico y diccionario de datos.

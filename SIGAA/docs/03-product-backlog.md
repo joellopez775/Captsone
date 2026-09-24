@@ -38,12 +38,12 @@ Este documento presenta una vista revisable en GitHub. Los puntos y la asignaci�
 | PB-008 | Prototipo navegable validado internamente | Must | 5 | Sprint 1 | En revisión PO; validación externa pendiente |
 | PB-009 | UML de flujos principales | Must | 5 | Sprint 1 | En revisión PO/equipo |
 | PB-010 | Entrega y presentación Fase 1 | Must | 5 | Sprint 1 | En revisión; feedback y ensayo pendientes |
-| PB-011 | Autenticación segura | Must | 8 | Sprint 2 | Pendiente |
-| PB-012 | Roles y permisos | Must | 8 | Sprint 2 | Pendiente |
+| PB-011 | Autenticación segura | Must | 8 | Sprint 2 | Arrastrada a Sprint 3; login demo no cumple seguridad productiva |
+| PB-012 | Roles y permisos | Must | 8 | Sprint 2 | Arrastrada a Sprint 3; cabeceras demo no cumplen RBAC productivo |
 | PB-013 | Estructura escolar: establecimiento, año, niveles, cursos y asignaturas | Must | 8 | Sprint 2 | Modelo físico adelantado en 0.3.0 |
 | PB-014 | Entorno Docker reproducible | Must | 5 | Sprint 2 | En revisión (adelantado) |
-| PB-015 | Gestión de estudiantes | Must | 8 | Sprint 3 | Pendiente |
-| PB-016 | Matrículas | Must | 5 | Sprint 3 | Pendiente |
+| PB-015 | Gestión de estudiantes | Must | 8 | Sprint 3 | Seleccionada; persistencia PostgreSQL pendiente |
+| PB-016 | Matrículas | Must | 5 | Sprint 3 | Seleccionada; persistencia PostgreSQL pendiente |
 | PB-017 | Evaluaciones y calificaciones | Must | 8 | Sprint 3 | Pendiente |
 | PB-018 | Importación validada | Should | 5 | Sprint 3 | Pendiente |
 | PB-019 | Registro de asistencia | Must | 8 | Sprint 4 | Pendiente |
