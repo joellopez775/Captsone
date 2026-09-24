@@ -40,6 +40,13 @@ Este directorio conserva la documentación viva de SIGAA. Los documentos entrega
 | CAP-004 | [Informe de tecnologías a utilizar](<../output/pdf/Informe de Tecnologías a Utilizar - SIGAA.pdf>) | Generado y verificado visualmente | Equipo | 2026-08-26 |
 | CAP-005 | [Manual de actividades alineado al cronograma oficial](../output/pdf/Manual_Actividades_Gantt_Alineado_Cronograma_Oficial_2026.pdf) | Corregido y verificado visualmente | Equipo | 2026-08-26 |
 | CAP-006 | [Defensa de arquitectura, metodología y sprints](<../output/pdf/Defensa de Arquitectura Metodología y Sprints - SIGAA.pdf>) | PDF de 13 páginas verificado; fuente en `docs/defensa/` | Equipo | 2026-09-24 |
+| CAP-007 | [Arquitectura de Software](<../output/pdf/Arquitectura de Software - SIGAA.pdf>) | Documento independiente de 3 páginas verificado | Equipo | 2026-09-24 |
+| CAP-008 | [Arquitectura de Base de Datos](<../output/pdf/Arquitectura de Base de Datos - SIGAA.pdf>) | Documento independiente de 3 páginas verificado | Equipo | 2026-09-24 |
+| CAP-009 | [Metodología Scrum y su Defensa](<../output/pdf/Metodología Scrum y su Defensa - SIGAA.pdf>) | Documento independiente de 3 páginas verificado | Equipo | 2026-09-24 |
+| CAP-010 | [Estado de Fases y Sprints](<../output/pdf/Estado de Fases y Sprints - SIGAA.pdf>) | Documento independiente de 3 páginas verificado | Product Owner | 2026-09-24 |
+| CAP-011 | [Jira e Historias de Usuario](<../output/pdf/Jira e Historias de Usuario - SIGAA.pdf>) | Documento independiente de 3 páginas verificado | Equipo | 2026-09-24 |
+| CAP-012 | [Sprint Review](<../output/pdf/Sprint Review - SIGAA.pdf>) | Guía y regularización separada; decisiones pendientes | Product Owner | 2026-09-24 |
+| CAP-013 | [Sprint Retrospective](<../output/pdf/Sprint Retrospective - SIGAA.pdf>) | Guía separada pendiente de ratificación del equipo | Equipo | 2026-09-24 |
 | SCR-201 | [Sprint Review 2](scrum/sprint-2/04-sprint-review.md) | Borrador de regularización; requiere ratificación PO | Product Owner | 2026-09-24 |
 | SCR-202 | [Sprint Retrospective 2](scrum/sprint-2/05-retrospectiva.md) | Pauta pendiente de ratificación del equipo | Equipo | 2026-09-24 |
 | SCR-301 | [Sprint Planning 3](scrum/sprint-3/00-sprint-planning.md) | Regularizado y listo para ratificación | Equipo | 2026-09-24 |
