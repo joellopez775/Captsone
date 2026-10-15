@@ -15,9 +15,18 @@ const pool = new Pool({
   connectionTimeoutMillis: 5_000,
 });
 
+const readiness = await pool.query(
+  "SELECT value FROM app_metadata WHERE key='security_schema'",
+);
+if (readiness.rows[0]?.value !== "1") {
+  await pool.end();
+  throw new Error(
+    "Apply migration 007_sprint3_security.sql before starting this version",
+  );
+}
 const app = createApp({ pool });
 const server = app.listen(port, "0.0.0.0", () => {
-  console.log(`SIGAA API listening on port ${port}`);
+  console.log(`SIGAA API listening on port ${server.address().port}`);
 });
 
 async function shutdown(signal) {

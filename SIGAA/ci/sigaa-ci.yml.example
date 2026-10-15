@@ -45,6 +45,13 @@ jobs:
       - name: Validar Docker Compose
         run: docker compose config --quiet
 
+      - name: Probar integración real en PostgreSQL 16 aislado
+        run: docker compose -f compose.test.yaml up --build --abort-on-container-exit --exit-code-from api-tests
+
+      - name: Cerrar entorno de pruebas aislado
+        if: always()
+        run: docker compose -f compose.test.yaml down
+
       - name: Construir y levantar entorno
         run: docker compose up --build --detach --wait
 

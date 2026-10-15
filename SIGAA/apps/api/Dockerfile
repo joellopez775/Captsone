@@ -12,3 +12,7 @@ COPY src ./src
 USER node
 EXPOSE 3000
 CMD ["node", "src/server.js"]
+
+FROM runtime AS test
+COPY --chown=node:node test ./test
+CMD ["sh", "-c", "npm test && npm run test:integration"]

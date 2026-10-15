@@ -25,24 +25,45 @@ Para comprobar los servicios después de levantarlos:
 sh scripts/verify-docker.sh
 ```
 
-## Accesos de demostración
+## Acceso real y migración del Sprint 3
 
-El mismo formulario de inicio de sesión resuelve el rol y abre la experiencia
-correspondiente:
+El portal usa cuentas PostgreSQL, contraseñas con scrypt y sesiones HttpOnly.
+Las cuentas y cabeceras de demostración anteriores ya no conceden acceso.
+La primera instalación no crea usuarios ni contraseñas por defecto.
 
-| Perfil | Correo | Contraseña |
-|---|---|---|
-| Docente | `docente@sigaa.demo` | `Docente2026!` |
-| Estudiante | `estudiante@sigaa.demo` | `Estudiante2026!` |
+Lee el [informe y manual del Sprint 3](<output/pdf/Sprint 3 - Implementación real y verificación.pdf>)
+para crear la primera cuenta mediante `npm run user:create`, generar datos
+sintéticos opcionales o actualizar una base existente con la migración **007**.
+No reinicialices volúmenes ni vuelvas a ejecutar la antigua migración 003.
 
-Estas cuentas son sintéticas y se incluyen únicamente para el prototipo local.
-No deben reutilizarse en ambientes productivos.
+Configura `APP_ORIGIN` con el origen exacto del navegador. En producción es
+obligatorio HTTPS. El rol se obtiene de la sesión del servidor: administración
+gestiona estudiantes/matrículas; docentes consultan su alcance y estudiantes solo
+sus datos. El cambio de contraseña y cierre global están en **Seguridad**.
+
+El portal operativo es `apps/web/src/SecureApp.jsx`. El antiguo `App.jsx` y
+`prototype-data.js` se conservan como referencia del prototipo, sin conexión al
+servidor operativo. Las interfaces completas de los módulos siguientes deben
+integrarse con la API real: no se presentan datos inventados como productivos.
+
+Pruebas independientes (no usan el volumen de desarrollo):
+
+```bash
+docker compose -f compose.test.yaml up --build --abort-on-container-exit --exit-code-from api-tests
+docker compose -f compose.test.yaml down
+```
 
 La plantilla de integración continua está en `ci/sigaa-ci.yml.example`. Para activarla se debe copiar a `.github/workflows/sigaa-ci.yml` usando una credencial de GitHub con permiso `workflow`.
 
 ## Estado
 
-Fase 2, semana 7 y Sprint 3 al 24 de septiembre de 2026. Existen decisiones de arquitectura, modelo lógico escolar 0.5.0, UML y un prototipo navegable para docente y estudiante. El prototipo aún utiliza autenticación y datos sintéticos; el Sprint Goal vigente es implementar autenticación, RBAC y persistencia real de estudiantes y matrículas en PostgreSQL. Las historias no se consideran aceptadas hasta registrar la decisión del Product Owner en Sprint Review.
+Al 15 de octubre de 2026 se regulariza técnicamente el Sprint 3: autenticación,
+permisos y persistencia de estudiantes/matrículas implementados y probados con
+PostgreSQL real. Evidencia reproducible en `output/evidence/sprint-3/`.
+La aceptación del PO y la instalación/verificación en el servidor siguen siendo
+pasos separados. Docker Desktop no estuvo disponible para ejecutar contenedores
+en esta verificación local; el informe especifica versiones y cobertura.
+No se altera la planificación ni se inventan ceremonias del Sprint 4.
 
 Product Owner confirmado: Joel López. Los demás roles continúan propuestos hasta ratificación del equipo.
 
