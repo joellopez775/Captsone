@@ -11,9 +11,10 @@ ROOT=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser()
 parser.add_argument('--render-to',required=True,type=Path)
 parser.add_argument('--pdftoppm',required=True)
+parser.add_argument('--manifest',type=Path,default=ROOT/'scripts/document-regularization.json')
 args=parser.parse_args()
 args.render_to.mkdir(parents=True,exist_ok=True)
-manifest=json.loads((ROOT/'scripts/document-regularization.json').read_text())
+manifest=json.loads(args.manifest.read_text())
 assert len({e['output'] for e in manifest})==len(manifest)
 records=[]
 def verify(pair):

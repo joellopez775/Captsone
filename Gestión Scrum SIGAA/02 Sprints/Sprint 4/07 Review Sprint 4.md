@@ -1,6 +1,6 @@
 # Review - Sprint 4
 
-Corte de regularización: 15 de octubre de 2026. Base técnica: commit 899aab6. Fuente operativa: Jira SIGAA, tablero 1. Esta actualización documenta evidencia existente; no acredita reuniones ni aceptación del Product Owner.
+Corte posterior a la implementación: 15 de octubre de 2026. Base técnica: a9b6f65, API 0.8.0. Jira actualizado sobre las incidencias existentes. Evidencia técnica para revisión del Product Owner; no acredita reuniones ni aceptación.
 
 Jira: Sprint 4 - Asistencia/Alertas, activo, del 5 al 17 de octubre. Se conserva el sprint existente id 37. La referencia antigua id 36 no se usa.
 
@@ -9,20 +9,19 @@ Estado: informe de evidencia para revisión. No acredita reunión celebrada ni a
 | Jira / historia | Puntos | Estado consultado |
 |---|---:|---|
 | SCRUM-31 / PB-019 Registro de asistencia | 8 | En revisión |
-| SCRUM-32 / PB-020 Tres reglas explicables de alerta | 8 | En curso |
-| SCRUM-33 / PB-021 Bandeja y dashboard inicial de alertas | 8 | En curso |
+| SCRUM-32 / PB-020 Tres reglas explicables de alerta | 8 | En revisión |
+| SCRUM-33 / PB-021 Bandeja y dashboard inicial de alertas | 8 | En revisión |
 | SCRUM-34 / PB-022 Entrega de avance Fase 2 | 5 | En revisión |
-| SCRUM-49 / PB-037 Justificaciones por Inspectoría | 5 | En curso |
+| SCRUM-49 / PB-037 Justificaciones por Inspectoría | 5 | En revisión |
 
 ## Evidencia técnica y límites
 
-- 62fbcba: sesiones, permisos, estudiantes y matrículas persistentes.
-- dfa0461: PostgreSQL aislado en el Mac servidor y respaldo verificado.
-- f48fbc3: publicación HTTPS y cuentas de demostración por rol.
-- 899aab6: asistencia, evaluaciones, calificaciones y anotaciones persistentes.
-- Pruebas conservadas: 4 unitarias y 30 de integración en Docker / PostgreSQL 16, sin fallos; 14 recorridos en navegador local y 4 recorridos de lectura/login en HTTPS. No son pruebas ejecutadas nuevamente durante esta regularización.
-- Evidencias: SIGAA/output/evidence/academic-docker-tests.json, academic-browser-tests.json y academic-hosted-tests.json.
-- Alertas, justificaciones completas, cálculo oficial de promedios, carga, accesibilidad integral y validación escolar siguen pendientes. Un esquema SQL no acredita una función conectada.
+- a9b6f65: estructura escolar, tres reglas configurables, bandeja e Inspectoría conectadas a PostgreSQL; API 0.8.0.
+- Pruebas ejecutadas el 15-10: 4 unitarias y 44 de integración aprobadas en Docker/PostgreSQL 16; 11 recorridos nuevos y 14 de regresión en Chromium local; 8 recorridos HTTPS (cuatro roles, escritorio y móvil).
+- Evidencias: SIGAA/output/evidence/operations-docker-tests.json, operations-browser-tests.json, operations-regression-browser-tests.json, operations-hosted-tests.json y operations-academic-hosted-tests.json.
+- Escrituras de prueba solo en bases aisladas. Despliegue real con respaldo previo y migración aditiva 008; sin seeds ni reinicialización.
+- Los umbrales requieren validación escolar. El rendimiento es preventivo, no un promedio oficial. Tras notas/asistencia se pulsa Recalcular; cambios de regla y aprobación de justificación recalculan automáticamente.
+- Carga, accesibilidad integral, otros navegadores, operación sostenida y aceptación del PO siguen pendientes.
 
 ## Demostración y decisión pendiente
 

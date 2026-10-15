@@ -12,13 +12,13 @@ Corte vigente: 15 de octubre de 2026. Proyecto escolar para colegios y liceos. E
 | Sprint 4 e informe Fase 2 | SIGAA/output/pdf/Sprint 4 (desde raíz del repo) | Diez PDF existentes actualizados, sin segunda copia |
 | Reflexión Fase 2 | PDF/02 Sprints/Reflexión Fase 2.pdf | Base factual para validar en equipo, no entrega firmada |
 | Arquitectura de software y datos | SIGAA/output/pdf (desde raíz del repo) | Documentos independientes actualizados |
-| Evidencia académica reciente | PDF/03 Implementación | Informe de persistencia de asistencia, notas y anotaciones |
+| Evidencia técnica reciente | PDF/03 Implementación | Informe de operación académica e Implementación 0.8.0 con guía y pruebas |
 
 Las fuentes editables del Sprint 4 están en 02 Sprints/Sprint 4; sus PDF permanecen en la ruta existente indicada. No se crean archivos con sufijos final, v2 o copia. Los enlaces de documentos antiguos remiten a la fuente única actualizada cuando corresponde.
 
 ## Lectura del avance
 
-Sprint 2: 13 puntos actuales, 8 en curso y 5 en revisión. Sprint 3: 29 puntos en revisión; 12 subtareas técnicas terminadas. Sprint 4: 34 puntos, 21 en curso y 13 en revisión. No hay historias terminadas dentro de esos tres conjuntos al corte. Esto no equivale a ausencia de implementación.
+Sprint 2: 13 puntos actuales en revisión. Sprint 3: 29 puntos en revisión; 12 subtareas técnicas terminadas. Sprint 4: 34 puntos en revisión. No hay historias terminadas dentro de esos tres conjuntos al corte. Esto no equivale a ausencia de implementación.
 
 Jira mantiene id 3 para Sprint 2, id 2 para Sprint 3 e id 37 para Sprint 4. Los sprints históricos 0-2 aparecen future; Sprints 3 y 4 siguen activos. No se cerraron, iniciaron, renombraron ni duplicaron sprints en esta regularización.
 
@@ -41,4 +41,15 @@ La referencia actual de arquitectura es Arquitectura de Software - SIGAA.pdf y A
 
 ## Fuentes y mantenimiento
 
-Estados: 04 Evidencias/jira-corte-2026-10-15.json. Código: commit 899aab6 y antecedentes 62fbcba, dfa0461, f48fbc3. Pruebas: SIGAA/output/evidence. Generación selectiva reproducible: scripts/generate-scrum-pdfs.py --manifest scripts/document-regularization.json. Los PDF se actualizan sobre sus rutas canónicas.
+Estados: 04 Evidencias/jira-corte-2026-10-15.json. Código vigente: commit a9b6f65; operación académica anterior 899aab6 y antecedentes 62fbcba, dfa0461, f48fbc3. Pruebas: SIGAA/output/evidence. Generación selectiva reproducible: scripts/generate-scrum-pdfs.py --manifest scripts/document-regularization.json. Los PDF se actualizan sobre sus rutas canónicas.
+
+## Corte posterior a la implementación 0.8.0
+
+- a9b6f65: estructura escolar, tres reglas configurables, bandeja e Inspectoría conectadas a PostgreSQL; API 0.8.0.
+- Pruebas ejecutadas el 15-10: 4 unitarias y 44 de integración aprobadas en Docker/PostgreSQL 16; 11 recorridos nuevos y 14 de regresión en Chromium local; 8 recorridos HTTPS (cuatro roles, escritorio y móvil).
+- Evidencias: SIGAA/output/evidence/operations-docker-tests.json, operations-browser-tests.json, operations-regression-browser-tests.json, operations-hosted-tests.json y operations-academic-hosted-tests.json.
+- Escrituras de prueba solo en bases aisladas. Despliegue real con respaldo previo y migración aditiva 008; sin seeds ni reinicialización.
+- Los umbrales requieren validación escolar. El rendimiento es preventivo, no un promedio oficial. Tras notas/asistencia se pulsa Recalcular; cambios de regla y aprobación de justificación recalculan automáticamente.
+- Carga, accesibilidad integral, otros navegadores, operación sostenida y aceptación del PO siguen pendientes.
+
+Backlogs, tableros, releases y reviews de S2/S4, Fase 2, arquitecturas y Product Backlog reflejan esta actualización. Planning, Daily, retrospectivas, burndown y expediente S3 conservan el corte anterior: no son actas nuevas ni una medición posterior. Los puntos pendientes de aceptación no disminuyen al pasar a revisión. No interpretar sus antiguos pendientes técnicos como un nuevo bloqueo: prevalece el informe Implementación 0.8.0. Generación selectiva: scripts/operations-documentation.json.

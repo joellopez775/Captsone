@@ -55,7 +55,25 @@ docker compose -f compose.test.yaml down
 
 La plantilla de integración continua está en `ci/sigaa-ci.yml.example`. Para activarla se debe copiar a `.github/workflows/sigaa-ci.yml` usando una credencial de GitHub con permiso `workflow`.
 
-## Estado
+## Estado vigente: API 0.8.0
+
+Código a9b6f65, desplegado el 15-10-2026 con PostgreSQL 16 y HTTPS. Incluye
+administración escolar, tres reglas configurables, bandeja con historial y
+justificaciones de Inspectoría, además de los flujos académicos y acceso seguro.
+Guía, migración, límites y pruebas en
+[Implementación 0.8.0](<../Gestión Scrum SIGAA/PDF/03 Implementación/Implementación 0.8.0 - Estructura alertas e Inspectoría.pdf>).
+
+Para una base escolar existente: respaldar, ejecutar `docker compose build api`,
+`docker compose stop api`, `docker compose run --rm --no-deps api npm run migrate`
+y luego `docker compose up -d --build`. El migrador aplica 007 y 008; no borra datos.
+Nunca ejecutar 003 ni eliminar volúmenes para actualizar. La instalación nueva
+aplica 001-008 automáticamente y no crea cuentas por defecto.
+
+Pruebas actuales: 4 unitarias + 44 integración en Docker, 25 recorridos locales y
+8 HTTPS. Evidencia en `output/evidence/operations-*.json`. Las historias quedan
+en revisión del PO; no se han cerrado los sprints ni simulado ceremonias.
+
+## Antecedente: recuperación de Sprint 3
 
 Al 15 de octubre de 2026 se regulariza técnicamente el Sprint 3: autenticación,
 permisos y persistencia de estudiantes/matrículas implementados y probados con

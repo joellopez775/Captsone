@@ -64,7 +64,7 @@ class Diagram(Flowable):
                     if j<2:self.edge(j*(bw+12)+bw,y+26,(j+1)*(bw+12),y+26)
         elif self.kind=='architecture':
             bw=(w-36)/4
-            for i,(t,b) in enumerate([('Usuario','Docente / estudiante'),('Cloudflare','HTTPS público<br/>Túnel temporal'),('Web','React + Nginx<br/>Mismo origen /api'),('API','Node + Express<br/>Sesión, permisos, CSRF')]):
+            for i,(t,b) in enumerate([('Usuario','Roles escolares<br/>Administración / Inspectoría'),('Cloudflare','HTTPS público<br/>Túnel temporal'),('Web','React + Nginx<br/>Mismo origen /api'),('API','Node + Express<br/>Sesión, permisos, CSRF')]):
                 self.box(i*(bw+12),215,bw,86,t,b,i==0)
                 if i<3:self.edge(i*(bw+12)+bw,258,(i+1)*(bw+12),258)
             self.edge(w-bw/2,215,w-bw/2,155)
