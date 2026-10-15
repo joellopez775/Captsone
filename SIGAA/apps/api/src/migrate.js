@@ -9,16 +9,12 @@ try {
   );
   if (profile.rows[0]?.value !== "escolar")
     throw new Error("Existing school schema 001-006 required");
-  const source =
-    process.env.MIGRATION_FILE ??
-    new URL(
-      "../../../infra/postgres/init/007_sprint3_security.sql",
-      import.meta.url,
-    );
-  await db.query(await readFile(source, "utf8"));
-  console.log(
-    "Additive security migration 007 applied. Existing data preserved.",
-  );
+  const sources = process.env.MIGRATION_FILES?.split(",") ??
+    (process.env.MIGRATION_FILE ? [process.env.MIGRATION_FILE] :
+      ["007_sprint3_security.sql","008_school_operations.sql"].map(file =>
+        new URL("../../../infra/postgres/init/"+file,import.meta.url)));
+  for (const source of sources) await db.query(await readFile(source,"utf8"));
+  console.log("Requested additive migrations applied. Existing data preserved.");
 } catch (error) {
   await db.query("ROLLBACK");
   console.error("Migration failed:", error.code ?? error.message);

@@ -141,6 +141,10 @@ export function teacherRoutes(app, pool) {
           "SELECT * FROM asistencia WHERE sesion_id=$1 AND estudiante_id=$2 FOR UPDATE",
           [id, record.studentId],
         );
+        if (states[record.status] !== "justificada" && (await db.query(
+          "SELECT 1 FROM justificacion_ausencia WHERE sesion_id=$1 AND estudiante_id=$2 AND estado='aceptada'",
+          [id, record.studentId],
+        )).rowCount) fail(409, "approved_justification");
         const {
           rows: [row],
         } = await db.query(

@@ -2,9 +2,27 @@ import { useEffect, useState } from "react";
 import logo from "./assets/sigaa-logo.png";
 import "./secure.css";
 import { AcademicPanel, StudentAcademic } from "./AcademicPanel.jsx";
+import { StructurePanel, RiskPanel, JustificationPanel } from "./OperationsPanel.jsx";
 
 let csrfToken = "";
 const messages = {
+  invalid_structure: "Revisa los campos, fechas, estados y valores del registro escolar.",
+  invalid_structure_parent: "La relación no existe o su establecimiento, año, curso o asignatura no está activo.",
+  structure_parent_immutable: "No cambies el año ni las relaciones de un registro existente. Crea uno nuevo para conservar el historial.",
+  active_children: "Primero cierra las asignaciones, cursos o matrículas activas vinculadas.",
+  capacity_below_enrollment: "La capacidad no puede ser menor que las matrículas activas.",
+  period_contains_records: "Las nuevas fechas dejarían clases o evaluaciones fuera del año escolar.",
+  invalid_teacher: "Selecciona un docente activo con permisos vigentes.",
+  invalid_rule: "Revisa los umbrales: asistencia entre 1 y 100; notas entre 1 y 7.",
+  invalid_alert_change: "Selecciona un estado válido y explica el cambio con al menos 8 caracteres.",
+  owner_required: "Asigna un responsable antes de iniciar el seguimiento.",
+  invalid_owner: "El responsable no tiene permisos vigentes para ese curso.",
+  invalid_filter: "Revisa los filtros seleccionados.",
+  invalid_justification: "Selecciona una ausencia y registra motivo y referencia de respaldo.",
+  invalid_justification_review: "Selecciona una decisión y fundamenta la revisión.",
+  absence_changed: "La asistencia ya no es una ausencia válida. Actualiza y revisa el registro.",
+  justification_already_reviewed: "Esta justificación ya fue resuelta. Actualiza la lista.",
+  approved_justification: "Inspectoría ya aprobó una justificación. No se puede sobrescribir desde asistencia.",
   invalid_evaluation:
     "Revisa el nombre, la fecha y la ponderación de la evaluación.",
   date_outside_period: "La fecha debe estar dentro del año escolar del curso.",
@@ -83,6 +101,8 @@ const roleNames = {
   admin: "Administración",
   teacher: "Docente",
   student: "Estudiante",
+  inspector: "Inspectoría",
+  leadership: "Dirección / UTP",
 };
 function Notice({ text, error = false }) {
   return text ? (
@@ -493,6 +513,7 @@ export default function SecureApp() {
   const [session, setSession] = useState(null),
     [ready, setReady] = useState(false),
     [view, setView] = useState("summary"),
+    [revision, setRevision] = useState(0),
     [menu, setMenu] = useState(false);
   const [data, setData] = useState({
       students: [],
@@ -524,6 +545,7 @@ export default function SecureApp() {
           : Promise.resolve({ grades: [] }),
       ]);
       setData({ ...s, ...c, ...e, ...g });
+      setRevision(r => r + 1);
     } finally {
       setLoading(false);
     }
@@ -585,6 +607,9 @@ export default function SecureApp() {
     ["students", student ? "Mis datos" : "Estudiantes"],
     ["courses", student ? "Mis cursos" : "Cursos"],
     ["enrollments", "Matrículas"],
+    ...(admin ? [["structure", "Estructura escolar"]] : []),
+    ...(!student ? [["risk", "Alertas y seguimiento"]] : []),
+    ...(["admin", "inspector", "student"].includes(user.role) ? [["justifications", student ? "Mis justificaciones" : "Justificaciones"]] : []),
     ...(["teacher", "student"].includes(user.role)
       ? [
           ["attendance", student ? "Mi asistencia" : "Asistencia"],
@@ -647,6 +672,9 @@ export default function SecureApp() {
           </button>
         </header>
         <Notice text={error} error />
+        {view === "structure" && admin && <StructurePanel api={api} revision={revision} />}
+        {view === "risk" && !student && <RiskPanel api={api} user={user} courses={data.courses} revision={revision} />}
+        {view === "justifications" && <JustificationPanel api={api} student={student} revision={revision} />}
         {view === "summary" && (
           <>
             <section className="secure-welcome">

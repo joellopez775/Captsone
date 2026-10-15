@@ -532,6 +532,7 @@ try {
         fullPage: true,
       });
       await page.reload();
+      await page.getByRole("heading", { name: "Mi inicio", exact: true }).waitFor();
       await nav("Mis notas");
       await page.getByText("6.5", { exact: true }).waitFor();
       await logout();

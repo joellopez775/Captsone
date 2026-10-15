@@ -53,6 +53,10 @@ export async function verifyPassword(password, stored) {
 export const roleFor = (codes) =>
   codes.includes("ADMINISTRADOR")
     ? "admin"
+    : codes.includes("DIRECCION_UTP")
+      ? "leadership"
+    : codes.includes("INSPECTORIA")
+      ? "inspector"
     : codes.some((c) => ["PROFESOR_JEFE", "PROFESOR_ASIGNATURA"].includes(c))
       ? "teacher"
       : codes.includes("ESTUDIANTE")

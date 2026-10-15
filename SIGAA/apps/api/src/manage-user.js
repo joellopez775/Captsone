@@ -13,6 +13,8 @@ export async function provisionUser(pool, input) {
     name.length > 160 ||
     ![
       "ADMINISTRADOR",
+      "INSPECTORIA",
+      "DIRECCION_UTP",
       "PROFESOR_ASIGNATURA",
       "PROFESOR_JEFE",
       "ESTUDIANTE",

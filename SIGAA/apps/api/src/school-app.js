@@ -1,5 +1,7 @@
 import express from "express";
 import { teacherRoutes } from "./teacher-routes.js";
+import { structureRoutes } from "./structure-routes.js";
+import { supportRoutes } from "./support-routes.js";
 import { academicRoutes, studentRecords } from "./academic-routes.js";
 import {
   newToken,
@@ -123,7 +125,7 @@ export function createApp({
     if (rows[0].intentos > max) fail(429, "try_again_later");
   }
   app.get("/health", (_req, res) =>
-    res.json({ status: "ok", service: "api", version: "0.7.0" }),
+    res.json({ status: "ok", service: "api", version: "0.8.0" }),
   );
   app.get("/db-health", async (_req, res) => {
     await pool.query("SELECT 1");
@@ -241,9 +243,11 @@ export function createApp({
     res.status(204).end();
   });
   app.use(authenticate);
+  structureRoutes(app, pool);
+  supportRoutes(app, pool);
   teacherRoutes(app, pool);
   academicRoutes(app, pool);
-  app.get("/courses", role("admin", "teacher", "student"), async (req, res) => {
+  app.get("/courses", role("admin", "teacher", "student", "inspector", "leadership"), async (req, res) => {
     const filter =
       req.user.role === "teacher"
         ? teacherCourse
@@ -261,7 +265,7 @@ export function createApp({
   });
   app.get(
     "/students",
-    role("admin", "teacher", "student"),
+    role("admin", "teacher", "student", "inspector", "leadership"),
     async (req, res) => {
       let filter = "$1::uuid IS NOT NULL";
       if (req.user.role === "student") filter = "e.usuario_id=$1";
