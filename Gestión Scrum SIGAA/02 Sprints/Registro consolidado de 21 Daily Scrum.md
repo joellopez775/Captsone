@@ -1,4 +1,4 @@
-# Registro consolidado de 21 Daily Scrum
+# Registro consolidado de 21 entradas de seguimiento (Daily históricas)
 
 Fecha de regularización: 24 de septiembre de 2026.
 
@@ -37,3 +37,7 @@ persona sin evidencia.
 Cada Daily futura debe registrarse el mismo día, actualizar las tarjetas de Jira y
 señalar claramente qué terminó, qué sigue y qué bloquea. El responsable del registro
 no puede completar opiniones ni asistencia en nombre de otra persona.
+
+## Aclaración de regularización al 15-10-2026
+
+Se conservan los 21 identificadores históricos y sus fechas declaradas para trazabilidad, no como prueba de 21 reuniones. Las descripciones retrospectivas son referencias narrativas que requieren cotejar sus fuentes antes de atribuir una actividad a un día concreto. Las fechas efectivas comprobables de implementación se consultan en los commits, no se deducen de estas filas. No se ha verificado participación del equipo en cada entrada. Los nuevos documentos de Sprints 2, 3 y 4 separan seguimiento técnico de ceremonia real.

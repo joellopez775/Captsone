@@ -1,30 +1,29 @@
-# Sprint Review 2 - borrador de regularización
+# Review - Sprint 2
 
-Estado: preparada para revisión y ratificación; no debe presentarse como ceremonia realizada.
+Corte de regularización: 15 de octubre de 2026. Base técnica: commit 899aab6. Fuente operativa: Jira SIGAA, tablero 1. Esta actualización documenta evidencia existente; no acredita reuniones ni aceptación del Product Owner.
 
-Periodo: 7 al 19 de septiembre de 2026.
+Plan histórico: 7 al 19 de septiembre. Jira conserva Sprint 2 - Histórico en estado future, sin fechas. Ese contenedor no acredita inicio ni cierre de una ceremonia.
 
-## Objetivo esperado
+Estado: informe de evidencia para revisión. No acredita reunión celebrada ni aceptación del PO.
 
-Iniciar la Fase 2 con autenticación, roles, permisos y una plataforma reproducible.
+| Jira / historia | Puntos | Estado consultado |
+|---|---:|---|
+| SCRUM-25 / PB-013 Estructura escolar | 8 | En curso |
+| SCRUM-26 / PB-014 Entorno Docker reproducible | 5 | En revisión |
 
-## Evidencia disponible
+## Resultado histórico y continuidad
 
-- Docker Compose con web, API y PostgreSQL.
-- Red privada para PostgreSQL y configuración de servidor con Cloudflare Tunnel.
-- Login y diferenciación de vistas docente/estudiante en modo demostración.
-- Esquema escolar PostgreSQL 0.5.0.
-- Healthchecks y endpoint de diagnóstico de base de datos.
+El expediente de septiembre reportaba login demostrativo y permisos incompletos. PB-011 y PB-012 se continuaron en Sprint 3; no se atribuye su implementación de octubre al cierre del Sprint 2. El alcance histórico reconstruido era 29 puntos, mientras la asignación actual conserva 13 puntos. Son bases distintas y no se mezclan como velocidad.
 
-## Decisión honesta por historia
+## Demostración y decisión pendiente
 
-| Historia | Resultado | Recomendación al PO |
-|---|---|---|
-| PB-011 Autenticación segura | Solo existe login de demostración con credenciales en código | Devolver y arrastrar a Sprint 3 |
-| PB-012 Roles y permisos | Existe simulación por cabeceras, no sesión productiva | Devolver y arrastrar a Sprint 3 |
-| PB-014 Docker reproducible | Implementado y documentado | Aceptar si el equipo valida desde clon limpio |
-| PB-040 Aislamiento del servidor | Configuración creada | Aceptar condicionado a prueba operacional |
+Mostrar el alcance probado en una base de demostración, contrastar criterios y explicar las funciones aún no integradas. Para cada historia registrar: aceptada, devuelta con ajustes o replanificada; fecha real, responsable de decisión y evidencia. Ninguna de estas decisiones se presume en este documento.
 
-## Conclusión
+## Pendientes que requieren participación real
 
-No corresponde declarar Sprint 2 completamente logrado. La infraestructura redujo riesgos, pero seguridad y persistencia siguen incompletas. El Product Owner debe ratificar estas decisiones durante la Review real.
+- Decisión del Product Owner por historia y observaciones concretas.
+- Acuerdos de retrospectiva ratificados por los participantes.
+- Validación de reglas y flujos con una contraparte educativa.
+- Responsables y disponibilidad confirmados por el equipo.
+
+No se inventan firmas, asistentes, reuniones, horas trabajadas ni aprobaciones.

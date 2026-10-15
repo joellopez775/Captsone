@@ -1,5 +1,8 @@
 # Modelo funcional del estudiante
 
+> Documento histórico de diseño/prototipo. Para el estado al 15-10-2026 consultar los PDF actualizados de Arquitectura de Software, Arquitectura de Base de Datos y el expediente de Sprints 2-4. Las referencias siguientes a memoria, cabeceras demo o persistencia pendiente describen ese corte anterior, no la implementación vigente.
+
+
 Estado: incremento funcional implementado con datos sintéticos.
 
 Historia: PB-039. Esquema físico: `0.5.0`.

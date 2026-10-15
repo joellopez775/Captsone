@@ -1,60 +1,44 @@
-# Gestión Scrum SIGAA
+# Expediente documental SIGAA
 
-Expediente independiente para revisar, entregar y mantener la gestión ágil del
-proyecto SIGAA. Fecha de corte: 24 de septiembre de 2026.
+Corte vigente: 15 de octubre de 2026. Proyecto escolar para colegios y liceos. Esta edición regulariza evidencia; no acredita reuniones ni aprobaciones no registradas.
 
-## Formato oficial de entrega
+## Documentos vigentes y ubicaciones únicas
 
-Todos los informes de esta carpeta cuentan con una versión final en `PDF/`,
-manteniendo la misma organización de Producto, Sprints, Jira y Evidencias. Los
-archivos Markdown se conservan únicamente como fuente editable y los CSV como
-respaldo técnico para importaciones de Jira.
+| Bloque | Ubicación PDF | Situación |
+|---|---|---|
+| Producto y mapas | PDF/01 Producto | Mapas gráficos corregidos; estados del backlog conciliados con Jira |
+| Sprint 2 | PDF/02 Sprints/Sprint 2 | Nueve documentos; reconstrucción explícita, no ceremonia acreditada |
+| Sprint 3 | PDF/02 Sprints/Sprint 3 | Diez documentos de gestión actualizados; informes técnicos históricos 10-12 conservados |
+| Sprint 4 e informe Fase 2 | SIGAA/output/pdf/Sprint 4 (desde raíz del repo) | Diez PDF existentes actualizados, sin segunda copia |
+| Reflexión Fase 2 | PDF/02 Sprints/Reflexión Fase 2.pdf | Base factual para validar en equipo, no entrega firmada |
+| Arquitectura de software y datos | SIGAA/output/pdf (desde raíz del repo) | Documentos independientes actualizados |
+| Evidencia académica reciente | PDF/03 Implementación | Informe de persistencia de asistencia, notas y anotaciones |
 
-## Contenido
+Las fuentes editables del Sprint 4 están en 02 Sprints/Sprint 4; sus PDF permanecen en la ruta existente indicada. No se crean archivos con sufijos final, v2 o copia. Los enlaces de documentos antiguos remiten a la fuente única actualizada cuando corresponde.
 
-### 01 Producto
+## Lectura del avance
 
-Contiene el análisis del caso, squad, mapa mental, mapa de actores, Impact Mapping,
-visión y cuatro pilares, épicas, Product Backlog, 40 historias con criterios y
-estimación, User Story Mapping, retrospectiva general, definición de terminado y
-riesgos.
+Sprint 2: 13 puntos actuales, 8 en curso y 5 en revisión. Sprint 3: 29 puntos en revisión; 12 subtareas técnicas terminadas. Sprint 4: 34 puntos, 21 en curso y 13 en revisión. No hay historias terminadas dentro de esos tres conjuntos al corte. Esto no equivale a ausencia de implementación.
 
-### 02 Sprints
+Jira mantiene id 3 para Sprint 2, id 2 para Sprint 3 e id 37 para Sprint 4. Los sprints históricos 0-2 aparecen future; Sprints 3 y 4 siguen activos. No se cerraron, iniciaron, renombraron ni duplicaron sprints en esta regularización.
 
-Conserva las evidencias disponibles de los Sprints 0 a 3. El Sprint 3 incluye:
+## Históricos que no describen la versión actual
 
-- Sprint Planning.
-- Sprint Backlog.
-- Scrumboard.
-- Burndown.
-- Daily Meeting.
-- Impediment Log.
-- Release.
-- Sprint Review.
-- Sprint Retrospective.
+Los Sprints 0 y 1, los informes técnicos de entregas previas, la Gantt base y los documentos generales de defensa de septiembre conservan su contexto histórico. No usarlos como parte de estado actual sin leer este índice y los expedientes actualizados. No se borra su evidencia ni se retrofechan aprobaciones.
 
-Los documentos distinguen lo realizado de lo regularizado o programado. No se
-presentan reuniones futuras ni métricas reconstruidas como si ya hubieran ocurrido.
+La referencia actual de arquitectura es Arquitectura de Software - SIGAA.pdf y Arquitectura de Base de Datos - SIGAA.pdf. La guía general de defensa y su compilación de septiembre son históricas y no prevalecen sobre estos documentos. El modelo ER objetivo continúa siendo objetivo, no prueba de implementación completa.
 
-El registro consolidado contiene exactamente 21 Daily. Para los sprints de
-desarrollo cerrados existen dos retrospectivas: Sprint 1 y Sprint 2. La
-Retrospective del Sprint 3 permanece programada para su cierre.
+:::pagebreak
 
-### 03 Jira
+## Pendientes humanos y académicos
 
-Incluye la guía aplicada al espacio `SIGAA`, el respaldo del backlog inicial y la
-carga complementaria de una épica con 20 tareas documentales. También conserva la
-carga de seguimiento con 5 backlogs, 21 Daily y 2 retrospectivas.
+- Confirmar responsabilidades y disponibilidad reales.
+- Revisar y aceptar o devolver historias como Product Owner.
+- Registrar retrospectivas y Daily cuando ocurran, con participantes efectivos.
+- Validar flujos y umbrales con una contraparte educativa.
+- Validar las respuestas grupales de reflexión Fase 2.
+- Registrar entrega en Campus y feedback docente. No se ha realizado esa entrega desde esta regularización.
 
-Sitio: <https://sigaa-duoc-2026.atlassian.net>
+## Fuentes y mantenimiento
 
-### 04 Evidencias
-
-Registra cuándo, por qué y bajo qué criterio se creó este expediente.
-
-## Regla de mantenimiento
-
-Jira es la fuente operativa para estados, responsables y trabajo del sprint. Esta
-carpeta es la fuente documental para decisiones, actas y evidencias. Los cambios
-relevantes deben actualizar ambos lugares y conservar el identificador de la
-actividad relacionada.
+Estados: 04 Evidencias/jira-corte-2026-10-15.json. Código: commit 899aab6 y antecedentes 62fbcba, dfa0461, f48fbc3. Pruebas: SIGAA/output/evidence. Generación selectiva reproducible: scripts/generate-scrum-pdfs.py --manifest scripts/document-regularization.json. Los PDF se actualizan sobre sus rutas canónicas.

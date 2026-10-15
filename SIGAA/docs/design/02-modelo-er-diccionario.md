@@ -1,5 +1,8 @@
 # Modelo ER y diccionario de datos escolar — Sprint 1
 
+> Documento histórico de diseño/prototipo. Para el estado al 15-10-2026 consultar los PDF actualizados de Arquitectura de Software, Arquitectura de Base de Datos y el expediente de Sprints 2-4. Las referencias siguientes a memoria, cabeceras demo o persistencia pendiente describen ese corte anterior, no la implementación vigente.
+
+
 Estado: esquema físico escolar y modelos docente/estudiante implementados hasta
 `005_student_portal.sql`; pendiente conectar repositorios productivos.
 

@@ -3,6 +3,9 @@ from __future__ import annotations
 
 import html
 import re
+import argparse
+import json
+from sigaa_diagrams import diagram
 from pathlib import Path
 
 from reportlab.lib import colors
@@ -21,6 +24,7 @@ from reportlab.platypus import (
     ListItem,
     PageTemplate,
     Paragraph,
+    PageBreak,
     Spacer,
     Table,
     TableStyle,
@@ -57,7 +61,7 @@ def inline_markup(text: str) -> str:
     safe = re.sub(r"`([^`]+)`", r'<font name="SIGAA-Bold">\1</font>', safe)
     safe = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", safe)
     safe = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", r"<i>\1</i>", safe)
-    return safe
+    return safe.replace('—', '-').replace('–', '-').replace('‑', '-')
 
 
 def max_table_columns(lines: list[str]) -> int:
@@ -80,11 +84,11 @@ def make_styles():
     ))
     styles.add(ParagraphStyle(
         name="H2x", fontName="SIGAA-Bold", fontSize=14, leading=18,
-        textColor=GREEN, spaceBefore=5 * mm, spaceAfter=2.5 * mm,
+        textColor=GREEN, spaceBefore=5 * mm, spaceAfter=2.5 * mm, keepWithNext=True,
     ))
     styles.add(ParagraphStyle(
         name="H3x", fontName="SIGAA-Bold", fontSize=11.5, leading=15,
-        textColor=GREEN_2, spaceBefore=4 * mm, spaceAfter=2 * mm,
+        textColor=GREEN_2, spaceBefore=4 * mm, spaceAfter=2 * mm, keepWithNext=True,
     ))
     styles.add(ParagraphStyle(
         name="Bodyx", fontName="SIGAA", fontSize=9.2, leading=13.2,
@@ -163,6 +167,7 @@ def parse_markdown(text: str, styles, available_width: float):
     paragraph_buffer: list[str] = []
     list_buffer: list[str] = []
     in_code = False
+    code_language = ''
     code_buffer: list[str] = []
     used_h1 = False
     i = 0
@@ -184,14 +189,35 @@ def parse_markdown(text: str, styles, available_width: float):
     while i < len(lines):
         raw = lines[i]
         stripped = raw.strip()
+        if stripped == ':::pagebreak':
+            flush_paragraph(); flush_list()
+            story.append(PageBreak())
+            i += 1
+            continue
+        if stripped.startswith(':::diagram '):
+            flush_paragraph(); flush_list()
+            story.append(diagram(stripped.split()[1], available_width))
+            i += 1
+            continue
         if stripped.startswith("```"):
             flush_paragraph(); flush_list()
             if in_code:
-                story.append(Paragraph("<br/>".join(html.escape(x) or " " for x in code_buffer), styles["Codex"]))
+                if code_language == 'mermaid':
+                    first = code_buffer[0].strip()
+                    if first == 'mindmap':
+                        kind = 'mindmap'
+                    elif first == 'flowchart LR' and any('Dirección / UTP' in row for row in code_buffer):
+                        kind = 'impact'
+                    else:
+                        raise ValueError('Mermaid diagram needs an explicit renderer; refusing to print raw code')
+                    story.append(diagram(kind, available_width))
+                else:
+                    story.append(Paragraph("<br/>".join(html.escape(x) or " " for x in code_buffer), styles["Codex"]))
                 code_buffer = []
                 in_code = False
             else:
                 in_code = True
+                code_language = stripped[3:].strip()
             i += 1
             continue
         if in_code:
@@ -302,15 +328,33 @@ def build_pdf(source_file: Path, output_file: Path, styles) -> tuple[int, str]:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('sources', nargs='*', type=Path)
+    parser.add_argument('--manifest', type=Path)
+    args = parser.parse_args()
     register_fonts()
     styles = make_styles()
-    sources = sorted(p for p in SOURCE.rglob("*.md") if OUTPUT not in p.parents)
+    if args.manifest:
+        entries = json.loads(args.manifest.read_text(encoding='utf-8'))
+        outputs = [e['output'] for e in entries]
+        if len(outputs) != len(set(outputs)):
+            raise ValueError('Duplicate PDF output in manifest')
+        for entry in entries:
+            source, target = ROOT / entry['source'], ROOT / entry['output']
+            build_pdf(source, target, styles)
+            print(target.relative_to(ROOT))
+        print(f'Generated {len(entries)} PDFs')
+        return
+    sources = args.sources or sorted(p for p in SOURCE.rglob("*.md") if OUTPUT not in p.parents)
     results = []
+    mapping = {str(ROOT / e['source']): ROOT / e['output'] for e in json.loads((ROOT / 'scripts/document-regularization.json').read_text())}
     for source in sources:
+        source = source.resolve()
         relative = source.relative_to(SOURCE)
         target = OUTPUT / relative.with_suffix(".pdf")
+        target = mapping.get(str(source.resolve()), target)
         count, title = build_pdf(source, target, styles)
-        results.append((relative, target.relative_to(SOURCE), count, title))
+        results.append((relative, target.relative_to(ROOT), count, title))
     print(f"Generated {len(results)} PDFs")
     for source, target, _, _ in results:
         print(f"{source} -> {target}")

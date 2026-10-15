@@ -1,40 +1,49 @@
-# Matriz de cumplimiento CAPSTONE — SIGAA
+# Control de documentación Capstone - SIGAA
 
-Fuente maestra: [`../../Material Asignatura/GUIA_MAESTRA_CAPSTONE_SIGAA.md`](../../Material%20Asignatura/GUIA_MAESTRA_CAPSTONE_SIGAA.md).
+Corte: 15 de octubre de 2026. Alcance: lista Scrum del profesor y sus evidencias técnicas. No se suma automáticamente la lista de metodología tradicional.
 
-## Corte de control
+## Documentación general
 
-- Fecha: 25 de agosto de 2026.
-- Semana oficial: 3.
-- Fase: 1 — Definición del Proyecto APT.
-- Próxima evaluación: semana 4, del 31 de agosto al 5 de septiembre.
-- Hora o día exacto: pendiente de confirmación docente.
-
-## Semáforo
-
-| Control | Estado | Acción |
+| Requisito | Evidencia | Estado documental |
 |---|---|---|
-| Propuesta integral y pertinente | Verde | Mantener alcance MVP escolar |
-| Guía 1.5 y presentación | Amarillo | Revisión cruzada y ensayo |
-| Documentación Scrum | Verde | Completar Review y Retro al cerrar cada sprint |
-| Arquitectura, datos, UML y Docker | Verde | Mantener trazabilidad y pruebas |
-| Evidencias individuales | Amarillo | Validación personal obligatoria |
-| Feedback externo | Rojo | Validar con docente o contraparte |
-| Datos formales | Rojo | Completar RUT, sección, equipo y docente |
-| Rama visible al profesor | Rojo | Resolver rama predeterminada/enlace |
-| README raíz | Rojo | Sustituir descripción ajena por SIGAA antes de entregar |
+| Análisis del caso | Producto 01 | Redactado |
+| Squad y responsabilidades | Producto 02 | Propuesta pendiente de ratificación |
+| Mapa mental | Producto 03 | Diagrama gráfico corregido |
+| Mapa de actores | Producto 04 | Matriz disponible; validación externa pendiente |
+| Visión y cuatro pilares | Producto 05 | Redactada; validación externa pendiente |
+| Épicas | Producto 06 | Definidas |
+| Historias con criterios y estimación | Producto 07 | 40 historias disponibles |
+| Impact Mapping | Producto 04 | Gráfico corregido; hipótesis por validar |
+| Product Backlog priorizado | Producto 06 | Estados y asignaciones conciliados con Jira |
+| User Story Mapping | Producto 08 | Mapa por actividades y entregas disponible |
+| Retrospectiva del proyecto | Producto 09 | Balance actualizado, no cierre final |
 
-## Definition of Ready para entregar Fase 1
+## Nueve elementos por sprint
 
-- [ ] Datos formales completos.
-- [ ] Mismo enlace comunicado para los tres integrantes.
-- [ ] Evidencias visibles en la rama revisada por el profesor.
-- [ ] README raíz describe SIGAA y permite ejecutarlo.
-- [ ] Documento 1.5 revisado contra los 70 puntos grupales.
-- [ ] Presentación ensayada por los tres integrantes.
-- [ ] Reflexiones individuales leídas y validadas por sus autores.
-- [ ] Gantt y plan de trabajo muestran hitos verificables.
-- [ ] Evidencias justificadas y vinculadas a objetivos.
-- [ ] Demo Docker verificada desde un clon limpio.
-- [ ] Hash de la versión candidata registrado.
-- [ ] Fecha y hora exactas confirmadas con el docente.
+| Elemento | Sprint 2 | Sprint 3 | Sprint 4 |
+|---|---|---|---|
+| Planning | Reconstrucción documentada | Plan y desviación registrados | Plan y límites actualizados |
+| Backlog | Histórico y vigente separados | Cuatro historias, 29 puntos | Cinco historias, 34 puntos |
+| Scrumboard | Foto de Jira al corte | Foto de Jira al corte | Foto de Jira al corte |
+| Burndown | Corte de 13 puntos, sin serie diaria | Corte de 29 puntos, sin serie diaria | Corte de 34 puntos, sin curva ficticia |
+| Daily | Seguimiento, no reunión inventada | Seguimiento, no reunión inventada | Seguimiento, no reunión inventada |
+| Impedimentos | Controles y pendientes | Resoluciones técnicas y pendientes | Integración y validación pendientes |
+| Release | Sin cierre histórico acreditado | Incremento técnico, aceptación pendiente | Incremento parcial, aceptación pendiente |
+| Review | Evidencia para ratificar | Decisiones PO pendientes | Decisiones PO pendientes |
+| Retrospective | Análisis para discutir | Análisis para discutir | Análisis para discutir |
+
+Los documentos están preparados; no significa que las ceremonias se hayan realizado ni que los sprints estén aprobados.
+
+## Evidencias técnicas y Fase 2
+
+Arquitectura de software y de base de datos actualizadas en sus PDF existentes. Migraciones 001-007 y pruebas documentadas. Informe de avance Fase 2 actualizado según los tres apartados de la guía 2.4: resumen/evidencias, monitoreo del plan y ajustes. Reflexión 2.1: propuesta factual preparada, con validación grupal pendiente.
+
+## Acciones todavía necesarias
+
+1. Joel revisa y decide por historia; la regularización no reemplaza aprobación.
+2. El equipo confirma roles, asignaciones y sus reflexiones.
+3. Conseguir validación escolar y documentar feedback real.
+4. Completar integración de alertas y justificaciones y evidenciar criterios.
+5. Confirmar plazo y recepción en Campus; Git no demuestra entrega académica.
+
+Las fuentes institucionales originales permanecen sin editar. Fase 1 y sus datos individuales no se declaran aprobados por esta revisión. La entrega final Fase 2 y Fase 3 son hitos futuros, no formularios rellenados anticipadamente.

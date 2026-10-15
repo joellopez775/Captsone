@@ -1,6 +1,6 @@
-# Product Backlog inicial
+# Épicas y Product Backlog vigente
 
-Fuente operativa principal: `../entregables/gestion/Plan_Maestro_Scrum_SIGAA.xlsx`.
+Fuente de estados: Jira consultado el 15-10-2026. El plan maestro anterior es una línea base histórica, no la fuente de estado actual.
 
 Este documento presenta una vista revisable en GitHub. Los puntos y la asignación definitiva se confirman durante Sprint Planning.
 
@@ -24,51 +24,59 @@ Este documento presenta una vista revisable en GitHub. Los puntos y la asignaci�
 | Analítica y auditoría | Dashboard, reportes y trazabilidad | Sprint 6 |
 | Calidad y cierre | Pruebas, manuales, despliegue y defensa | Sprint 6–Release final |
 
-## Backlog priorizado
+:::pagebreak
 
-| ID | Resultado | Prioridad | Puntos | Sprint | Estado |
-|---|---|---:|---:|---|---|
-| PB-001 | Validar problema, usuarios y restricciones | Must | 5 | Sprint 0 | En curso |
-| PB-002 | Product Vision y cuatro pilares | Must | 3 | Sprint 0 | Listo para aceptación PO |
-| PB-003 | Backlog priorizado y estimado | Must | 5 | Sprint 0 | Listo para aceptación PO |
-| PB-004 | Definition of Done | Must | 2 | Sprint 0 | Listo para aceptación PO |
-| PB-005 | Repositorio público, README y trazabilidad | Must | 3 | Sprint 0 | Listo para aceptación PO |
-| PB-006 | Arquitectura y decisiones técnicas | Must | 5 | Sprint 1 | En revisión PO/equipo |
-| PB-007 | Modelo ER y diccionario de datos | Must | 5 | Sprint 1 | En revisión PO/equipo |
-| PB-008 | Prototipo navegable validado internamente | Must | 5 | Sprint 1 | En revisión PO; validación externa pendiente |
-| PB-009 | UML de flujos principales | Must | 5 | Sprint 1 | En revisión PO/equipo |
-| PB-010 | Entrega y presentación Fase 1 | Must | 5 | Sprint 1 | En revisión; feedback y ensayo pendientes |
-| PB-011 | Autenticación segura | Must | 8 | Sprint 2 | Arrastrada a Sprint 3; login demo no cumple seguridad productiva |
-| PB-012 | Roles y permisos | Must | 8 | Sprint 2 | Arrastrada a Sprint 3; cabeceras demo no cumplen RBAC productivo |
-| PB-013 | Estructura escolar: establecimiento, año, niveles, cursos y asignaturas | Must | 8 | Sprint 2 | Modelo físico adelantado en 0.3.0 |
-| PB-014 | Entorno Docker reproducible | Must | 5 | Sprint 2 | En revisión (adelantado) |
-| PB-015 | Gestión de estudiantes | Must | 8 | Sprint 3 | Seleccionada; persistencia PostgreSQL pendiente |
-| PB-016 | Matrículas | Must | 5 | Sprint 3 | Seleccionada; persistencia PostgreSQL pendiente |
-| PB-017 | Evaluaciones y calificaciones | Must | 8 | Sprint 3 | Pendiente |
-| PB-018 | Importación validada | Should | 5 | Sprint 3 | Pendiente |
-| PB-019 | Registro de asistencia | Must | 8 | Sprint 4 | Pendiente |
-| PB-020 | Tres reglas explicables de alerta | Must | 8 | Sprint 4 | Pendiente |
-| PB-021 | Bandeja y dashboard inicial de alertas | Must | 8 | Sprint 4 | Pendiente |
-| PB-022 | Entrega de avance Fase 2 | Must | 5 | Sprint 4 | Pendiente |
-| PB-023 | Casos de seguimiento | Must | 8 | Sprint 5 | Pendiente |
-| PB-024 | Ficha integral del estudiante | Must | 8 | Sprint 5 | Pendiente |
-| PB-025 | Notificaciones | Should | 5 | Sprint 5 | Pendiente |
-| PB-026 | Indicadores agregados | Should | 8 | Sprint 6 | Pendiente |
-| PB-027 | Exportación de reportes | Could | 5 | Sprint 6 | Pendiente |
-| PB-028 | Auditoría de cambios sensibles | Must | 8 | Sprint 6 | Pendiente |
-| PB-029 | Pruebas integrales, seguridad y rendimiento | Must | 8 | Sprint 6 | Pendiente |
-| PB-030 | Manual técnico y despliegue | Must | 5 | Sprint 7 | Pendiente |
-| PB-031 | Manual de usuario | Should | 5 | Sprint 7 | Pendiente |
-| PB-032 | Innovación y propuesta de valor | Must | 3 | Sprint 7 | Pendiente |
-| PB-033 | Entrega final Fase 2 | Must | 8 | Sprint 7 | Pendiente |
-| PB-034 | Defensa y retrospectiva del proyecto | Must | 5 | Release final | Pendiente |
-| PB-035 | Corregir dominio universitario a escolar y validar migración 0.3.0 | Must | 8 | Sprint 1 | Implementado; pendiente aceptación PO |
-| PB-036 | Gestión de apoderados y vínculo con estudiantes | Must | 5 | Sprint 3 | Modelo físico adelantado; UI pendiente |
-| PB-037 | Gestión de justificaciones por Inspectoría | Must | 5 | Sprint 4 | Modelo físico adelantado; UI pendiente |
-| PB-038 | Modelo docente: cursos, clases, asistencia, notas y anotaciones | Must | 13 | Sprint 1 | Incremento demo implementado; persistencia productiva pendiente |
-| PB-039 | Modelo estudiante: asignaturas, notas, asistencia, calendario y anotaciones visibles | Must | 13 | Sprint 1 | Incremento demo implementado; persistencia productiva pendiente |
-| PB-040 | Ejecución Docker del equipo y aislamiento seguro del servidor | Must | 8 | Sprint 1 | Configuración y manual implementados; activación Cloudflare pendiente del PO |
+## Backlog priorizado y estado vigente
 
-## Política de cambios
+Los puntos y estados provienen de Jira. Las prioridades conservan la línea base; no son una repriorización acordada. Sin sprint significa backlog de producto, no una asignación nueva.
 
-El Product Owner propone cambios de prioridad; el equipo revisa impacto, dependencias y capacidad. Todo cambio de alcance debe registrarse en la bitácora. Una historia nueva recibe un identificador nuevo; los identificadores existentes no se reutilizan.
+| Historia / Jira | Prioridad | Puntos | Asignación actual | Estado |
+|---|---|---:|---|---|
+| PB-001 Validar problema usuarios y restricciones / SCRUM-13 | Must | 5 | Sprint 0 - Histórico | En revisión |
+| PB-002 Product Vision y cuatro pilares / SCRUM-14 | Must | 3 | Sprint 0 - Histórico | En revisión |
+| PB-003 Backlog priorizado y estimado / SCRUM-15 | Must | 5 | Sprint 0 - Histórico | En revisión |
+| PB-004 Definition of Done / SCRUM-16 | Must | 2 | Sprint 0 - Histórico | En revisión |
+| PB-005 Repositorio README y trazabilidad / SCRUM-17 | Must | 3 | Sprint 0 - Histórico | En revisión |
+| PB-006 Arquitectura y decisiones técnicas / SCRUM-18 | Must | 5 | Sprint 1 - Histórico | Terminada |
+| PB-007 Modelo ER y diccionario de datos / SCRUM-19 | Must | 5 | Sprint 1 - Histórico | En revisión |
+| PB-008 Prototipo navegable validado / SCRUM-20 | Must | 5 | Sprint 1 - Histórico | En revisión |
+| PB-009 UML de flujos principales / SCRUM-21 | Must | 5 | Sprint 1 - Histórico | En curso |
+| PB-010 Entrega y presentación Fase 1 / SCRUM-22 | Must | 5 | Sprint 1 - Histórico | En revisión |
+| PB-011 Autenticación segura / SCRUM-23 | Must | 8 | Sprint 3 - Actual | En revisión |
+| PB-012 Roles y permisos / SCRUM-24 | Must | 8 | Sprint 3 - Actual | En revisión |
+| PB-013 Estructura escolar / SCRUM-25 | Must | 8 | Sprint 2 - Histórico | En curso |
+| PB-014 Entorno Docker reproducible / SCRUM-26 | Must | 5 | Sprint 2 - Histórico | En revisión |
+| PB-015 Gestión de estudiantes / SCRUM-27 | Must | 8 | Sprint 3 - Actual | En revisión |
+| PB-016 Matrículas / SCRUM-28 | Must | 5 | Sprint 3 - Actual | En revisión |
+| PB-017 Evaluaciones y calificaciones / SCRUM-29 | Must | 8 | Sin sprint | En revisión |
+| PB-018 Importación validada / SCRUM-30 | Should | 5 | Sin sprint | Pendiente |
+| PB-019 Registro de asistencia / SCRUM-31 | Must | 8 | Sprint 4 - Asistencia/Alertas | En revisión |
+| PB-020 Tres reglas explicables de alerta / SCRUM-32 | Must | 8 | Sprint 4 - Asistencia/Alertas | En curso |
+| PB-021 Bandeja y dashboard inicial de alertas / SCRUM-33 | Must | 8 | Sprint 4 - Asistencia/Alertas | En curso |
+| PB-022 Entrega de avance Fase 2 / SCRUM-34 | Must | 5 | Sprint 4 - Asistencia/Alertas | En revisión |
+| PB-023 Casos de seguimiento / SCRUM-35 | Must | 8 | Sin sprint | Pendiente |
+| PB-024 Ficha integral del estudiante / SCRUM-36 | Must | 8 | Sin sprint | En curso |
+| PB-025 Notificaciones / SCRUM-37 | Should | 5 | Sin sprint | Pendiente |
+| PB-026 Indicadores agregados / SCRUM-38 | Should | 8 | Sin sprint | Pendiente |
+| PB-027 Exportación de reportes / SCRUM-39 | Could | 5 | Sin sprint | Pendiente |
+| PB-028 Auditoría de cambios sensibles / SCRUM-40 | Must | 8 | Sin sprint | Pendiente |
+| PB-029 Pruebas integrales seguridad y rendimiento / SCRUM-41 | Must | 8 | Sin sprint | En curso |
+| PB-030 Manual técnico y despliegue / SCRUM-42 | Must | 5 | Sin sprint | En revisión |
+| PB-031 Manual de usuario / SCRUM-43 | Should | 5 | Sin sprint | Pendiente |
+| PB-032 Innovación y propuesta de valor / SCRUM-44 | Must | 3 | Sin sprint | Pendiente |
+| PB-033 Entrega final Fase 2 / SCRUM-45 | Must | 8 | Sin sprint | Pendiente |
+| PB-034 Defensa y retrospectiva del proyecto / SCRUM-46 | Must | 5 | Sin sprint | Pendiente |
+| PB-035 Corregir dominio universitario a escolar / SCRUM-47 | Must | 8 | Sprint 1 - Histórico | Terminada |
+| PB-036 Gestión de apoderados / SCRUM-48 | Must | 5 | Sin sprint | En curso |
+| PB-037 Justificaciones por Inspectoría / SCRUM-49 | Must | 5 | Sprint 4 - Asistencia/Alertas | En curso |
+| PB-038 Modelo docente / SCRUM-50 | Must | 13 | Sprint 1 - Histórico | En revisión |
+| PB-039 Modelo estudiante / SCRUM-51 | Must | 13 | Sprint 1 - Histórico | En curso |
+| PB-040 Docker de equipo y aislamiento de servidor / SCRUM-52 | Must | 8 | Sprint 1 - Histórico | En curso |
+
+## Criterio de lectura
+
+No se confunde una subtarea terminada con aceptación de su historia. Alertas y justificaciones siguen en curso; asistencia, notas y autenticación tienen evidencia técnica y esperan revisión. Las tarjetas consultadas no tienen asignatario: el equipo debe ratificar responsables.
+
+## Cambios y trazabilidad
+
+Mantener claves PB y SCRUM existentes. Una nueva prioridad requiere decisión del PO y revisión de capacidad. No crear una segunda historia para un arrastre de sprint. Los datos de esta edición se respaldan en 04 Evidencias/jira-corte-2026-10-15.json.

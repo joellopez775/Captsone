@@ -15,6 +15,8 @@ Estado: borrador; requiere validación con una contraparte educativa.
 | Docente Capstone | Alta | Alta | Retroalimenta alcance y evidencias | Incumplimiento académico |
 | Equipo de desarrollo | Alta | Alta | Diseña, implementa, prueba y documenta | Desviación de calidad/plazo |
 
+:::pagebreak
+
 ## Impact Mapping
 
 ### Objetivo
@@ -60,6 +62,8 @@ flowchart LR
 - El profesor jefe consulta el contexto integral de su curso; cada profesor modifica solo su ámbito.
 - Consultar alertas sin tener que interpretar fórmulas ocultas.
 - Evitar duplicación de datos y correcciones no trazadas.
+
+:::pagebreak
 
 ### Inspectoría y orientación
 

@@ -1,22 +1,21 @@
-# Burndown Sprint 3
+# Burndown - Sprint 3
 
-Periodo: 21 de septiembre al 3 de octubre de 2026. Capacidad comprometida: 29 puntos.
+Corte de regularización: 15 de octubre de 2026. Base técnica: commit 899aab6. Fuente operativa: Jira SIGAA, tablero 1. Esta actualización documenta evidencia existente; no acredita reuniones ni aceptación del Product Owner.
 
-## Línea base y registro
+Plan documental inicial: 21 de septiembre al 3 de octubre. Jira: Sprint 3 - Actual, activo, del 24 de septiembre al 8 de octubre. El 15 de octubre sigue abierto; la implementación registrada ese día es posterior al plazo. No se modifica ni se oculta esta desviación.
 
-| Fecha | Ideal aproximado | Restante real | Fuente |
-|---|---:|---:|---|
-| 21-09 | 29 | 29 | Sprint Planning regularizado |
-| 22-09 | 26 | Sin dato | Jira aún no era fuente operativa |
-| 23-09 | 24 | Sin dato | Jira aún no era fuente operativa |
-| 24-09 | 22 | 29 | Ninguna historia aceptada al corte |
-| 25-09 | 19 | Por registrar | Jira |
-| 28-09 | 14 | Por registrar | Jira |
-| 30-09 | 10 | Por registrar | Jira |
-| 02-10 | 5 | Por registrar | Jira |
-| 03-10 | 0 | Por registrar | Sprint Review |
+## Qué puede medirse
 
-No se reconstruyen puntos diarios sin evidencia. Desde el 24 de septiembre el
-restante se actualizará con historias aceptadas, no con porcentaje subjetivo de
-avance. El gráfico nativo de Jira será la evidencia principal una vez configurado
-el sprint.
+La base del conjunto consultado es 29 puntos. Al corte, ninguna historia de este conjunto está en Terminada: restan 29 puntos de aceptación. No representa 29 puntos sin programar.
+
+:::diagram burn3
+
+## Calidad del historial
+
+No hay una serie diaria validada suficiente para dibujar una curva real. Se muestra solamente el corte comprobado. No se trazan descensos retroactivos ni una llegada proyectada a cero como si fueran hechos.
+
+
+
+## Registro desde ahora
+
+Después de cada actualización conservar fecha, puntos por historia y cambios de alcance. Separar puntos añadidos o retirados de historias aceptadas; las subtareas no se cuentan nuevamente. Vincular la aceptación al comentario o acta real del PO.

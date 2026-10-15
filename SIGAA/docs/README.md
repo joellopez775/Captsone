@@ -4,7 +4,11 @@
 
 Este directorio conserva la documentación viva de SIGAA. Los documentos entregables en formatos Word, Excel, PDF o imagen se guardan en `../entregables/`; las decisiones, actas y evidencias trazables se mantienen aquí en Markdown para facilitar su revisión en GitHub.
 
-## Estado de la línea base
+## Edición vigente al 15 de octubre de 2026
+
+Consultar el [índice canónico](<../../Gestión Scrum SIGAA/README.md>) y el [control documental](08-matriz-cumplimiento-capstone.md). Sprints 2, 3 y 4, mapas, backlog, arquitecturas e informe de Fase 2 están regularizados. La tabla siguiente es un inventario histórico de agosto/septiembre, no el estado actual. No se crean copias paralelas de los documentos.
+
+## Estado de la línea base histórica
 
 | Código | Documento | Estado | Responsable propuesto | Última actualización |
 |---|---|---|---|---|

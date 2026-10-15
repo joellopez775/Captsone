@@ -1,29 +1,19 @@
-# Scrumboard Sprint 3
+# Scrumboard - Sprint 3
 
-Espacio oficial: [SIGAA en Jira](https://sigaa-duoc-2026.atlassian.net)
+Corte de regularización: 15 de octubre de 2026. Base técnica: commit 899aab6. Fuente operativa: Jira SIGAA, tablero 1. Esta actualización documenta evidencia existente; no acredita reuniones ni aceptación del Product Owner.
 
-Fecha de corte: 24 de septiembre de 2026.
+Plan documental inicial: 21 de septiembre al 3 de octubre. Jira: Sprint 3 - Actual, activo, del 24 de septiembre al 8 de octubre. El 15 de octubre sigue abierto; la implementación registrada ese día es posterior al plazo. No se modifica ni se oculta esta desviación.
 
-## Flujo
+| Jira / historia | Puntos | Estado consultado |
+|---|---:|---|
+| SCRUM-23 / PB-011 Autenticación segura | 8 | En revisión |
+| SCRUM-24 / PB-012 Roles y permisos | 8 | En revisión |
+| SCRUM-27 / PB-015 Gestión de estudiantes | 8 | En revisión |
+| SCRUM-28 / PB-016 Matrículas | 5 | En revisión |
+## Lectura del tablero
 
-`Pendiente` → `Seleccionada` → `En curso` → `En revisión` → `Terminada`
+29 puntos en revisión; las 12 subtareas técnicas están terminadas. Hay 0 puntos en historias terminadas dentro de este conjunto. Esto no significa ausencia de implementación: distingue trabajo técnico de aceptación de historias.
 
-## Alcance comprometido
+Flujo existente: Pendiente, Seleccionada, En curso, En revisión, Terminada. No se agregan columnas ni se mueven tarjetas al regularizar documentos.
 
-| Historia | Estado documental al corte | Puntos | Condición para terminar |
-|---|---|---:|---|
-| PB-011 | Seleccionada; falta asignar al sprint en Jira | 8 | Login seguro y pruebas |
-| PB-012 | Seleccionada; falta asignar al sprint en Jira | 8 | RBAC real y pruebas de acceso |
-| PB-015 | Seleccionada; falta asignar al sprint en Jira | 8 | CRUD persistente y auditado |
-| PB-016 | Seleccionada; falta asignar al sprint en Jira | 5 | Matrícula persistente e íntegra |
-
-La importación inicial dejó 60 actividades en Jira. La configuración del Sprint 3,
-responsables y estados debe confirmarse con el equipo antes de usarlos como evidencia
-operativa. El tablero de Jira será la fuente de verdad desde ese momento.
-
-## Reglas de movimiento
-
-- Solo entra a `En curso` cuando existe responsable y criterio entendido.
-- Solo entra a `En revisión` con implementación, pruebas y evidencia enlazada.
-- Solo entra a `Terminada` si cumple la Definition of Done y fue aceptada.
-- Un bloqueo se registra también en el Impediment Log; no se oculta moviendo la tarjeta.
+El tablero es una foto al corte y puede cambiar después. Fuente: https://sigaa-duoc-2026.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog

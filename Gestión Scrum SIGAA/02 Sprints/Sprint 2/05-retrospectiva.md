@@ -1,26 +1,26 @@
-# Sprint Retrospective 2 - pauta para ratificación del equipo
+# Retrospectiva - Sprint 2
 
-Estado: propuesta basada en evidencia; requiere participación de los tres integrantes.
+Corte de regularización: 15 de octubre de 2026. Base técnica: commit 899aab6. Fuente operativa: Jira SIGAA, tablero 1. Esta actualización documenta evidencia existente; no acredita reuniones ni aceptación del Product Owner.
 
-## Lo que ayudó
+Plan histórico: 7 al 19 de septiembre. Jira conserva Sprint 2 - Histórico en estado future, sin fechas. Ese contenedor no acredita inicio ni cierre de una ceremonia.
 
-- Docker y el modelo de datos permiten trabajar sobre una base común.
-- Las vistas docente y estudiante aclaran el valor esperado.
-- La documentación identifica explícitamente los datos sintéticos.
+Estado: análisis documental preparado para discusión; no consta una retrospectiva realizada y ratificada.
 
-## Lo que dificultó
+## Hechos observables
 
-- No se creó oportunamente el expediente del Sprint 2.
-- Se adelantaron interfaces antes de cerrar autenticación y persistencia.
-- Jira, Daily, Review y Retro no quedaron registrados en la cadencia prevista.
-- La rama local y la rama publicada requieren una política única de integración.
+- Se adelantó la interfaz respecto de autenticación y persistencia; hubo que completar la conexión real después.
+- Los PDF y Jira llegaron a mostrar estados distintos. Esta regularización corrige el corte documental, sin reescribir reuniones pasadas.
+- Docker, pruebas aisladas y migraciones reducen riesgo al integrar cambios.
 
-## Acciones propuestas
+## Mejoras propuestas
 
-| Acción | Responsable | Fecha objetivo | Evidencia |
+| Acción | Coordinación propuesta | Verificación | Plazo propuesto |
 |---|---|---|---|
-| Actualizar Jira al terminar cada sesión | Cada integrante | Desde Sprint 3 | Tarjetas y enlaces |
-| Limitar trabajo en curso a una historia por integrante | Scrum Master | 25-09 | Tablero |
-| Integrar dos veces por semana | Equipo | Martes y viernes | Pull request o commit |
-| No cerrar historias demo como productivas | Product Owner y equipo | Permanente | Review y DoD |
-| Realizar Review y Retro al cierre | Scrum Master | 03-10 | Actas ratificadas |
+| Adjuntar evidencia al mover una historia | Cada integrante | Commit, prueba y enlace Jira | Cada cambio de estado |
+| Actualizar documentos en la misma entrega | Equipo | PDF y código describen el mismo alcance | Antes de próxima review |
+| Revisar una historia completa, no solo la pantalla | Joel / PO | Decisión por criterios | Próxima review a acordar |
+| Confirmar reparto y contraparte escolar | Equipo | Acuerdo y minuta real | Próxima reunión a acordar |
+
+## Acuerdos de la sesión
+
+No registrados. Fecha, participantes, acciones elegidas y responsables permanecen pendientes hasta que el equipo se reúna o deje un acuerdo explícito verificable.

@@ -1,30 +1,26 @@
-# Registro Daily Sprint 3
+# Daily y seguimiento - Sprint 3
 
-Duración máxima: 15 minutos. Cada integrante informa avance desde la Daily anterior,
-siguiente acción concreta e impedimento. Este archivo resume acuerdos; Jira conserva
-el estado de las actividades.
+Corte de regularización: 15 de octubre de 2026. Base técnica: commit 899aab6. Fuente operativa: Jira SIGAA, tablero 1. Esta actualización documenta evidencia existente; no acredita reuniones ni aceptación del Product Owner.
 
-## Regularización del 24 de septiembre
+Plan documental inicial: 21 de septiembre al 3 de octubre. Jira: Sprint 3 - Actual, activo, del 24 de septiembre al 8 de octubre. El 15 de octubre sigue abierto; la implementación registrada ese día es posterior al plazo. No se modifica ni se oculta esta desviación.
 
-Esta entrada documenta trabajo comprobable, no representa una reunión de equipo si
-los tres integrantes no participaron.
+## Alcance del registro
 
-| Integrante | Avance verificable | Siguiente acción | Impedimento |
-|---|---|---|---|
-| Joel | Sitio Jira creado y 60 actividades importadas | Configurar Sprint 3 y validar criterios con el equipo | Faltan usuarios Jira y ratificación de roles |
-| Agustín | Sin actualización registrada | Revisar asignación propuesta y tomar una actividad | Sin información |
-| Matías | Sin actualización registrada | Revisar asignación propuesta y tomar una actividad | Sin información |
+No se conservan actas suficientes para acreditar Daily realizadas por los tres integrantes. No se completa asistencia ni declaraciones en nombre del equipo.
 
-## Plantilla diaria
+Las entradas DAILY-18 a DAILY-21 son antecedentes reconstruidos o registro de configuración de Jira. No prueban cuatro reuniones reales del equipo.
 
-### Fecha: AAAA-MM-DD
+## Seguimiento verificable del 15 de octubre
 
-| Integrante | Terminé | Haré ahora | Impedimento | Tarjetas Jira actualizadas |
-|---|---|---|---|---|
-| Joel |  |  |  | Sí / No |
-| Agustín |  |  |  | Sí / No |
-| Matías |  |  |  | Sí / No |
+| Evidencia | Resultado | Qué no demuestra |
+|---|---|---|
+| 62fbcba | Implementación segura y persistente del Sprint 3 | Reunión o aprobación del sprint |
+| f48fbc3 | Demo HTTPS y cuentas por rol | Autorización para datos escolares reales |
+| 899aab6 | Asistencia, notas y anotaciones persistentes | Alertas y justificaciones completas |
+| Consulta Jira al corte | Estados y pertenencia actuales | Historial diario ni participación del equipo |
 
-Acuerdos y responsables:
+Estos hitos son de octubre. No se atribuyen retrospectivamente a los días del Sprint 3.
 
-- Pendiente.
+## Próxima Daily real
+
+Registrar en el momento: fecha, participantes efectivos, avance desde la anterior, siguiente acción, impedimento y enlaces Jira. Si alguien no participa, no completar su declaración. No hay número de reuniones nuevas acreditadas por este informe.

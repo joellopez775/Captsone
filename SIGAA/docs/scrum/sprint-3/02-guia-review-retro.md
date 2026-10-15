@@ -1,23 +1,5 @@
-# Guía de Sprint Review y Retrospective 3
+# Referencia documental - Sprint 3
 
-## Sprint Review - 3 de octubre
+La fuente vigente se mantiene en [02-guia-review-retro.md](<../../../../Gestión Scrum SIGAA/02 Sprints/Sprint 3/02-guia-review-retro.md>).
 
-1. Levantar SIGAA desde un clon limpio con Docker.
-2. Demostrar login docente y estudiante.
-3. Ejecutar un acceso autorizado y uno denegado.
-4. Crear un estudiante y matricularlo.
-5. Reiniciar la API y comprobar persistencia.
-6. Mostrar pruebas, deuda y riesgos.
-7. Registrar decisión del Product Owner por historia.
-
-Estados de decisión: Aceptada, Devuelta o Replanificada.
-
-## Sprint Retrospective - después de la Review
-
-Preguntas:
-
-- ¿Qué ayudó a cumplir el Sprint Goal?
-- ¿Qué retrasó o disminuyó la calidad?
-- ¿Qué cambio concreto probaremos en Sprint 4?
-
-La Retro no busca culpables. Debe terminar con una o dos acciones medibles, responsable y fecha.
+Su PDF está en Gestión Scrum SIGAA/PDF/02 Sprints/Sprint 3. Se conserva este enlace para compatibilidad, sin mantener una segunda versión del contenido.
