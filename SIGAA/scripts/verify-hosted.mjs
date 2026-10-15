@@ -35,13 +35,33 @@ try {
     await page.getByRole('button',{name:'Actualizar datos',exact:true}).waitFor();
     assert.equal(await page.getByRole('alert').count(),0);
     assert.deepEqual(await page.locator('.secure-metrics strong').allTextContents(),['1','1','1']);
+    const navigate = async name => {
+      if(width===390) await page.getByRole('button',{name:'Abrir menú',exact:true}).click();
+      await page.getByRole('navigation').getByRole('button',{name,exact:true}).click();
+    };
+    if(role==='teacher') {
+      const workspace=await (await context.request.get(origin+'/api/teacher/workspace')).json();
+      const records=await context.request.get(origin+'/api/teacher/assignments/'+workspace.assignments[0].id+'/records');
+      assert.equal(records.status(),200);
+      assert.equal((await records.json()).students.length,1);
+      for(const [menu,heading] of [['Asistencia','Registro de asistencia'],['Notas','Calificaciones'],['Anotaciones','Nueva anotación']]) {
+        await navigate(menu);await page.getByRole('heading',{name:heading,exact:true}).waitFor();
+        assert.equal(await page.getByRole('alert').count(),0);
+        assert(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth));
+      }
+    } else {
+      for(const [menu,heading] of [['Mi asistencia','Mi asistencia registrada'],['Mis notas','Notas publicadas'],['Mis anotaciones','Mis anotaciones publicadas']]) {
+        await navigate(menu);await page.getByRole('heading',{name:heading,exact:true}).waitFor();
+      }
+    }
+    await navigate('Mi inicio');
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth));
     await page.screenshot({path:fileURLToPath(new URL(`${role}-${width}.png`,out)),fullPage:true});
     if(width===390) await page.getByRole('button',{name:'Abrir menú',exact:true}).click();
     await page.getByRole('button',{name:'Cerrar sesión',exact:true}).click();
     await page.getByRole('heading',{name:'Bienvenido de vuelta'}).waitFor();
     assert.equal((await context.request.get(origin+'/api/auth/me')).status(),401);
-    checks.push({role,width,login:true,cookieSecure:true,courseLinked:true,sessionReload:true,csrfReject:true,logout:true,noHorizontalOverflow:true});
+    checks.push({role,width,login:true,cookieSecure:true,courseLinked:true,sessionReload:true,csrfReject:true,logout:true,noHorizontalOverflow:true,academicScreens:true});
     await context.close();
   }
 } finally { await browser.close(); }

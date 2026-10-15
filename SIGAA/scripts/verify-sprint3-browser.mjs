@@ -348,10 +348,210 @@ try {
     await page.reload();
     await page.getByRole("heading", { name: "Bienvenido de vuelta" }).waitFor();
   });
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await check("Docente programa clase y guarda asistencia real", async () => {
+    await login("teacher", "docente@sigaa.local");
+    await nav("Asistencia");
+    await page
+      .getByLabel("Fecha de la clase", { exact: true })
+      .fill("2026-09-01");
+    await page
+      .getByLabel("Bloque", { exact: true })
+      .fill("Bloque académico QA");
+    await page
+      .getByLabel("Título de la clase", { exact: true })
+      .fill("Clase de integración");
+    await page
+      .getByLabel("Objetivo", { exact: true })
+      .fill("Comprobar persistencia de asistencia");
+    await page
+      .getByRole("button", { name: "Crear clase", exact: true })
+      .click();
+    await page
+      .getByRole("status")
+      .filter({ hasText: "Guardado en la base" })
+      .waitFor();
+    await page
+      .getByLabel("Clase", { exact: true })
+      .selectOption({
+        label:
+          "2026-09-01 · Bloque académico QA · Clase de integración · Programada",
+      });
+    await page
+      .getByLabel("Camila Soto", { exact: true })
+      .selectOption("present");
+    await page
+      .getByRole("button", { name: "Guardar asistencia", exact: true })
+      .click();
+    await page
+      .getByRole("status")
+      .filter({ hasText: "Guardado en la base" })
+      .waitFor();
+    assert.equal(
+      (await pool.query("SELECT estado FROM asistencia")).rows[0].estado,
+      "presente",
+    );
+    await page.screenshot({
+      path: fileURLToPath(new URL("05-asistencia-real.png", output)),
+      fullPage: true,
+    });
+  });
+  await check(
+    "Docente guarda borrador, publica y corrige notas con motivo",
+    async () => {
+      await nav("Notas");
+      await page
+        .getByLabel("Nombre de la evaluación", { exact: true })
+        .fill("Control académico QA");
+      await page
+        .getByLabel("Fecha de evaluación", { exact: true })
+        .fill("2026-09-01");
+      await page.getByLabel("Ponderación (%)", { exact: true }).fill("50");
+      await page
+        .getByRole("button", { name: "Crear evaluación", exact: true })
+        .click();
+      await page
+        .getByRole("status")
+        .filter({ hasText: "Guardado en la base" })
+        .waitFor();
+      await page
+        .getByLabel("Evaluación", { exact: true })
+        .selectOption({ label: "Control académico QA · 50.00% · Borrador" });
+      await page.getByLabel("Camila Soto", { exact: true }).fill("6.2");
+      await page
+        .getByRole("button", { name: "Guardar notas", exact: true })
+        .click();
+      await page
+        .getByRole("status")
+        .filter({ hasText: "Guardado en la base" })
+        .waitFor();
+      assert.equal(
+        (await pool.query("SELECT visible_estudiante FROM calificacion"))
+          .rows[0].visible_estudiante,
+        false,
+      );
+      await page
+        .getByRole("button", {
+          name: "Publicar notas al estudiante",
+          exact: true,
+        })
+        .click();
+      await page
+        .getByRole("status")
+        .filter({ hasText: "Guardado en la base" })
+        .waitFor();
+      await page.getByLabel("Camila Soto", { exact: true }).fill("6.5");
+      await page
+        .getByRole("button", { name: "Guardar notas", exact: true })
+        .click();
+      await page
+        .getByRole("alert")
+        .filter({ hasText: "Explica el motivo" })
+        .waitFor();
+      await page
+        .getByLabel("Motivo de corrección", { exact: true })
+        .fill("Corrección de pauta de la prueba");
+      await page
+        .getByRole("button", { name: "Guardar notas", exact: true })
+        .click();
+      await page
+        .getByRole("status")
+        .filter({ hasText: "Guardado en la base" })
+        .waitFor();
+      assert.equal(
+        (await pool.query("SELECT valor,version FROM calificacion")).rows[0]
+          .valor,
+        "6.5",
+      );
+      await page.screenshot({
+        path: fileURLToPath(new URL("06-notas-reales.png", output)),
+        fullPage: true,
+      });
+    },
+  );
+  await check("Docente registra anotaciones públicas y privadas", async () => {
+    await nav("Anotaciones");
+    for (const visibility of ["estudiante", "privada"]) {
+      await page
+        .getByLabel("Estudiante", { exact: true })
+        .selectOption({ label: "Camila Soto" });
+      await page.getByLabel("Tipo", { exact: true }).selectOption("positiva");
+      await page.getByLabel("Categoría", { exact: true }).fill("Participación");
+      await page
+        .getByLabel("Detalle", { exact: true })
+        .fill(
+          visibility === "privada"
+            ? "Nota privada confidencial QA"
+            : "Excelente participación en la clase QA",
+        );
+      await page
+        .getByLabel("Visibilidad", { exact: true })
+        .selectOption(visibility);
+      await page
+        .getByRole("button", { name: "Guardar anotación", exact: true })
+        .click();
+      await page
+        .getByRole("status")
+        .filter({ hasText: "Guardado en la base" })
+        .waitFor();
+    }
+    await logout();
+  });
+  await check(
+    "Estudiante consulta asistencia, notas y anotaciones propias en móvil",
+    async () => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await login("student", "estudiante@sigaa.local");
+      await nav("Mi asistencia");
+      await page.getByText("Clase de integración", { exact: true }).waitFor();
+      await nav("Mis notas");
+      await page.getByText("6.5", { exact: true }).waitFor();
+      await nav("Mis anotaciones");
+      await page
+        .getByText("Excelente participación en la clase QA", { exact: true })
+        .waitFor();
+      assert.equal(
+        await page
+          .getByText("Nota privada confidencial QA", { exact: true })
+          .count(),
+        0,
+      );
+      assert.equal(
+        await page
+          .getByRole("button", { name: "Guardar anotación", exact: true })
+          .count(),
+        0,
+      );
+      assert.ok(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= window.innerWidth,
+        ),
+      );
+      await page.screenshot({
+        path: fileURLToPath(new URL("07-anotaciones-estudiante.png", output)),
+        fullPage: true,
+      });
+      await page.reload();
+      await nav("Mis notas");
+      await page.getByText("6.5", { exact: true }).waitFor();
+      await logout();
+    },
+  );
   assert.deepEqual(errors, []);
   report.pageErrors = errors;
   report.result = "pass";
 } catch (error) {
+  const failedPage = browser?.contexts()[0]?.pages()[0];
+  if (failedPage) {
+    await failedPage.screenshot({
+      path: fileURLToPath(new URL("failure.png", output)),
+      fullPage: true,
+    });
+    await writeFile(
+      new URL("failure.txt", output),
+      await failedPage.locator("body").innerText(),
+    );
+  }
   report.result = "fail";
   report.error = error.message;
   console.error(error);

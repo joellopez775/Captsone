@@ -1,9 +1,29 @@
 import { useEffect, useState } from "react";
 import logo from "./assets/sigaa-logo.png";
 import "./secure.css";
+import { AcademicPanel, StudentAcademic } from "./AcademicPanel.jsx";
 
 let csrfToken = "";
 const messages = {
+  invalid_evaluation:
+    "Revisa el nombre, la fecha y la ponderación de la evaluación.",
+  date_outside_period: "La fecha debe estar dentro del año escolar del curso.",
+  weight_exceeds_100:
+    "Las ponderaciones de esta asignatura no pueden superar el 100%.",
+  invalid_grades: "Ingresa al menos una nota entre 1,0 y 7,0, con un decimal.",
+  correction_reason_required:
+    "Explica el motivo de la corrección o anulación (mínimo 8 caracteres).",
+  evaluation_empty: "Guarda al menos una nota antes de publicar.",
+  evaluation_closed: "Esta evaluación está cerrada y no admite cambios.",
+  class_not_recordable:
+    "No puedes registrar asistencia de una clase futura o cancelada.",
+  invalid_annotation:
+    "Completa el detalle de la anotación (mínimo 8 caracteres), categoría y visibilidad.",
+  assignment_out_of_scope:
+    "No tienes permiso para esta acción en esa asignatura.",
+  student_out_of_scope:
+    "El estudiante no tiene matrícula activa en este curso.",
+  invalid_class_data: "Completa fecha, bloque, título y objetivo de la clase.",
   invalid_credentials: "Correo o contraseña incorrectos.",
   authentication_required: "Inicia sesión para continuar.",
   session_expired: "Tu sesión terminó. Vuelve a ingresar.",
@@ -565,7 +585,13 @@ export default function SecureApp() {
     ["students", student ? "Mis datos" : "Estudiantes"],
     ["courses", student ? "Mis cursos" : "Cursos"],
     ["enrollments", "Matrículas"],
-    ...(student ? [["grades", "Mis notas"]] : []),
+    ...(["teacher", "student"].includes(user.role)
+      ? [
+          ["attendance", student ? "Mi asistencia" : "Asistencia"],
+          ["grades", student ? "Mis notas" : "Notas"],
+          ["annotations", student ? "Mis anotaciones" : "Anotaciones"],
+        ]
+      : []),
     ["security", "Seguridad"],
   ];
   return (
@@ -647,15 +673,14 @@ export default function SecureApp() {
               ))}
             </div>
             <section className="panel">
-              <h2>Base del sistema · Sprint 3</h2>
+              <h2>Tu comunidad escolar, conectada</h2>
               <p>
                 Acceso personal, permisos, estudiantes y matrículas
                 persistentes.
               </p>
               <p>
-                Los módulos de asistencia, alertas y edición de notas del
-                prototipo siguen en desarrollo. No se mezclan sus datos de
-                demostración con estos registros.
+                Asistencia, notas y anotaciones se guardan en la base de datos.
+                Cada estudiante accede solo a sus registros publicados.
               </p>
             </section>
           </>
@@ -699,7 +724,14 @@ export default function SecureApp() {
             onError={setError}
           />
         )}
-        {view === "grades" && (
+        {user.role === "teacher" &&
+          ["attendance", "grades", "annotations"].includes(view) && (
+            <AcademicPanel key={view} api={api} view={view} />
+          )}
+        {student && ["attendance", "annotations"].includes(view) && (
+          <StudentAcademic data={data} view={view} />
+        )}
+        {student && view === "grades" && (
           <section className="panel">
             <h2>Notas publicadas</h2>
             {data.grades.length ? (
@@ -708,7 +740,10 @@ export default function SecureApp() {
                   <article key={i}>
                     <div>
                       <strong>{g.subject}</strong>
-                      <small>{g.evaluation}</small>
+                      <small>
+                        {g.evaluation} · {g.weight}% ·{" "}
+                        {String(g.date).slice(0, 10)}
+                      </small>
                     </div>
                     <strong>{Number(g.value).toFixed(1)}</strong>
                   </article>

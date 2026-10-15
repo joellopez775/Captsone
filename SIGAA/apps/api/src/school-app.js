@@ -1,5 +1,6 @@
 import express from "express";
 import { teacherRoutes } from "./teacher-routes.js";
+import { academicRoutes, studentRecords } from "./academic-routes.js";
 import {
   newToken,
   digest,
@@ -241,6 +242,7 @@ export function createApp({
   });
   app.use(authenticate);
   teacherRoutes(app, pool);
+  academicRoutes(app, pool);
   app.get("/courses", role("admin", "teacher", "student"), async (req, res) => {
     const filter =
       req.user.role === "teacher"
@@ -458,13 +460,13 @@ export function createApp({
     const id = requireId(req.params.id);
     if (id !== req.user.studentId) fail(403, "access_denied");
     const { rows: grades } = await pool.query(
-      `SELECT ev.nombre AS evaluation,a.nombre AS subject,ca.valor AS value,ev.fecha AS date
+      `SELECT ev.nombre AS evaluation,a.nombre AS subject,ca.valor AS value,ev.fecha AS date,ev.ponderacion AS weight,ca.version
       FROM calificacion ca JOIN evaluacion ev ON ev.id=ca.evaluacion_id JOIN curso_asignatura cs ON cs.id=ev.curso_asignatura_id
       JOIN asignatura a ON a.id=cs.asignatura_id WHERE ca.estudiante_id=$1 AND ca.visible_estudiante AND ev.visible_estudiante
       AND ev.estado IN ('publicada','cerrada') ORDER BY ev.fecha DESC`,
       [id],
     );
-    res.json({ grades });
+    res.json({ grades, ...(await studentRecords(pool, id)) });
   });
   app.use((_req, _res) => fail(404, "not_found"));
   app.use((error, _req, res, _next) => {
