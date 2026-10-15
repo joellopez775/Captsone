@@ -58,7 +58,7 @@ function BrandMark() {
 
 function AppShell({ activeView, onNavigate, onLogout, children, system }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const navigation = [["dashboard", "Resumen", "dashboard"], ["courses", "Mis cursos", "book"], ["classes", "Clases y asistencia", "calendar"], ["grades", "Calificaciones", "grades"], ["annotations", "Anotaciones", "notes"], ["alerts", "Alertas", "alerts"]];
+  const navigation = [["dashboard", "Resumen", "dashboard"], ["courses", "Mis cursos", "book"], ["classes", "Clases y asistencia", "calendar"], ["grades", "Calificaciones", "grades"], ["annotations", "Anotaciones", "notes"], ["justifications", "Justificaciones", "notes"], ["alerts", "Alertas", "alerts"]];
   return (
     <div className="app-shell">
       <aside className={mobileMenuOpen ? "sidebar mobile-menu-open" : "sidebar"}>
@@ -399,15 +399,37 @@ function Students({ data, onOpenStudent }) {
   );
 }
 
-function Alerts({ data, onOpenStudent }) {
+function Justifications({ data, onDataChange }) {
+  const [reviewNote, setReviewNote] = useState({});
+  const [message, setMessage] = useState("");
+  const statusLabels = { pending: "Pendiente", approved: "Aprobada", rejected: "Rechazada" };
+
+  async function review(id, status) {
+    const body = await teacherMutation(`/justifications/${id}`, { method: "PATCH", body: JSON.stringify({ status, reviewNote: reviewNote[id] || "Revisado con antecedentes disponibles." }) });
+    onDataChange((current) => ({ ...current, justifications: body.justifications }));
+    setMessage(status === "approved" ? "Justificación aprobada y trazabilidad registrada." : "Justificación rechazada con observación registrada.");
+  }
+
+  return <><Header kicker="Inspectoría y asistencia" title="Justificaciones" subtitle="Revisa solicitudes de ausencia sin exponer documentos sensibles" />{message && <div className="form-success justification-message">{message}</div>}<section className="justification-list">{data.justifications.map((item) => { const student = data.students.find(({ id }) => id === item.studentId); const session = data.teacherWorkspace.classSessions.find(({ id }) => id === item.classSessionId); return <article className="justification-card" key={item.id}><div className="justification-card__head"><div><span>{student?.course}</span><h2>{student?.name}</h2><p>{session?.title ?? "Clase registrada"} · {session ? formatSchoolDate(session.date) : "Fecha no disponible"}</p></div><em className={`justification-status justification-status--${item.status}`}>{statusLabels[item.status]}</em></div><blockquote>{item.reason}</blockquote><dl><div><dt>Respaldo</dt><dd>{item.attachmentName || "Sin archivo adjunto"}</dd></div><div><dt>Solicitud</dt><dd>{new Date(item.submittedAt).toLocaleString("es-CL")}</dd></div></dl>{item.status === "pending" ? <div className="justification-review"><input aria-label={`Observación para ${student?.name}`} onChange={(event) => setReviewNote({ ...reviewNote, [item.id]: event.target.value })} placeholder="Observación de revisión" value={reviewNote[item.id] ?? ""} /><button onClick={() => review(item.id, "approved")} type="button">Aprobar</button><button className="teacher-secondary" onClick={() => review(item.id, "rejected")} type="button">Rechazar</button></div> : <small>Revisó {item.reviewedBy} · {item.reviewNote}</small>}</article>; })}</section></>;
+}
+
+function Alerts({ data, onDataChange, onOpenStudent }) {
   const [severity, setSeverity] = useState("all");
+  const [message, setMessage] = useState("");
   const alerts = severity === "all" ? data.alerts : data.alerts.filter((alert) => alert.severity === severity);
+  async function recalculate() {
+    const body = await teacherMutation("/alerts/recalculate", { method: "POST" });
+    onDataChange((current) => ({ ...current, alerts: body.alerts, alertRules: body.rules, students: body.students, metrics: body.metrics, meta: { ...current.meta, updatedAt: body.updatedAt } }));
+    setMessage(`${body.alerts.length} alertas recalculadas con tres reglas transparentes.`);
+  }
   return (
     <>
       <Header kicker="Seguimiento" title="Bandeja de alertas" subtitle="Cada alerta muestra la regla y la evidencia que la originó" />
-      <section className="filter-group" aria-label="Filtrar por severidad">
+      <section className="alerts-toolbar"><div className="filter-group" aria-label="Filtrar por severidad">
         {["all", "high", "medium"].map((value) => <button className={severity === value ? "filter filter--active" : "filter"} key={value} onClick={() => setSeverity(value)} type="button">{value === "all" ? "Todas" : labels[value]}</button>)}
-      </section>
+      </div><button className="teacher-primary" onClick={recalculate} type="button">Recalcular alertas</button></section>
+      {message && <div className="form-success justification-message">{message}</div>}
+      <section className="rule-strip">{data.alertRules?.map((rule) => <article key={rule.id}><span>{rule.severity === "high" ? "Crítica" : "Preventiva"}</span><strong>{rule.name}</strong><small>{rule.description}</small></article>)}</section>
       <section className="alert-board">
         {alerts.map((alert) => {
           const student = data.students.find(({ id }) => id === alert.studentId);
@@ -480,8 +502,9 @@ export default function App() {
     if (view === "classes") return <TeacherClasses data={data} onWorkspaceChange={updateTeacherWorkspace} />;
     if (view === "grades") return <TeacherGrades data={data} onWorkspaceChange={updateTeacherWorkspace} />;
     if (view === "annotations") return <TeacherAnnotations data={data} onWorkspaceChange={updateTeacherWorkspace} />;
+    if (view === "justifications") return <Justifications data={data} onDataChange={setData} />;
     if (view === "students") return <Students data={data} onOpenStudent={setStudentId} />;
-    if (view === "alerts") return <Alerts data={data} onOpenStudent={setStudentId} />;
+    if (view === "alerts") return <Alerts data={data} onDataChange={setData} onOpenStudent={setStudentId} />;
     return <Dashboard data={data} onNavigate={setView} onOpenStudent={setStudentId} />;
   }, [data, studentId, view]);
 

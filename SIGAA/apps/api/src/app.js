@@ -9,6 +9,7 @@ const demoAccounts = [
 ];
 
 const attendanceStates = new Set(["present", "absent", "late", "excused"]);
+const justificationStates = new Set(["approved", "rejected"]);
 
 function requireDemoTeacher(request, response, next) {
   if (request.get("x-demo-role") !== "teacher") {
@@ -61,6 +62,49 @@ function studentBelongsToAssignment(assignment, studentId) {
   return Boolean(assignment?.studentIds.includes(studentId));
 }
 
+function teacherStudentIds() {
+  return new Set(prototypeData.teacherWorkspace.assignments.flatMap(({ studentIds }) => studentIds));
+}
+
+function recalculateAlerts() {
+  const previous = new Map(prototypeData.alerts.map((alert) => [`${alert.studentId}:${alert.rule}`, alert]));
+  const generated = [];
+
+  for (const student of prototypeData.students.filter(({ id }) => teacherStudentIds().has(id))) {
+    const matches = [];
+    if (student.attendance < 75) {
+      matches.push({ rule: "ASISTENCIA_MENOR_75_V1", severity: "high", title: "Asistencia bajo umbral", evidence: `${student.attendance}% observado / 75% mínimo` });
+    }
+    if (student.average < 4) {
+      matches.push({ rule: "PROMEDIO_MENOR_40_V1", severity: "high", title: "Promedio bajo aprobación", evidence: `${student.average.toFixed(1).replace(".", ",")} observado / 4,0 mínimo` });
+    }
+    if (student.attendance < 80 && student.average < 4.5) {
+      matches.push({ rule: "RIESGO_COMBINADO_V1", severity: "medium", title: "Riesgo académico combinado", evidence: `${student.attendance}% de asistencia y promedio ${student.average.toFixed(1).replace(".", ",")}` });
+    }
+
+    for (const match of matches) {
+      const existing = previous.get(`${student.id}:${match.rule}`);
+      generated.push({
+        id: existing?.id ?? `alt-${randomUUID()}`,
+        studentId: student.id,
+        status: existing?.status ?? "open",
+        createdAt: existing?.createdAt ?? new Date().toISOString(),
+        ...match,
+      });
+    }
+  }
+
+  prototypeData.alerts = generated;
+  for (const student of prototypeData.students) {
+    student.alertIds = generated.filter(({ studentId }) => studentId === student.id).map(({ id }) => id);
+    const studentAlerts = generated.filter(({ studentId }) => studentId === student.id);
+    student.risk = studentAlerts.some(({ severity }) => severity === "high") ? "high" : studentAlerts.length ? "medium" : "low";
+  }
+  prototypeData.metrics.openAlerts = generated.length;
+  prototypeData.meta.updatedAt = new Date().toISOString();
+  return generated;
+}
+
 export function createApp({ pool }) {
   const app = express();
 
@@ -97,6 +141,60 @@ export function createApp({ pool }) {
 
   app.get("/teacher/workspace", requireDemoTeacher, (_request, response) => {
     response.json({ synthetic: true, ...prototypeData.teacherWorkspace });
+  });
+
+  app.get("/teacher/alerts", requireDemoTeacher, (_request, response) => {
+    response.json({ synthetic: true, rules: prototypeData.alertRules, alerts: prototypeData.alerts });
+  });
+
+  app.post("/teacher/alerts/recalculate", requireDemoTeacher, (_request, response) => {
+    response.json({ synthetic: true, rules: prototypeData.alertRules, alerts: recalculateAlerts(), students: prototypeData.students, metrics: prototypeData.metrics, updatedAt: prototypeData.meta.updatedAt });
+  });
+
+  app.get("/teacher/justifications", requireDemoTeacher, (_request, response) => {
+    const inScope = teacherStudentIds();
+    response.json({ synthetic: true, justifications: prototypeData.justifications.filter(({ studentId }) => inScope.has(studentId)) });
+  });
+
+  app.post("/teacher/justifications", requireDemoTeacher, (request, response) => {
+    const studentId = String(request.body?.studentId ?? "");
+    const classSessionId = String(request.body?.classSessionId ?? "");
+    const reason = String(request.body?.reason ?? "").trim();
+    const attachmentName = String(request.body?.attachmentName ?? "").trim();
+    const classSession = prototypeData.teacherWorkspace.classSessions.find(({ id }) => id === classSessionId);
+    const assignment = assignmentById(classSession?.courseSubjectId);
+
+    if (!classSession || !assignment || !studentBelongsToAssignment(assignment, studentId)) {
+      response.status(403).json({ error: "justification_out_of_scope" });
+      return;
+    }
+    if (reason.length < 8 || classSession.attendance[studentId] !== "absent") {
+      response.status(400).json({ error: "invalid_justification_data" });
+      return;
+    }
+
+    const justification = { id: `jus-${randomUUID()}`, studentId, classSessionId, reason, attachmentName, status: "pending", submittedAt: new Date().toISOString(), reviewedAt: null, reviewedBy: null, reviewNote: "" };
+    prototypeData.justifications.unshift(justification);
+    response.status(201).json({ synthetic: true, justification, justifications: prototypeData.justifications });
+  });
+
+  app.patch("/teacher/justifications/:id", requireDemoTeacher, (request, response) => {
+    const justification = prototypeData.justifications.find(({ id }) => id === request.params.id);
+    const status = String(request.body?.status ?? "");
+    const reviewNote = String(request.body?.reviewNote ?? "").trim();
+    if (!justification) {
+      response.status(404).json({ error: "justification_not_found" });
+      return;
+    }
+    if (!justificationStates.has(status) || reviewNote.length < 5) {
+      response.status(400).json({ error: "invalid_justification_review" });
+      return;
+    }
+    justification.status = status;
+    justification.reviewNote = reviewNote;
+    justification.reviewedAt = new Date().toISOString();
+    justification.reviewedBy = prototypeData.teacherWorkspace.teacher.name;
+    response.json({ synthetic: true, justification, justifications: prototypeData.justifications });
   });
 
   app.get("/student/workspace/:id", requireDemoStudent, (request, response) => {

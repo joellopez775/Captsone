@@ -476,6 +476,35 @@ button { cursor: pointer; }
 .annotation-type__positive.annotation-type--active { color: #fff; background: #347052; }
 .annotation-type__negative.annotation-type--active { color: #fff; background: #945045; }
 
+/* Sprint 4 · justificaciones y alertas explicables */
+.alerts-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 18px; margin-bottom: 16px; }
+.alerts-toolbar .filter-group { margin: 0; }
+.rule-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+.rule-strip article { display: flex; min-height: 126px; flex-direction: column; padding: 18px; background: #fff; border: 1px solid var(--line); border-radius: 15px; box-shadow: 0 12px 35px rgb(35 50 42 / 4%); }
+.rule-strip span { color: var(--gold); font-size: .56rem; font-weight: 850; letter-spacing: .09em; text-transform: uppercase; }
+.rule-strip strong { margin: 11px 0 7px; font-family: Georgia, serif; font-size: .92rem; }
+.rule-strip small { color: #737d77; font-size: .62rem; line-height: 1.5; }
+.justification-message { margin-bottom: 16px; }
+.justification-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.justification-card { padding: 23px; background: #fff; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 15px 40px rgb(35 50 42 / 5%); }
+.justification-card__head { display: flex; justify-content: space-between; gap: 20px; }
+.justification-card__head span { color: var(--gold); font-size: .58rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+.justification-card__head h2 { margin: 7px 0 4px; font-family: Georgia, serif; font-size: 1.2rem; font-weight: 500; }
+.justification-card__head p { margin: 0; color: #818a84; font-size: .62rem; }
+.justification-status { height: fit-content; padding: 7px 10px; color: #806827; background: #f1e8c9; border-radius: 999px; font-size: .57rem; font-style: normal; font-weight: 800; }
+.justification-status--approved { color: #2f6b4d; background: #deebe3; }
+.justification-status--rejected { color: #8f493e; background: #f2dfda; }
+.justification-card blockquote { margin: 22px 0 17px; padding: 13px 15px; color: #59655e; background: #f3f3ef; border-left: 3px solid #9eb392; border-radius: 0 10px 10px 0; font-family: Georgia, serif; font-size: .78rem; line-height: 1.55; }
+.justification-card dl { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 18px; }
+.justification-card dl div { padding: 10px; background: #fafaf7; border-radius: 9px; }
+.justification-card dt { color: #8c948f; font-size: .53rem; font-weight: 800; text-transform: uppercase; }
+.justification-card dd { margin: 5px 0 0; color: #4f5d55; font-size: .61rem; overflow-wrap: anywhere; }
+.justification-card > small { color: #7c857f; font-size: .6rem; line-height: 1.5; }
+.justification-review { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; }
+.justification-review input { min-width: 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: 9px; font: inherit; font-size: .65rem; }
+.justification-review button { padding: 10px 13px; color: #fff; background: #2d654b; border: 0; border-radius: 9px; font-size: .62rem; font-weight: 780; }
+.justification-review .teacher-secondary { color: #8e4c40; background: #f2dfda; }
+
 /* Modelo estudiante */
 .student-section-header { max-width: 760px; margin-bottom: 34px; }
 .student-section-header > p { margin: 0 0 10px; color: var(--gold); font-size: .65rem; font-weight: 850; letter-spacing: .16em; }
@@ -524,6 +553,8 @@ button { cursor: pointer; }
   .attendance-summary { grid-template-columns: repeat(3, 1fr); }
   .attendance-summary article:first-child { grid-row: span 2; }
   .calendar-board { grid-template-columns: 1fr 1fr; }
+  .rule-strip { grid-template-columns: 1fr; }
+  .justification-list { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 760px) {
@@ -649,6 +680,9 @@ button { cursor: pointer; }
   .attendance-summary { grid-template-columns: repeat(2, 1fr); }
   .attendance-summary article:first-child { grid-row: auto; }
   .calendar-board { grid-template-columns: 1fr; }
+  .alerts-toolbar { align-items: stretch; flex-direction: column; }
+  .justification-review { grid-template-columns: 1fr 1fr; }
+  .justification-review input { grid-column: 1 / -1; }
 }
 
 @media (max-width: 540px) {

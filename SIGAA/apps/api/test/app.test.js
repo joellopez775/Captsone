@@ -10,11 +10,13 @@ const pool = {
   },
 };
 
-const server = createApp({ pool }).listen(0, "127.0.0.1");
+let server;
 let baseUrl;
 
 before(async () => {
-  await new Promise((resolve) => server.once("listening", resolve));
+  await new Promise((resolve) => {
+    server = createApp({ pool }).listen(0, "127.0.0.1", resolve);
+  });
   const address = server.address();
   baseUrl = `http://127.0.0.1:${address.port}`;
 });
@@ -105,6 +107,48 @@ test("teacher can schedule a class and record attendance", async () => {
   const attendance = await attendanceResponse.json();
   assert.equal(attendance.classSession.status, "completed");
   assert.equal(attendance.classSession.attendance["est-003"], "absent");
+});
+
+test("teacher can recalculate explainable alerts using the three Sprint 4 rules", async () => {
+  const response = await fetch(`${baseUrl}/teacher/alerts/recalculate`, {
+    method: "POST",
+    headers: { "x-demo-role": "teacher" },
+  });
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body.rules.length, 3);
+  assert.ok(body.alerts.length >= 4);
+  assert.ok(body.alerts.every(({ evidence, rule }) => evidence && rule));
+  assert.ok(body.alerts.some(({ rule }) => rule === "RIESGO_COMBINADO_V1"));
+});
+
+test("teacher can register and resolve an absence justification in scope", async () => {
+  const headers = { "content-type": "application/json", "x-demo-role": "teacher" };
+  const createResponse = await fetch(`${baseUrl}/teacher/justifications`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ studentId: "est-004", classSessionId: "class-002", reason: "Certificado médico recibido por Inspectoría.", attachmentName: "respaldo-demo.pdf" }),
+  });
+  assert.equal(createResponse.status, 201);
+  const created = await createResponse.json();
+  assert.equal(created.justification.status, "pending");
+
+  const reviewResponse = await fetch(`${baseUrl}/teacher/justifications/${created.justification.id}`, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify({ status: "approved", reviewNote: "Documento verificado por Inspectoría." }),
+  });
+  assert.equal(reviewResponse.status, 200);
+  const reviewed = await reviewResponse.json();
+  assert.equal(reviewed.justification.status, "approved");
+  assert.equal(reviewed.justification.reviewedBy, "Daniela Rojas");
+});
+
+test("justification review and alert recalculation require the teacher role", async () => {
+  const alerts = await fetch(`${baseUrl}/teacher/alerts/recalculate`, { method: "POST" });
+  const justifications = await fetch(`${baseUrl}/teacher/justifications`);
+  assert.equal(alerts.status, 403);
+  assert.equal(justifications.status, 403);
 });
 
 test("teacher can create an evaluation and enter grades only in scope", async () => {

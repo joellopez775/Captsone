@@ -1,5 +1,5 @@
 export const prototypeData = {
-  meta: { synthetic: true, period: "2026 · Segundo semestre", school: "Liceo Bicentenario Los Arrayanes", updatedAt: "2026-08-28T12:00:00.000Z" },
+  meta: { synthetic: true, period: "2026 · Segundo semestre", school: "Liceo Bicentenario Los Arrayanes", updatedAt: "2026-10-15T12:00:00.000Z" },
   metrics: { activeStudents: 128, averageAttendance: 87, openAlerts: 12, activeFollowUps: 7 },
   students: [
     { id: "est-001", name: "Camila Soto", identifier: "EST-2026-001", course: "2° Medio A", level: "Enseñanza Media", attendance: 68, average: 4.1, risk: "high", alertIds: ["alt-001", "alt-002"] },
@@ -19,6 +19,7 @@ export const prototypeData = {
       { id: "class-001", courseSubjectId: "ca-mat-2a", date: "2026-08-28", startTime: "08:00", block: "Bloque 1", title: "Funciones lineales", objective: "Representar y analizar funciones lineales en contextos cotidianos.", status: "completed", attendance: { "est-001": "present", "est-002": "late", "est-003": "present" } },
       { id: "class-002", courseSubjectId: "ca-mat-2b", date: "2026-08-28", startTime: "10:15", block: "Bloque 3", title: "Pendiente de una recta", objective: "Calcular e interpretar la pendiente usando tablas y gráficos.", status: "completed", attendance: { "est-004": "absent", "est-005": "present" } },
       { id: "class-003", courseSubjectId: "ca-mat-2a", date: "2026-09-02", startTime: "08:00", block: "Bloque 1", title: "Sistemas de ecuaciones", objective: "Resolver sistemas de dos ecuaciones mediante representación gráfica.", status: "planned", attendance: {} },
+      { id: "class-004", courseSubjectId: "ca-mat-2a", date: "2026-10-14", startTime: "08:00", block: "Bloque 1", title: "Modelación de funciones", objective: "Aplicar funciones lineales a una situación escolar.", status: "completed", attendance: { "est-001": "absent", "est-002": "present", "est-003": "present" } },
     ],
     evaluations: [
       { id: "eval-001", courseSubjectId: "ca-mat-2a", name: "Control de álgebra", date: "2026-08-20", weight: 20, grades: { "est-001": 5.6, "est-002": 4.9, "est-003": 6.4 } },
@@ -67,6 +68,15 @@ export const prototypeData = {
     { id: "alt-002", studentId: "est-001", severity: "medium", status: "assigned", title: "Promedio en zona preventiva", rule: "PROMEDIO_MENOR_45_V1", evidence: "4,1 observado / 4,5 preventivo", createdAt: "2026-08-26T10:00:00.000Z" },
     { id: "alt-003", studentId: "est-002", severity: "medium", status: "following", title: "Asistencia en descenso", rule: "TENDENCIA_ASISTENCIA_V1", evidence: "-11 puntos porcentuales en 3 semanas", createdAt: "2026-08-25T09:15:00.000Z" },
     { id: "alt-004", studentId: "est-004", severity: "high", status: "open", title: "Promedio bajo aprobación", rule: "PROMEDIO_MENOR_40_V1", evidence: "3,8 observado / 4,0 mínimo", createdAt: "2026-08-28T08:45:00.000Z" },
+  ],
+  alertRules: [
+    { id: "ASISTENCIA_MENOR_75_V1", name: "Asistencia crítica", description: "Activa una alerta cuando la asistencia acumulada es inferior a 75%.", severity: "high", active: true },
+    { id: "PROMEDIO_MENOR_40_V1", name: "Promedio bajo aprobación", description: "Activa una alerta cuando el promedio general es inferior a 4,0.", severity: "high", active: true },
+    { id: "RIESGO_COMBINADO_V1", name: "Riesgo académico combinado", description: "Activa una alerta preventiva cuando la asistencia es inferior a 80% y el promedio es inferior a 4,5.", severity: "medium", active: true },
+  ],
+  justifications: [
+    { id: "jus-001", studentId: "est-001", classSessionId: "class-004", reason: "Atención médica; certificado entregado a Inspectoría.", attachmentName: "certificado-medico-demo.pdf", status: "pending", submittedAt: "2026-10-14T15:20:00.000Z", reviewedAt: null, reviewedBy: null, reviewNote: "" },
+    { id: "jus-002", studentId: "est-004", classSessionId: "class-002", reason: "Trámite familiar informado por el apoderado.", attachmentName: "", status: "approved", submittedAt: "2026-10-10T09:05:00.000Z", reviewedAt: "2026-10-11T11:30:00.000Z", reviewedBy: "Daniela Rojas", reviewNote: "Antecedente verificado por Inspectoría." },
   ],
   interventions: [
     { id: "int-001", studentId: "est-001", alertId: "alt-002", type: "Contacto apoderado", note: "Se acordó revisar la planificación de evaluaciones.", author: "Profesor jefe demo", createdAt: "2026-08-27T16:00:00.000Z" },
