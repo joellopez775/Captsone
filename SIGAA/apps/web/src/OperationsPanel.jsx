@@ -36,12 +36,12 @@ export function StructurePanel({api,revision}) {
     <Feedback {...op}/><div className="secure-grid">
       <section className="panel"><h2>{definition.title}</h2><div className="secure-list">{(data[kind]??[]).map(r=><article key={r.id}><div><strong>{display(kind,r)}</strong><small>{r.codigo??r.rbd??""} · {r.estado??r.ciclo??""}</small></div><button disabled={op.busy} onClick={()=>choose(kind,r)}>Editar</button></article>)}</div>{!data[kind]?.length&&<p>No hay registros en este catálogo.</p>}</section>
       <form key={kind+editing?.id} className="panel secure-form" onSubmit={save}><h2>{editing?"Editar registro":"Crear registro"}</h2>
-        <fieldset className="academic-fieldset secure-form" disabled={op.busy}>
+        <fieldset className="academic-fieldset secure-form" disabled={op.busy || !data.schools}>
         {definition.fields.map(([key,label,type])=><label key={key}>{label}
-          {Array.isArray(type)||data[type]?<select aria-label={label} required={!["dependencia","jornada","profesor_id"].includes(key)} value={draft[key]??(Array.isArray(type)?type[0]:"")} onChange={e=>setDraft({...draft,[key]:e.target.value})}>
+          {Array.isArray(type)||data[type]?<select aria-label={label} required={!["dependencia","jornada","profesor_id"].includes(key)} value={draft[key]??(Array.isArray(type)?type[0]:"")} onChange={e=>setDraft(current=>({...current,[key]:e.target.value}))}>
             {!Array.isArray(type)&&<option value="">Selecciona…</option>}
             {(Array.isArray(type)?type.map(value=>({id:value,nombre:value.replaceAll("_"," ")||"Sin definir"})):(data[type]??[])).map(r=><option key={r.id} value={r.id}>{Array.isArray(type)?r.nombre:display(type,r)}</option>)}
-          </select>:<input type={["number","optionalNumber"].includes(type)?"number":type==="date"?"date":"text"} step={key==="horas_semanales"?"0.1":"1"} required={!["optional","optionalNumber"].includes(type)} value={type==="date"?day(draft[key]):draft[key]??""} onChange={e=>setDraft({...draft,[key]:e.target.value})}/>}
+          </select>:<input type={["number","optionalNumber"].includes(type)?"number":type==="date"?"date":"text"} step={key==="horas_semanales"?"0.1":"1"} required={!["optional","optionalNumber"].includes(type)} value={type==="date"?day(draft[key]):draft[key]??""} onChange={e=>setDraft(current=>({...current,[key]:e.target.value}))}/>}
         </label>)}
         {editing&&<p>Las relaciones de un registro existente se conservan. Crea otro registro si necesitas cambiar su año, nivel o curso.</p>}
         <button className="primary-button">{op.busy?"Guardando…":"Guardar registro"}</button>

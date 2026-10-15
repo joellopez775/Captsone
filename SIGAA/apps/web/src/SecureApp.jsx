@@ -3,6 +3,7 @@ import logo from "./assets/sigaa-logo.png";
 import "./secure.css";
 import { AcademicPanel, StudentAcademic } from "./AcademicPanel.jsx";
 import { StructurePanel, RiskPanel, JustificationPanel } from "./OperationsPanel.jsx";
+import GlassNavigation from "./GlassNavigation.jsx";
 
 let csrfToken = "";
 const messages = {
@@ -621,44 +622,8 @@ export default function SecureApp() {
   ];
   return (
     <div className="secure-shell">
-      <aside className={"secure-sidebar" + (menu ? " is-open" : "")}>
-        <div className="secure-brand">
-          <img src={logo} alt="SIGAA" />
-          <span>Gestión escolar</span>
-        </div>
-        <button
-          className="secure-menu"
-          type="button"
-          aria-label={menu ? "Cerrar menú" : "Abrir menú"}
-          aria-expanded={menu}
-          onClick={() => setMenu(!menu)}
-        >
-          {menu ? "×" : "☰"}
-        </button>
-        <nav aria-label="Navegación principal">
-          {navigation.map(([id, label]) => (
-            <button
-              key={id}
-              aria-current={view === id ? "page" : undefined}
-              onClick={() => {
-                setView(id);
-                setMenu(false);
-                setError("");
-              }}
-            >
-              {label}
-            </button>
-          ))}
-        </nav>
-        <div className="secure-account">
-          <strong>{user.name}</strong>
-          <small>{roleNames[user.role]}</small>
-          <button type="button" onClick={logout}>
-            Cerrar sesión
-          </button>
-        </div>
-      </aside>
-      <main className="secure-main">
+      <GlassNavigation items={navigation} view={view} user={user} role={roleNames[user.role]} open={menu} setOpen={setMenu} onLogout={logout} onNavigate={id => { setView(id); setError(""); }} />
+      <main className="secure-main" inert={menu ? true : undefined}>
         <header className="secure-header">
           <div>
             <p className="eyebrow">{roleNames[user.role]} · SIGAA</p>
@@ -671,6 +636,7 @@ export default function SecureApp() {
             {loading ? "Actualizando…" : "Actualizar datos"}
           </button>
         </header>
+        <div className="glass-view" key={view}>
         <Notice text={error} error />
         {view === "structure" && admin && <StructurePanel api={api} revision={revision} />}
         {view === "risk" && !student && <RiskPanel api={api} user={user} courses={data.courses} revision={revision} />}
@@ -681,8 +647,8 @@ export default function SecureApp() {
               <span>Tu comunidad, conectada.</span>
               <h2>Hola, {user.name.split(" ")[0]}.</h2>
               <p>
-                Los registros de este espacio provienen de PostgreSQL y se
-                limitan a los permisos de tu cuenta.
+                Todo lo que necesitas para acompañar a tu comunidad,
+                en un solo lugar.
               </p>
             </section>
             <div className="secure-metrics">
@@ -788,6 +754,7 @@ export default function SecureApp() {
         {view === "security" && (
           <Security onLogout={clearSession} onError={setError} />
         )}
+        </div>
         <footer className="secure-footer">
           SIGAA · Acceso personal · Datos persistentes
         </footer>
