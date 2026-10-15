@@ -1,4 +1,5 @@
 import express from "express";
+import { allowedOrigins } from "./origins.js";
 import { teacherRoutes } from "./teacher-routes.js";
 import { structureRoutes } from "./structure-routes.js";
 import { supportRoutes } from "./support-routes.js";
@@ -29,17 +30,12 @@ import {
 export function createApp({
   pool,
   origin = process.env.APP_ORIGIN ?? "http://localhost:8088",
+  additionalOrigins = process.env.APP_ADDITIONAL_ORIGINS ?? "",
   production = process.env.NODE_ENV === "production",
   sessionHours = 8,
   idleMinutes = 30,
 }) {
-  if (
-    new URL(origin).origin !== origin ||
-    (production && !origin.startsWith("https://"))
-  )
-    throw new Error(
-      "APP_ORIGIN must be an exact origin; HTTPS required in production",
-    );
+  const trustedOrigins = allowedOrigins(origin, additionalOrigins, production);
   const app = express(),
     cookieName = production ? "__Host-sigaa_session" : "sigaa_session";
   let activeHashes = 0;
@@ -58,7 +54,7 @@ export function createApp({
   app.use(express.json({ limit: "32kb" }));
   app.use((req, _res, next) => {
     if (!["GET", "HEAD", "OPTIONS"].includes(req.method)) {
-      if (req.get("origin") !== origin) fail(403, "origin_rejected");
+      if (!trustedOrigins.has(req.get("origin"))) fail(403, "origin_rejected");
       if (!req.is("application/json")) fail(415, "json_required");
     }
     next();

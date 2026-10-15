@@ -10,6 +10,23 @@ import {
   newToken,
 } from "../src/security.js";
 import { studentInput } from "../src/repository.js";
+import { allowedOrigins } from "../src/origins.js";
+test("origin allowlist is explicit, exact and backwards compatible", () => {
+  const primary = "https://demo.example.test", secondary = "https://sigaa.ignisert.com";
+  assert.deepEqual([...allowedOrigins(primary)], [primary]);
+  const list = allowedOrigins(primary, ` ${secondary}, ${primary}`, true);
+  assert.equal(list.size, 2);
+  assert.ok(list.has(primary) && list.has(secondary));
+  for (const value of [undefined, "null", "", "https://sigaa.ignisert.com.evil.test", secondary + ":443", secondary + "/", "http://sigaa.ignisert.com"])
+    assert.equal(list.has(value), false);
+});
+test("invalid origins fail closed at startup", () => {
+  for (const value of ["", "null", "*", "https://*.example.test", "ftp://example.test", "https://example.test/", "https://u:p@example.test", "https://example.test?x=1", "https://example.test#x", "https://example.test:443"])
+    assert.throws(() => allowedOrigins(value));
+  assert.throws(() => allowedOrigins("http://localhost:8088", "", true));
+  for (const extra of ["*", "https://ok.test,", "http://localhost:8088", "https://ok.test/path"])
+    assert.throws(() => allowedOrigins("https://ok.test", extra, true));
+});
 test("scrypt hashes are salted and verify without storing plaintext", async () => {
   const password = "Synthetic unit test only!";
   const a = await hashPassword(password),

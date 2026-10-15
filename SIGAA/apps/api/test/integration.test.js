@@ -1259,6 +1259,7 @@ test("production requires HTTPS origin and sets Secure __Host cookies", async ()
   await start({
     NODE_ENV: "production",
     APP_ORIGIN: "https://sigaa.example.test",
+    APP_ADDITIONAL_ORIGINS: "https://sigaa.ignisert.com",
   });
   const r = await call("/auth/login", {
     method: "POST",
@@ -1270,4 +1271,18 @@ test("production requires HTTPS origin and sets Secure __Host cookies", async ()
   assert.match(r.headers.get("set-cookie"), /; Secure/);
   const cookie = r.headers.get("set-cookie").split(";")[0];
   assert.equal((await call("/auth/me", { headers: { cookie } })).status, 200);
+  const migrated = await call("/auth/login", {
+    method: "POST",
+    headers: { origin: "https://sigaa.ignisert.com" },
+    body: { email: "admin@sigaa.local", password: passwords.admin },
+  });
+  assert.equal(migrated.status, 200);
+  assert.match(migrated.headers.get("set-cookie"), /; Secure/);
+  const migratedCookie = migrated.headers.get("set-cookie").split(";")[0];
+  assert.ok(!migrated.headers.get("set-cookie").includes("Domain="));
+  for (const bad of ["null", "https://sigaa.ignisert.com.evil.test", "http://sigaa.ignisert.com"]) {
+    assert.equal((await call("/auth/login", { method: "POST", headers: {origin: bad}, body: {} })).status, 403);
+  }
+  assert.equal((await call("/auth/logout", {method: "POST", headers: {origin: "https://sigaa.ignisert.com", cookie: migratedCookie}, body: {}})).status, 403);
+  assert.equal((await call("/auth/logout", {method: "POST", headers: {origin: "https://sigaa.ignisert.com", cookie: migratedCookie, "x-csrf-token": migrated.data.csrfToken}, body: {}})).status, 204);
 });
